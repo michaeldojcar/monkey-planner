@@ -33,98 +33,99 @@ Route::group(['as' => 'user.'], function ()
 /**
  * Event management.
  */
-Route::group(['middleware' => 'auth'], function ()
+Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
 {
-    Route::get('/event/{event}/nastenka', 'Manage\DashController@dashboard')->name('organize.dashboard');
+    Route::get('/event/{event}/nastenka', 'Manage\DashController@dashboard')->name('dashboard');
 
     // Tasks.
-    Route::get('/event/{event}/ukoly', 'Manage\TaskController@index')->name('organize.tasks');
-    Route::post('/event/{event}/ukoly', 'Manage\TaskController@store')->name('organize.tasks');
-    Route::get('/event/{event}/ukol/{task}', 'Manage\TaskController@show')->name('organize.task.show');
-    Route::get('/event/{event}/ukol/{task}/edit', 'Manage\TaskController@edit')->name('organize.task');
-    Route::post('/event/{event}/ukol/{task}/edit', 'Manage\TaskController@update')->name('organize.task');
-    Route::get('/ukol/{task}/assign_me', 'Manage\TaskController@assignMe')->name('organize.task.assignMe');
-    Route::get('/ukol/{task}/user/{user}/detach', 'Manage\TaskController@userDetach')->name('organize.task.detach');
-    Route::get('/ukol/{task}/status_update', 'Manage\TaskController@cycleStatus')->name('organize.task.cycle');
-    Route::get('/event/{event}/ukol/{task}/delete', 'Manage\TaskController@delete')->name('organize.task.delete');
+    Route::get('/event/{event}/tasks', 'Manage\TaskController@index')->name('tasks.index');
+    Route::post('/event/{event}/tasks', 'Manage\TaskController@store')->name('tasks.store');
+    Route::get('/event/{event}/tasks/{task}', 'Manage\TaskController@show')->name('tasks.show');
+    Route::get('/event/{event}/tasks/{task}/edit', 'Manage\TaskController@edit')->name('tasks.edit');
+    Route::post('/event/{event}/ukol/{task}/edit', 'Manage\TaskController@update')->name('tasks.update');
+    Route::get('/event/{event}/tasks/{task}/delete', 'Manage\TaskController@delete')->name('tasks.delete');
+
+    Route::get('/tasks/{task}/assign_me', 'Manage\TaskController@assignMe')->name('task.assignMe');
+    Route::get('/tasks/{task}/user/{user}/detach', 'Manage\TaskController@userDetach')->name('task.detach');
+    Route::get('/tasks/{task}/status_update', 'Manage\TaskController@cycleStatus')->name('task.cycle');
+
 
     // To-do view
-    Route::get('/event/{event}/todo', 'Manage\TaskController@todo')->name('organize.todo');
-
-    Route::get('/event/{event}/work_stats', 'Manage\MemberStatsController@workStats')->name('organize.work_stats');
+    Route::get('/event/{event}/todo', 'Manage\TaskController@todo')->name('todo');
+    Route::get('/event/{event}/work_stats', 'Manage\MemberStatsController@workStats')->name('work_stats');
 
     // Sub groups.
-    Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('organize.blocks');
+    Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('blocks');
 
-    // Sub events.
-    Route::get('/event/{event}/program/', 'Manage\EventPlanController@program')->name('organize.program');
-    Route::post('/event/{event}/program', 'Manage\EventPlanController@store')->name('organize.program');
-    Route::get('/event/{event}/udalost/{event}', 'Manage\EventPlanController@show')->name('organize.event');
-    Route::get('/event/{event}/udalost/{event}/edit', 'Manage\EventPlanController@edit')->name('organize.event.edit');
-    Route::post('/event/{event}/udalost/{event}/edit',
-        'Manage\EventPlanController@update')->name('organize.event.edit.store');
-    Route::get('/event/{event}/udalost/{event}/delete',
-        'Manage\EventPlanController@delete')->name('organize.event.delete');
-    Route::post('/event/{event}/storeRole', 'Manage\EventController@storeRole')->name('organize.event.storeRole');
+    // Program
+    Route::get('/event/{event}/program', 'Manage\EventPlanController@program')->name('program');
+    Route::post('/event/{event}/program', 'Manage\EventPlanController@store')->name('program');
+
+    // Sub-events
+    Route::get('/events/{event}/sub-event/{sub_event}', 'Manage\EventPlanController@show')->name('events.show');
+    Route::get('/event/{event}/sub-event/{sub_event}/edit', 'Manage\EventPlanController@edit')->name('events.edit');
+    Route::post('/event/{event}/sub-event/{sub_event}/edit',
+        'Manage\EventPlanController@update')->name('events.update');
+    Route::get('/event/{main_event}/sub-event/{sub_event}/delete',
+        'Manage\EventPlanController@delete')->name('events.delete');
+
+    Route::post('/event/{event}/storeRole', 'Manage\EventController@storeRole')->name('event.storeRole');
 
     // Program printable
     Route::get('/event/{event}/program/print',
-        'Manage\PrintableProgramController@index')->name('organize.program.print.index');
+        'Manage\PrintableProgramController@index')->name('program.print.index');
     Route::get('/event/{event}/program/print/master',
-        'Manage\PrintableProgramController@master')->name('organize.program.print');
+        'Manage\PrintableProgramController@master')->name('program.print');
     Route::get('/event/{event}/program/print/user/{user}',
-        'Manage\PrintableProgramController@masterForUser')->name('organize.program.print');
+        'Manage\PrintableProgramController@masterForUser')->name('program.print');
     Route::get('/event/{event}/program/print/day/{day}/user/{user}',
-        'Manage\PrintableProgramController@dailyForUser')->name('organize.program.print.daily');
+        'Manage\PrintableProgramController@dailyForUser')->name('program.print.daily');
 
     Route::get('/event/{event}/program/print/master/mass',
-        'Manage\PrintableProgramController@masterMass')->name('organize.program.print.master.mass');
+        'Manage\PrintableProgramController@masterMass')->name('program.print.master.mass');
     Route::get('/event/{event}/program/print/day/{day}/mass',
-        'Manage\PrintableProgramController@dailyMass')->name('organize.program.print.daily.mass');
+        'Manage\PrintableProgramController@dailyMass')->name('program.print.daily.mass');
 
     Route::get('/event/{event}/program/print/day/{day}/poster',
-        'Manage\PrintableProgramController@dailyPoster')->name('organize.program.print.daily.poster');
+        'Manage\PrintableProgramController@dailyPoster')->name('program.print.daily.poster');
 
     // Role in events
     Route::get('/role/{task}/user/{user}/assign',
-        'Manage\EventController@userTaskAssign')->name('organize.event.roleAssignUser');
+        'Manage\EventController@userTaskAssign')->name('event.roleAssignUser');
     Route::get('/role/{task}/user/{user}/detach', 'Manage\EventController@userTaskDetach')
-         ->name('organize.event.roleUnassignUser');
+         ->name('event.roleUnassignUser');
 
     // Quick assign/detach of event author/garant
     Route::get('/event/{event}/user/{user}/assignAuthor', 'Manage\EventController@authorAssign')
-         ->name('organize.event.authorAssignUser');
+         ->name('event.authorAssignUser');
     Route::get('/event/{event}/user/{user}/detachAuthor', 'Manage\EventController@authorDetach')
-         ->name('organize.event.authorDetachUser');
+         ->name('event.authorDetachUser');
     Route::get('/event/{event}/user/{user}/assignGarant', 'Manage\EventController@garantAssign')
-         ->name('organize.event.garantAssignUser');
+         ->name('event.garantAssignUser');
     Route::get('/event/{event}/user/{user}/detachGarant', 'Manage\EventController@garantDetach')
-         ->name('organize.event.garantDetachUser');
+         ->name('event.garantDetachUser');
     Route::post('/event/{event}/createTask',
-        'Manage\EventController@taskCreateAndAssign')->name('organize.event.task.create');
+        'Manage\EventController@taskCreateAndAssign')->name('event.task.create');
 
     // Event blocks
-    Route::post('/event/{event}/udalost/{event}/addBlock',
-        'Manage\EventPlanController@storeBlock')->name('organize.event.addBlock');
-    Route::get('/event/{event}/sekce/{block}/edit',
-        'Manage\EventPlanController@editBlock')->name('organize.block.edit');
-    Route::post('/event/{event}/sekce/{block}/update', 'Manage\EventPlanController@updateBlock')
-         ->name('organize.event.updateBlock');
-    Route::get('/event/{event}/sekce/{block}/delete',
-        'Manage\EventPlanController@deleteBlock')->name('organize.block.delete');
+    Route::post('/event/{event}/sub-event/{sub_event}/block',
+        'Manage\EventPlanController@storeBlock')->name('blocks.store');
+    Route::get('/event/{event}/sekce/{block}/edit', 'Manage\EventPlanController@editBlock')->name('blocks.edit');
+    Route::post('/event/{event}/sekce/{block}/update', 'Manage\EventPlanController@updateBlock')->name('blocks.update');
+    Route::get('/event/{event}/sekce/{block}/delete', 'Manage\EventPlanController@deleteBlock')->name('blocks.delete');
 
     // Info blocks
     // TODO:
-    Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('organize.blocks');
+    Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('blocks');
 
     // Members
-    Route::get('/event/{event}/clenove', 'Manage\MemberController@index')->name('organize.members');
+    Route::get('/event/{event}/clenove', 'Manage\MemberController@index')->name('members');
 
     // Subgroup views
     Route::get('/event/{event}/subgroup/{subgroup}/nastenka', 'Manage\DashController@subGroupDashboard')
-         ->name('organize.dashboard.subGroup');
-    Route::post('/event/{event}/sugroup/{subgroup}/addBlock', 'Manage\BlockController@storeSubGroupBlock')
-         ->name('organize.subGroup.addBlock');
+         ->name('dashboard.subGroup');
+    Route::post('/event/{event}/subgroup/{subgroup}/addBlock', 'Manage\BlockController@storeSubGroupBlock')
+         ->name('subGroup.addBlock');
 });
 
 /**

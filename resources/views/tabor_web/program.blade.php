@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{$group->mainEvent->name}}</h1>
+        <h1 class="h2">{{$main_event->name}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{route('organize.program.print.index', [$group])}}"
                class="btn btn-sm btn-primary mr-2"><i class="fas fa-print"></i> Verze pro tisk</a>
-            <a href="{{route('organize.event.edit', [$group, $group->mainEvent])}}"
+            <a href="{{route('organize.events.edit', [$group, $main_event])}}"
                class="btn btn-sm btn-warning mr-2">Upravit hlavní událost</a>
 
             <div class="btn-group mr-2 mt-2 mt-md-0">
@@ -21,35 +21,35 @@
 
     <style>
         .table {
-            border:           1px #0c0c0c solid;
-            color:            #333;
+            border: 1px #0c0c0c solid;
+            color: #333;
             background-color: #f8f9fa;
         }
 
 
         .table td {
-            border:  1px #0c0c0c solid;
+            border: 1px #0c0c0c solid;
             padding: 9px;
         }
 
 
         .table-header {
             background-color: #512da8;
-            color:            white;
-            font-weight:      bold;
+            color: white;
+            font-weight: bold;
         }
 
 
         .table-header-dark {
             background-color: #282828;
-            color:            white;
-            font-weight:      bold;
+            color: white;
+            font-weight: bold;
         }
 
 
         .table-inner {
             margin: 0;
-            width:  100%;
+            width: 100%;
             height: 0;
         }
 
@@ -95,14 +95,14 @@
 
 
         table a {
-            color:           black;
+            color: black;
             text-decoration: none;
         }
 
 
         .muted td {
             font-size: 10px;
-            padding:   4px 9px;
+            padding: 4px 9px;
         }
 
 
@@ -116,14 +116,14 @@
     </div>
 
     <div class="row">
-        @if($group->mainEvent->content)
+        @if($main_event->content)
             <div class="col-sm">
                 <div class="card">
                     <div class="card-header">
                         Základní informace
                     </div>
                     <div class="card-body">
-                        {!! $group->mainEvent->content !!}
+                        {!! $main_event->content !!}
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
             @foreach($days as $key => $day)
                 <tr style="border-bottom: 2px black solid">
                     <td>{{$key}}.</td>
-                    <td>@switch($group->mainEvent->countDateFromThisEventsDayNumber($key)->dayOfWeek)
+                    <td>@switch($main_event->countDateFromThisEventsDayNumber($key)->dayOfWeek)
                             @case(0)
                             <span>NE</span>
                             @break
@@ -187,7 +187,7 @@
                             <span>SO</span>
                             @break
                         @endswitch
-                        {{$group->mainEvent->countDateFromThisEventsDayNumber($key)->format('j.n.')}}</td>
+                        {{$main_event->countDateFromThisEventsDayNumber($key)->format('j.n.')}}</td>
                     <td style="padding: 0">
                         <table class="table-inner">
                             @forelse($day as $sub_event)
@@ -204,7 +204,7 @@
                                         {{ucfirst($sub_event->getTypeString())}}</td>
                                     <td width="400">
                                         <b>
-                                            <a href="{{route('organize.event', [$group, $sub_event])}}">{{mb_strtoupper($sub_event->name)}}</a>
+                                            <a href="{{route('organize.events.show', [$group, $sub_event])}}">{{mb_strtoupper($sub_event->name)}}</a>
                                         </b>
                                     </td>
                                     <td>
@@ -244,7 +244,7 @@
                     </button>
                 </div>
                 <form method="POST"
-                      action="{{route('organize.program', $group)}}">
+                      action="{{route('organize.program', $main_event)}}">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group row">
@@ -285,7 +285,7 @@
                                         class="custom-select">
                                     @for($x = 0; $x <= $days_count; $x++)
                                         <option value="{{$x}}">{{$x}}.
-                                            den @switch($group->mainEvent->countDateFromThisEventsDayNumber($x)->dayOfWeek)
+                                            den @switch($main_event->countDateFromThisEventsDayNumber($x)->dayOfWeek)
                                                 @case(0)
                                                 <span>(NE)</span>
                                                 @break

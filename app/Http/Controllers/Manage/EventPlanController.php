@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Manage;
 use App\Block;
 use App\Event;
 use App\Group;
-use Carbon\Carbon;
-use DemeterChain\B;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class EventPlanController extends Controller
 {
@@ -19,24 +22,24 @@ class EventPlanController extends Controller
     }
 
     /**
-     * Výpis programu (harmonogram všech událostí).
+     * Show event program view.
      *
-     * @param Group $group
+     * @param  Event  $event
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View Pole kolekcí na každý den.
+     * @return Factory|View Array of collection for every day.
      */
-    public function program(Group $group)
+    public function program(Event $event)
     {
-        \Auth::user()->last_login_at = Carbon::now();
-        Auth::user()->save();
-
-        $main_event = $group->mainEvent;
+        $group = $event->owner_group;
 
         return view('tabor_web.program', [
-            'group'         => $group,
-            'days'          => $this->getEventsArray($main_event), // Days with events
-            'days_count'    => $this->getAllDaysCount($main_event), // Only count
-            'non_scheduled' => $group->mainEvent->events()->where('is_scheduled', false)->orderBy('name')->get(),
+            'main_event' => $event,
+            'group'      => $group,
+
+            'days'       => $this->getEventsArray($event), // Days with events
+            'days_count' => $this->getAllDaysCount($event), // Only count
+
+            'non_scheduled' => $event->events()->where('is_scheduled', false)->orderBy('name')->get(),
         ]);
     }
 
@@ -44,7 +47,7 @@ class EventPlanController extends Controller
     /**
      * Return carbon date from relative day.
      *
-     * @param Event $parent_event
+     * @param  Event  $parent_event
      * @param       $day_num
      *
      * @return Carbon
@@ -60,7 +63,7 @@ class EventPlanController extends Controller
     /**
      * Returns count of all days in event.
      *
-     * @param Event $event
+     * @param  Event  $event
      *
      * @return int
      */
@@ -72,21 +75,23 @@ class EventPlanController extends Controller
         return $diff;
     }
 
-    public function store(Group $group, Request $request)
+    public function store($event_id, Request $request)
     {
+        $main_event = Event::findOrFail($event_id);
+
         $event                  = new Event();
         $event->name            = $request['name'];
         $event->type            = $request['type'];
         $event->short           = $request['name'];
         $event->content         = $request['name'];
-        $event->parent_event_id = $group->mainEvent->id;
+        $event->parent_event_id = $main_event->id;
 
-        $start_date = $this->getDateFromRelativeDay($group->mainEvent, $request['day']);
+        $start_date = $this->getDateFromRelativeDay($main_event, $request['day']);
         $start_date = $start_date->format('Y/m/d');
         $start_time = $request['time'];
 
-        $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date . ' ' . $start_time);
-        $event->to   = Carbon::parse($event->from . " + 1 hour");
+        $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$start_time);
+        $event->to   = Carbon::parse($event->from." + 1 hour");
         $event->save();
 
         // Default info blocks.
@@ -119,24 +124,31 @@ class EventPlanController extends Controller
         return redirect()->back();
     }
 
-    public function edit(Group $group, Event $event)
+    /**
+     * @param $main_event_id
+     * @param $event_id
+     *
+     * @return Application|Factory|View
+     */
+    public function edit($main_event_id, $event_id)
     {
-        $main_event = $group->mainEvent;
+        $main_event = $this->findById($main_event_id);
+        $event      = $this->findById($event_id);
 
         return view('tabor_web.events.edit', [
-            'group'                 => $group,
+            'group'                 => $main_event->owner_group,
             'event'                 => $event,
             'days'                  => $this->getEventsArray($main_event), // Days with events
             'days_count'            => $this->getAllDaysCount($main_event), // Only count
 
             // Data for Magic suggest
-            'author_users'          => $group->users,
+            'author_users'          => $main_event->owner_group->users,
             'author_users_selected' => $event->authors()->get(),
 
-            'author_groups'          => $group->childGroups,
+            'author_groups'          => $main_event->owner_group->childGroups,
             'author_groups_selected' => $event->groups,
 
-            'garant_users'          => $group->users,
+            'garant_users'          => $main_event->owner_group->users,
             'garant_users_selected' => $event->garants()->get(),
         ]);
     }
@@ -144,11 +156,11 @@ class EventPlanController extends Controller
     /**
      * Update event.
      *
-     * @param Group   $group
-     * @param Event   $event
-     * @param Request $request
+     * @param  Group  $group
+     * @param  Event  $event
+     * @param  Request  $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Group $group, Event $event, Request $request)
     {
@@ -172,20 +184,21 @@ class EventPlanController extends Controller
 
                 // Time from
                 $start_time  = $request['time_from'];
-                $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date . ' ' . $start_time);
+                $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$start_time);
 
                 // Time to
                 $end_time  = $request['time_to'];
-                $event->to = Carbon::createFromFormat('Y/m/d H:i', $start_date . ' ' . $end_time);
+                $event->to = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$end_time);
             }
             else
             {
                 $event->is_scheduled = false;
             }
         }
-        else {
+        else
+        {
             $event->content = $request['content'];
-            $event->notice = $request['notice'];
+            $event->notice  = $request['notice'];
         }
 
 
@@ -209,11 +222,8 @@ class EventPlanController extends Controller
         }
     }
 
-    public
-    function getEventsFromDay(
-        Event $main_event,
-        $day_num
-    ) {
+    public function getEventsFromDay(Event $main_event, $day_num)
+    {
         $date = $this->getDateFromRelativeDay($main_event, $day_num);
 
         $events = $main_event->events();
@@ -221,10 +231,8 @@ class EventPlanController extends Controller
         return $events->whereDate('from', '=', $date)->where('is_scheduled', true)->orderBy('from')->get();
     }
 
-    public
-    function getEventsArray(
-        Event $main_event
-    ) {
+    public function getEventsArray(Event $main_event)
+    {
         $max_day_count = $this->getAllDaysCount($main_event);
 
         $days = [];
@@ -237,23 +245,21 @@ class EventPlanController extends Controller
         return $days;
     }
 
-    public
-    function show(
-        Group $group,
-        Event $event
-    ) {
+    public function show($main_event_id, $sub_event_id)
+    {
+        $main_event = $this->findById($main_event_id);
+        $sub_event  = $this->findById($sub_event_id);
+
         return view('tabor_web.events.show', [
-            'group' => $group,
-            'event' => $event,
+            'group' => $main_event->owner_group,
+            'event' => $sub_event,
+
+            'main_event' => $main_event
         ]);
     }
 
-    private
-    function createBlock(
-        $event,
-        $title,
-        $content = ""
-    ) {
+    private function createBlock($event, $title, $content = "")
+    {
         $block           = new Block();
         $block->event_id = $event->id;
         $block->title    = $title;
@@ -262,12 +268,8 @@ class EventPlanController extends Controller
     }
 
 
-    public
-    function storeBlock(
-        Group $group,
-        Event $event,
-        Request $request
-    ) {
+    public function storeBlock(Group $group, Event $event, Request $request)
+    {
         $block           = new Block();
         $block->event_id = $event->id;
         $block->title    = $request['title'];
@@ -276,24 +278,16 @@ class EventPlanController extends Controller
         return redirect()->route('organize.block.edit', [$group, $block]);
     }
 
-    public
-    function editBlock(
-        Group $group,
-        Block $block
-    ) {
+    public function editBlock(Group $group, Block $block)
+    {
         return view('tabor_web.blocks.edit')->withBlock($block)->withGroup($group);
     }
 
-    public
-    function updateBlock(
-        Group $group,
-        Block $block,
-        Request $request
-    ) {
+    public function updateBlock(Group $group, Block $block, Request $request)
+    {
         $block->fill($request->all());
         $block->save();
 
-        // dd($block->event->groups->first());
         if (isset($block->event_id))
         {
             return redirect()->route("organize.event", [$group, $block->event]);
@@ -304,11 +298,8 @@ class EventPlanController extends Controller
         }
     }
 
-    public
-    function deleteBlock(
-        Group $group,
-        Block $block
-    ) {
+    public function deleteBlock(Group $group, Block $block)
+    {
         $block->delete();
 
         return redirect()->route("organize.event", [$group, $block->event]);
@@ -316,19 +307,21 @@ class EventPlanController extends Controller
 
 
     /**
-     * @param Group $group
-     * @param Event $event
+     * @param  Group  $group
+     * @param  Event  $event
      *
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
-    public
-    function delete(
-        Group $group,
-        Event $event
-    ) {
+    public function delete(Group $group, Event $event)
+    {
         $event->delete();
 
         return redirect()->route('organize.program', $group);
+    }
+
+    private function findById($id)
+    {
+        return Event::findOrFail($id);
     }
 }

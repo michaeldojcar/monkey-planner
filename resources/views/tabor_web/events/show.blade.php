@@ -8,7 +8,7 @@
             <div class="btn-group mr-2">
                 <a class="btn btn-sm btn-warning"
                    style="margin-right: 1em"
-                   href="{{route('organize.event.edit', [$group,$event])}}">
+                   href="{{route('organize.events.edit', [$main_event, $event])}}">
                     <i class="fas fa-calendar"></i> Upravit událost
                 </a>
 
@@ -19,16 +19,16 @@
             </div>
 
             @if($event->is_scheduled)
-                <div class="btn-group mr-2">
-                    <a class="btn btn-sm btn-success {{ $event->getPreviousSubEvent() ? '' : 'disabled' }}"
-                       href="{{route('organize.event', [$group,$event->getPreviousSubEvent()])}}">
-                        <i class="fas fa-arrow-alt-circle-left"></i>
-                    </a>
-                    <a class="btn btn-sm btn-success {{ $event->getNextSubEvent() ? '' : 'disabled' }}"
-                       href="{{route('organize.event', [$group,$event->getNextSubEvent()])}}">
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                </div>
+{{--                <div class="btn-group mr-2">--}}
+{{--                    <a class="btn btn-sm btn-success {{ $event->getPreviousSubEvent() ? '' : 'disabled' }}"--}}
+{{--                       href="{{route('organize.event', ['main_event'=>$main_event,'event'=> $event->getPreviousSubEvent()]) }}">--}}
+{{--                        <i class="fas fa-arrow-alt-circle-left"></i>--}}
+{{--                    </a>--}}
+{{--                    <a class="btn btn-sm btn-success {{ $event->getNextSubEvent() ? '' : 'disabled' }}"--}}
+{{--                       href="{{route('organize.event', ['main_event'$main_event , $event->getNextSubEvent()])}}">--}}
+{{--                        <i class="fas fa-arrow-alt-circle-right"></i>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
             @endif
         </div>
     </div>
@@ -38,12 +38,12 @@
             margin-bottom: 20px;
             border-radius: 0;
 
-            border:        1px black solid;
+            border: 1px black solid;
         }
 
 
         .card-header, .card-body {
-            padding:       8px 12px;
+            padding: 8px 12px;
             border-radius: 0;
         }
 
@@ -55,15 +55,15 @@
 
         .card-header {
             background-color: #434343;
-            color:            #e9e9e9;
-            font-weight:      bold;
+            color: #e9e9e9;
+            font-weight: bold;
         }
 
 
         .td-title {
             background-color: #434343;
-            font-weight:      bold;
-            color:            white;
+            font-weight: bold;
+            color: white;
         }
 
 
@@ -157,9 +157,9 @@
                          href="#block{{$block->id}}body">{{$block->title}}
 
                         <div style="float: right">
-                            <a href="{{route('organize.block.edit', ['group'=>$group, 'block'=>$block])}}"><i
-                                        class="fas fa-edit"
-                                        style="color: white"></i></a>
+                            <a href="{{route('organize.blocks.edit', ['event' => $main_event, 'block' => $block])}}"><i
+                                    class="fas fa-edit"
+                                    style="color: white"></i></a>
                         </div>
                     </div>
 
@@ -200,9 +200,9 @@
                                 - @include('tabor_web.components.event.role_garants')
 
                                 <div style="float: right">
-                                    <a href="{{route('organize.task', ['group'=>$group, 'task'=>$task])}}"><i
-                                                class="fas fa-edit"
-                                                style="color: white"></i></a>
+                                    <a href="{{route('organize.tasks.show', ['event' => $main_event, 'task' => $task])}}"><i
+                                            class="fas fa-edit"
+                                            style="color: white"></i></a>
                                 </div>
                             </div>
 
@@ -238,7 +238,7 @@
                     <a style="float: right"
                        data-toggle="modal"
                        data-target="#userAssignModal"><i
-                                class="fa fa-plus"></i></a>
+                            class="fa fa-plus"></i></a>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -303,7 +303,7 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                    <span>
                                        <b>{{$task->required_count}}x</b>
-                                       <a href="{{route('organize.task', [$group, $task])}}">{{ucfirst($task->name)}}</a>
+                                       <a href="{{route('organize.tasks.show', [$group, $task])}}">{{ucfirst($task->name)}}</a>
                                    </span>
 
                                     <div>
@@ -334,19 +334,19 @@
         <script type="text/javascript">
             $(document).keyup(function (e) {
 
-                @if(! empty($event->getPreviousSubEvent()))
-                // CTRL + left arrow
-                if (e.ctrlKey && e.keyCode === 37) {
-                    window.location = "{{route('organize.event', [$group, $event->getPreviousSubEvent()])}}";
-                }
-                @endif
+                {{--                @if(! empty($event->getPreviousSubEvent()))--}}
+                {{--                // CTRL + left arrow--}}
+                {{--                if (e.ctrlKey && e.keyCode === 37) {--}}
+                {{--                    window.location = "{{route('organize.event', [$main_event, $event->getPreviousSubEvent()])}}";--}}
+                {{--                }--}}
+                {{--                @endif--}}
 
-                @if(! empty($event->getNextSubEvent()))
-                // CTRL + right arrow
-                if (e.ctrlKey && e.keyCode === 39) {
-                    window.location = "{{route('organize.event', [$group, $event->getNextSubEvent()])}}";
-                }
-                @endif
+                {{--                @if(! empty($event->getNextSubEvent()))--}}
+                {{--                // CTRL + right arrow--}}
+                {{--                if (e.ctrlKey && e.keyCode === 39) {--}}
+                {{--                    window.location = "{{route('organize.event', [$main_event, $event->getNextSubEvent()])}}";--}}
+                {{--                }--}}
+                {{--                @endif--}}
             });
         </script>
     @endif
