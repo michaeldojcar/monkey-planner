@@ -1,0 +1,154 @@
+/**
+Fullscreen layout manage dashboard for Táborový web and portal.farnostdolany.cz.
+
+From Twitter Bootstrap 4.3.
+ */
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  font-size:  .875rem;
+
+  margin-top: 68px;
+
+  @include media-breakpoint-down(sm) {
+    background-color: #efefef;
+  }
+}
+
+// Material design shadow (strong)
+$shadow-material: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+
+.feather {
+  width:          16px;
+  height:         16px;
+  vertical-align: text-bottom;
+}
+
+.row {
+  margin-bottom: 18px;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position:   fixed;
+  top:        53px;
+  bottom:     0;
+  left:       0;
+  z-index:    100; /* Behind the navbar */
+  padding:    0;
+
+  box-shadow: $shadow-material;
+}
+
+.sidebar-sticky {
+  top:         48px; /* Height of navbar */
+  height:      calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x:  hidden;
+  overflow-y:  auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color:       #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color:        #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size:      .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+.navbar {
+  z-index: 200;
+}
+
+.navbar-brand {
+  font-size: 1.00rem;
+}
+
+/*
+ * Utilities
+ */
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/**
+ Mobile responsivity
+ */
+@include media-breakpoint-down(sm) {
+  .card {
+    margin-bottom: 20px;
+  }
+}
+
+.mobile-full-width {
+  @include media-breakpoint-down(sm) {
+    display:       inline-block;
+    width:         100%;
+    margin-bottom: 10px;
+  }
+}
+
+.h2 {
+  @include media-breakpoint-down(sm) {
+    font-size:     25px;
+    margin-bottom: 20px;
+  }
+}
+
+/**
+ * Elements style
+ */
+
+
+
+.table {
+  background-color: white;
+}
+
+.card {
+  box-shadow: $shadow-material;
+}
+
+.bg-green {
+  background: #28a745;
+}
+
+.bg-blue {
+  background: #4b4ba7;
+}
+
+.bg-red {
+  background: #a74b4b;
+}
+
+.material-shadow {
+  box-shadow: $shadow-material;
+}
+

@@ -1,0 +1,53 @@
+/**
+Church portal CSS
+
+Using Twitter Bootstrap 4.1
+ */
+
+@import "colors.scss";
+
+/**
+HTML rozložení
+ */
+body {
+  background-color: #f4edff;
+}
+
+
+/**
+Bootstrap karty
+ */
+.card-header {
+  background-color: #b6b9e1;
+}
+
+
+.card {
+  margin-bottom: 1em;
+}
+
+
+.card-header-yellow {
+  background-color: #fff1b4;
+}
+
+
+.group-card {
+  background-color: #fff1b4;
+}
+
+
+.group-card-disabled {
+  background-color: #f1f1f1;
+  color:            grey;
+}
+
+/**
+Tlačítka
+ */
+.btn-yellow {
+  background-color: $c-yellow;
+  color:            #007bff !important;
+
+  border:           1px solid rgba(0, 0, 0, .125);
+}
