@@ -151,7 +151,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1>{{$week_to_event}}</h1>
-                    <h5>{{$lang->sayCount($main_event->tasks()->count(), 'den do tábora','dny do tábora','dní do tábora')}}</h5>
+                    <h5>{{$lang->sayCount($main_event->tasks()->count(), 'den do startu','dny do startu','dní do startu')}}</h5>
                 </div>
             </div>
         </div>

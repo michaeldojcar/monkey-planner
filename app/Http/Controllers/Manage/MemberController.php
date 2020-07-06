@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Event;
 use App\Group;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class MemberController extends Controller
 {
@@ -14,14 +14,20 @@ class MemberController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Group $group)
+    public function index(Event $event)
     {
-        $members = $group->users->sortBy('name');
+        $members = $event->owner_group->users->sortBy('name');
 
-        return view('tabor_web.members')->withGroup($group)->withMembers($members);
+        return view('tabor_web.members', [
+            'group'   => $event->owner_group,
+            'members' => $members,
+
+            'main_event' => $event
+        ]);
     }
 
-    public function user(Group $group, User $user){
+    public function user(Group $group, User $user)
+    {
 
     }
 }
