@@ -1,6 +1,6 @@
 @extends('layouts.fullscreen')
 
-@section('title', 'Administrace')
+@section('title', 'Administrace portálu')
 
 @push('css')
     <link rel="stylesheet" type="text/css"
@@ -8,7 +8,7 @@
 @endpush
 
 @section('navbar_top')
-    @include('admin.layout.navbar_top')
+    @include('admin.layout.navbar_top')k
 @endsection
 
 @section('sidebar')

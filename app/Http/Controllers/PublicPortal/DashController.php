@@ -5,14 +5,10 @@ namespace App\Http\Controllers\PublicPortal;
 use App\Event;
 use App\Group;
 use App\Http\Controllers\Controller;
-use App\Http\Middleware\CheckEmptyPwd;
-use App\Sms\BasicEventNotification;
-use App\Sms\CustomEventNotification;
 use App\User;
-use App\UserEventParticipation;
-use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class DashController
@@ -33,11 +29,11 @@ class DashController extends Controller
         // Online users counter.
         $this->updateCounter();
 
-        return view('dashboard', [
-            'upcoming' => Auth::user()->events()
+        return view('user.dashboard', [
+            'events' => Auth::user()->events()
                 ->where('from', '>', Carbon::now())
                 ->orderBy('from')
-                ->where('parent_event_id',0)
+                ->where('parent_event_id', null)
                 ->get()->take(10),
 
             'online' => User::where('updated_at', '>', Carbon::now()->subMinutes(5))->get(),

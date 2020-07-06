@@ -128,7 +128,7 @@ Route::group(['prefix' => 'planovani'], function ()
 /**
  * Admin.
  */
-Route::group(['prefix' => 'settings'], function ()
+Route::group(['prefix' => 'admin'], function ()
 {
     Route::get('/', 'Admin\AdminController@dashboard')->name('admin.dashboard');
 

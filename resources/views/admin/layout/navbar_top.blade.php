@@ -20,7 +20,6 @@
                     <span data-feather="user"></span>
 
                     {{Auth::user()->getWholeName()}}
-
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

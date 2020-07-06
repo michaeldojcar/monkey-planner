@@ -1,10 +1,8 @@
 @extends('layouts.fullscreen')
 
-@if(isset($group))
-    @section('title', ucfirst($group->name) . ' - ' . $group->mainEvent->name)
-@else
-    @section('title', 'Plánovač akcí')
-@endif
+
+@section('title', 'Plánovač akcí')
+
 
 @push('css')
     <link rel="stylesheet"
@@ -16,11 +14,11 @@
 @endpush
 
 @section('navbar_top')
-    @include('tabor_web.layout.navbar_top')
+    @include('user.layout.navbar_top')
 @endsection
 
 @section('sidebar')
-    @include('tabor_web.layout.sidebar')
+    @include('user.layout.sidebar')
 @endsection
 
 @push('scripts')
