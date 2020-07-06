@@ -136,8 +136,11 @@ class EventPlanController extends Controller
         $event      = $this->findById($event_id);
 
         return view('tabor_web.events.edit', [
-            'group'                 => $main_event->owner_group,
-            'event'                 => $event,
+            'group' => $main_event->owner_group,
+            'event' => $event,
+
+            'main_event' => $main_event,
+
             'days'                  => $this->getEventsArray($main_event), // Days with events
             'days_count'            => $this->getAllDaysCount($main_event), // Only count
 

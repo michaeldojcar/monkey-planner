@@ -64,10 +64,8 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
     // Sub-events
     Route::get('/events/{event}/sub-event/{sub_event}', 'Manage\EventPlanController@show')->name('events.show');
     Route::get('/event/{event}/sub-event/{sub_event}/edit', 'Manage\EventPlanController@edit')->name('events.edit');
-    Route::post('/event/{event}/sub-event/{sub_event}/edit',
-        'Manage\EventPlanController@update')->name('events.update');
-    Route::get('/event/{main_event}/sub-event/{sub_event}/delete',
-        'Manage\EventPlanController@delete')->name('events.delete');
+    Route::post('/sub-event/{sub_event}/edit', 'Manage\EventPlanController@update')->name('events.update');
+    Route::get('/sub-event/{sub_event}/delete', 'Manage\EventPlanController@delete')->name('events.delete');
 
     Route::post('/event/{event}/storeRole', 'Manage\EventController@storeRole')->name('event.storeRole');
 

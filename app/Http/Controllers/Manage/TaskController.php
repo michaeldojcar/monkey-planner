@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Manage;
 
 use App\Event;
 use App\Group;
+use App\Http\Controllers\Controller;
 use App\Task;
 use App\User;
-use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 use Session;
 
 class TaskController extends Controller
@@ -67,9 +71,9 @@ class TaskController extends Controller
     /**
      * Assigns logged user to task.
      *
-     * @param Task $task
+     * @param  Task  $task
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function assignMe(Task $task)
     {
@@ -146,11 +150,11 @@ class TaskController extends Controller
     }
 
     /**
-     * @param Group $group
-     * @param Task  $task
+     * @param  Group  $group
+     * @param  Task  $task
      *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function delete(Group $group, Task $task)
     {
@@ -159,15 +163,17 @@ class TaskController extends Controller
         return Redirect::to(Session::get('url'));
     }
 
-    public function todo(Group $group)
+    /**
+     * @param  Event  $event
+     *
+     * @return Application|Factory|View
+     */
+    public function todo(Event $event)
     {
-        \Auth::user()->last_login_at = Carbon::now();
-        Auth::user()->save();
-
         // Percent assigned.
-        if ($group->mainEvent->tasks()->count() > 0)
+        if ($event->tasks()->count() > 0)
         {
-            $percent_assigned = $group->mainEvent->assignedTasks()->count() / $group->mainEvent->tasks()->count() * 100;
+            $percent_assigned = $event->assignedTasks()->count() / $event->tasks()->count() * 100;
             $percent_assigned = number_format($percent_assigned, 0);
         }
         else
@@ -177,10 +183,11 @@ class TaskController extends Controller
 
 
         return view('tabor_web.tasks.todo', [
-            'group'                     => $group,
+            'group'                     => $event->owner_group,
+            'main_event'                     => $event,
             'percent_assigned'          => $percent_assigned,
-            'events_without_garant'     => $group->mainEvent->events()->doesntHave('garants')->get(),
-            'events_with_missing_roles' => $group->mainEvent->events->filter(function (Event $ev)
+            'events_without_garant'     => $event->events()->doesntHave('garants')->get(),
+            'events_with_missing_roles' => $event->events->filter(function (Event $ev)
             {
                 if ($ev->roleTasks()->doesntHave('users')->count())
                 {
@@ -191,7 +198,7 @@ class TaskController extends Controller
                     return false;
                 }
             }),
-            'incomplete_events'         => $group->mainEvent->events->filter(function (Event $ev)
+            'incomplete_events'         => $event->events->filter(function (Event $ev)
             {
                 foreach ($ev->blocks as $block)
                 {
@@ -200,8 +207,8 @@ class TaskController extends Controller
 
                 return false;
             }),
-            'tasks_without_user'        => $group->mainEvent->basicTasks()->whereDoesntHave('users')->get(),
-            'items_without_user'        => $group->mainEvent->itemTasks()->whereDoesntHave('users')->get(),
+            'tasks_without_user'        => $event->basicTasks()->whereDoesntHave('users')->get(),
+            'items_without_user'        => $event->itemTasks()->whereDoesntHave('users')->get(),
         ]);
     }
 

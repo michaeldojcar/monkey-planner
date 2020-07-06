@@ -5,7 +5,7 @@
         <h1 class="h2">Co je potřeba?</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a class="btn btn-primary mr-2"
-               href="{{route('organize.tasks', $group)}}">Všechny úkoly</a>
+               href="{{route('organize.tasks.index', $group)}}">Všechny úkoly</a>
         </div>
     </div>
 
@@ -26,17 +26,16 @@
                 <div class="card-header">Chybějící garant
                     <span class="badge badge-secondary">{{ $events_without_garant->count() }}</span></div>
                 <div class="card-body">
-                    Tyto části programu nemají svého garanta. Protože loni jsme chtěli, aby každou hru hlídal na táboře
-                    programák, je potřeba, aby se na ni někdo jako garant dopsal.
-
-                    <hr>
+                    @if($events_without_garant->count())
+                        <div class="alert alert-warning">Části programu s chybějícím garantem.</div>
+                    @endif
 
                     @forelse($events_without_garant as $event)
                         {{$event->getTypeEmoji()}}
-                        <a href="{{route('organize.event', [$group,$event])}}">{{$event->name}}</a>{{$loop->last ? '' : ','}}
+                        <a href="{{route('organize.events.show', [$group,$event])}}">{{$event->name}}</a>{{$loop->last ? '' : ','}}
                         <br>
                     @empty
-                        <span class="text-success">Hurá. Všech {{$group->mainEvent->events()->count()}} her má svého garanta. :)</span>
+                        <div class="alert alert-success">Hurá. Všechny části programu mají svého garanta.</div>
                     @endforelse
                 </div>
             </div>
@@ -47,17 +46,16 @@
                 <div class="card-header">Neobsazené role
                     <span class="badge badge-secondary">{{ $events_with_missing_roles->count() }}</span></div>
                 <div class="card-body">
-                    Při zapisování se do rolí mrkněte, jestli náhodou v dané hře nemáte jinou roli nebo nehrajete s
-                    vlastní skupinkou.
-
-                    <hr>
+                    @if($events_with_missing_roles->count())
+                        <div class="alert alert-warning">Neobsazené role v programu, které je potřeba obsadit.</div>
+                    @endif
 
                     @forelse($events_with_missing_roles as $event)
                         {{$event->getTypeEmoji()}}
-                        <a href="{{route('organize.event', [$group,$event])}}">{{ $event->name }}</a>{{$loop->last ? '' : ','}}
+                        <a href="{{route('organize.events.show', [$group,$event])}}">{{ $event->name }}</a>{{$loop->last ? '' : ','}}
                         <br>
                     @empty
-                        <span class="text-success">Všechny role ve hrách jsou obsazeny.</span>
+                        <div class="alert alert-success">Všechny role v programu jsou obsazeny.</div>
                     @endforelse
                 </div>
             </div>
@@ -68,17 +66,16 @@
                 <div class="card-header">Chybějící popis
                     <span class="badge badge-secondary">{{ $incomplete_events->count() }}</span></div>
                 <div class="card-body">
-                    <p>Pokud hra/program nemá vyplněnou některou část popisku, zobrazí se tady. Stačí do hry vyplnit
-                        zbývající
-                        informace.</p>
-                    <hr>
+                    @if($incomplete_events->count())
+                        <div class="alert alert-warning">Části programu s prázdnými popisky.</div>
+                    @endif
 
                     @forelse($incomplete_events as $event)
                         {{$event->getTypeEmoji()}}
-                        <a href="{{route('organize.event', [$group,$event])}}">{{$event->name}}</a>{{$loop->last ? '' : ','}}
+                        <a href="{{route('organize.events.show', [$group,$event])}}">{{$event->name}}</a>{{$loop->last ? '' : ','}}
                         <br>
                     @empty
-                        <span class="text-success">Všechny bloky programu jsou popsané.</span>
+                        <div class="alert alert-success">Všechny bloky programu jsou popsané.</div>
                     @endforelse
                 </div>
             </div>
@@ -89,15 +86,16 @@
                 <div class="card-header">Úkoly k zapsání
                     <span class="badge badge-secondary">{{ $tasks_without_user->count() }}</span></div>
                 <div class="card-body">
-                    <p>Na tyto úkoly není nikdo zapsaný.</p>
-                    <hr>
+                    @if($tasks_without_user->count())
+                        <div class="alert alert-warning">Na tyto úkoly není nikdo zapsaný.</div>
+                    @endif
 
                     @forelse($tasks_without_user as $task)
                         <div style="margin-bottom: 5px">
-                            <a href="{{route('organize.task', [$group,$task])}}">{{ucfirst($task->name)}}</a>
+                            <a href="{{route('organize.tasks.show', [$group,$task])}}">{{ucfirst($task->name)}}</a>
                         </div>
                     @empty
-                        <span class="text-success">Všechny úkoly jsou vyřešené.</span>
+                        <div class="alert alert-success">Všechny úkoly jsou vyřešené.</div>
                     @endforelse
                 </div>
             </div>
@@ -105,23 +103,23 @@
 
         <div class="col-sm">
             <div class="card">
-                <div class="card-header">Rekvizity k zapsání
+                <div class="card-header">Zajištění materiálu
                     <span class="badge badge-secondary">{{ $items_without_user->count() }}</span></div>
                 <div class="card-body">
-                    <p>K těmto věcem a rekvizitám není nikdo zapsaný.</p>
-                    <hr>
+                    @if($items_without_user->count())
+                        <div class="alert alert-warning">K těmto věcem a rekvizitám není nikdo zapsaný.</div>
+                    @endif
 
                     @forelse($items_without_user as $task)
                         <div style="margin-bottom: 5px">
-                            <a href="{{route('organize.task', [$group,$task])}}">{{ucfirst($task->name)}}</a>
+                            <a href="{{route('organize.tasks.show', [$group,$task])}}">{{ucfirst($task->name)}}</a>
                         </div>
                     @empty
-                        <span class="text-success">Všechny věci jsou zapsané.</span>
+                        <div class="alert alert-success">Všechny věci jsou zapsané.</div>
                     @endforelse
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 

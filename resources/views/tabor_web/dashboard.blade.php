@@ -150,7 +150,7 @@
                         @foreach($my_events as $event)
                             <tr>
                                 <td>{{$event->getDayNumber()}}. DEN</td>
-                                <td><a href="{{route('organize.event', [$group, $event])}}">{{$event->name}}</a>
+                                <td><a href="{{route('organize.events.show', [$group, $event])}}">{{$event->name}}</a>
                                 </td>
                             </tr>
                         @endforeach

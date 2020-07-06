@@ -111,10 +111,6 @@
         }
     </style>
 
-    <div class="mb-3">
-        <h3>Obecně</h3>
-    </div>
-
     <div class="row">
         @if($main_event->content)
             <div class="col-sm">

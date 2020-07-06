@@ -27,12 +27,12 @@
             margin-bottom: 20px;
             border-radius: 0;
 
-            border:        1px black solid;
+            border: 1px black solid;
         }
 
 
         .card-header, .card-body {
-            padding:       8px 12px;
+            padding: 8px 12px;
             border-radius: 0;
         }
 
@@ -44,8 +44,8 @@
 
         .card-header {
             background-color: #434343;
-            color:            #e9e9e9;
-            font-weight:      bold;
+            color: #e9e9e9;
+            font-weight: bold;
         }
 
 
@@ -54,7 +54,7 @@
         }
     </style>
 
-    <form action="{{route('organize.event.edit.store', ['group' => $group, 'event' => $event])}}"
+    <form action="{{route('organize.events.update', ['sub_event' => $event])}}"
           method="POST">
         @csrf
         <div class="row">
@@ -118,9 +118,9 @@
                                                     {{-- Selected option --}}
                                                     @if($event->getDayNumber() == $x)
                                                     selected
-                                                    @endif
+                                                @endif
                                             >{{$x}}.
-                                                den @switch($group->mainEvent->countDateFromThisEventsDayNumber($x)->dayOfWeek)
+                                                den @switch($main_event->countDateFromThisEventsDayNumber($x)->dayOfWeek)
                                                     @case(0)
                                                     <span>(NE)</span>
                                                     @break
@@ -203,44 +203,51 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">Globální upozornění na nástěnce</div>
-                    <div class="card-body">
+                @if($event->isMainEvent())
+                    <div class="card">
+                        <div class="card-header">Globální upozornění na nástěnce</div>
+                        <div class="card-body">
                         <textarea name="notice"
                                   style="height: calc(100vh - 170px); font-size: 16px"
                                   title="">
                             {!! $event->notice !!}
                         </textarea>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">Zodpovědné osoby</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Autoři</label>
-                                <input name="author_users"
-                                       id="authors_magic"
-                                       class="form-control mb-3">
-                                <label>Skupiny</label>
-                                <input name="author_groups"
-                                       id="author_groups_magic"
-                                       class="form-control mb-3">
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label>Garant na táboře</label>
-                                <input name="garant_users"
-                                       id="garants_magic"
-                                       class="form-control mb-3">
-                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
+
             </div>
 
             <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">Zodpovědné osoby</div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>Autoři</label>
+                            <input name="author_users"
+                                   id="authors_magic"
+                                   class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Skupiny</label>
+                            <input name="author_groups"
+                                   id="author_groups_magic"
+                                   class="form-control mb-3">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Garant na táboře</label>
+                            <input name="garant_users"
+                                   id="garants_magic"
+                                   class="form-control mb-3">
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="card">
                     <div class="card-header">Možnosti události</div>
                     <div class="card-body">
@@ -253,13 +260,13 @@
                         <div class="row">
                             <div class="col-5">
                                 <a class="btn btn-outline-secondary"
-                                   href="{{route('organize.event', [$group, $event])}}"
+                                   href="{{route('organize.events.show', [$main_event, $event])}}"
                                    style="width: 100%;">Storno
                                 </a>
                             </div>
                             <div class="col-7">
                                 <a class="btn btn-outline-danger"
-                                   href="{{ route('organize.event.delete', [$group, $event]) }}"
+                                   href="{{ route('organize.events.delete', [$event]) }}"
                                    onclick=" return confirm('Událost bude ODSTRANĚNA i s veškerým obsahem, jste si jisti?')"
                                    style="width: 100%;">Odstranit tuto událost</a>
                             </div>
