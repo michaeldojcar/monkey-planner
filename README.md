@@ -1,4 +1,4 @@
-# Plánovač akcí
+# Event plan
 
 Upozornění: aplikace je v rané části vývoje a je poměrně nestabilní. Toto readme pro prvotní fázi vývoje bude sloužit jako TO-DO list.
 

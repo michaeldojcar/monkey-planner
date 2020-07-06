@@ -19,16 +19,16 @@
             </div>
 
             @if($event->is_scheduled)
-{{--                <div class="btn-group mr-2">--}}
-{{--                    <a class="btn btn-sm btn-success {{ $event->getPreviousSubEvent() ? '' : 'disabled' }}"--}}
-{{--                       href="{{route('organize.event', ['main_event'=>$main_event,'event'=> $event->getPreviousSubEvent()]) }}">--}}
-{{--                        <i class="fas fa-arrow-alt-circle-left"></i>--}}
-{{--                    </a>--}}
-{{--                    <a class="btn btn-sm btn-success {{ $event->getNextSubEvent() ? '' : 'disabled' }}"--}}
-{{--                       href="{{route('organize.event', ['main_event'$main_event , $event->getNextSubEvent()])}}">--}}
-{{--                        <i class="fas fa-arrow-alt-circle-right"></i>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
+                {{--                <div class="btn-group mr-2">--}}
+                {{--                    <a class="btn btn-sm btn-success {{ $event->getPreviousSubEvent() ? '' : 'disabled' }}"--}}
+                {{--                       href="{{route('organize.event', ['main_event'=>$main_event,'event'=> $event->getPreviousSubEvent()]) }}">--}}
+                {{--                        <i class="fas fa-arrow-alt-circle-left"></i>--}}
+                {{--                    </a>--}}
+                {{--                    <a class="btn btn-sm btn-success {{ $event->getNextSubEvent() ? '' : 'disabled' }}"--}}
+                {{--                       href="{{route('organize.event', ['main_event'$main_event , $event->getNextSubEvent()])}}">--}}
+                {{--                        <i class="fas fa-arrow-alt-circle-right"></i>--}}
+                {{--                    </a>--}}
+                {{--                </div>--}}
             @endif
         </div>
     </div>
@@ -234,7 +234,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header">Kdo je potřeba
+                <div class="card-header">Role
                     <a style="float: right"
                        data-toggle="modal"
                        data-target="#userAssignModal"><i
@@ -244,7 +244,7 @@
                     <ul class="list-group">
                         @foreach($event->roleTasks as $task)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="{{route('organize.task', [$group, $task])}}">{{ucfirst($task->name)}}</a>
+                                <a href="{{route('organize.tasks.show', [$main_event, $task])}}">{{ucfirst($task->name)}}</a>
                                 @include('tabor_web.components.event.role_garants')
                             </li>
                         @endforeach
@@ -252,7 +252,7 @@
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">Co je potřeba udělat
+                <div class="card-header">Úkoly
                     <a style="float:right"><i class="fa fa-plus"
                                               data-target="#taskAssignModal"
                                               data-toggle="modal"></i></a>
@@ -270,7 +270,7 @@
                         <ul class="list-group">
                             @foreach($event->basicTasks as $task)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="{{route('organize.task', [$group, $task])}}">{{ucfirst($task->name)}}</a>
+                                    <a href="{{route('organize.tasks.show', [$main_event, $task])}}">{{ucfirst($task->name)}}</a>
 
                                     <div>
                                         @include('tabor_web.components.task.garants')

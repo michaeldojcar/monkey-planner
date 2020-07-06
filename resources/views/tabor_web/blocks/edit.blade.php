@@ -14,7 +14,7 @@
         }
     </style>
 
-    <form action="{{ route('organize.event.updateBlock', [$group, $block]) }}"
+    <form action="{{ route('organize.events.update', [$main_event, $block]) }}"
           method="POST">
         @csrf
         <div class="border-bottom"
@@ -50,13 +50,13 @@
                             </div>
                             <div class="col-5">
                                 <a class="btn btn-outline-secondary"
-                                   href="{{route('organize.event', [$group, $block->event])}}"
+                                   href="{{route('organize.events.show', [$main_event, $block->event])}}"
                                    style="width: 100%;">Storno
                                 </a>
                             </div>
                             <div class="col-7">
                                 <a class="btn btn-outline-danger"
-                                   href="{{ route('organize.block.delete', [$group, $block]) }}"
+                                   href="{{ route('organize.blocks.delete', [$main_event, $block]) }}"
                                    onclick=" return confirm('Sekce bude ODSTRANĚNA i s obsahem, jste si jisti?')"
                                    style="width: 100%;">Odstranit tuto sekci</a>
                             </div>

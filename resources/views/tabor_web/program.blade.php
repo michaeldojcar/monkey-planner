@@ -129,13 +129,13 @@
             <div class="col-sm">
                 <table class="table material-shadow">
                     <tr class="table-header-dark">
-                        <td colspan="2">Celotáborové aktivity + prvky mimo program</td>
+                        <td colspan="2">Další části programu</td>
                     </tr>
 
                     @foreach($non_scheduled as $sub_event)
                         <tr>
                             <td style="width: 200px">
-                                <a href="{{route('organize.event', [$group, $sub_event])}}">{{$sub_event->name}}</a>
+                                <a href="{{route('organize.events.show', [$main_event, $sub_event])}}">{{$sub_event->name}}</a>
                             </td>
                             <td>@component('tabor_web.components.program.event_authors_hybrid', ['event' => $sub_event])@endcomponent</td>
                         </tr>

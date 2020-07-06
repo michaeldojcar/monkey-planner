@@ -14,8 +14,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
-use Session;
 
 class TaskController extends Controller
 {
@@ -49,21 +49,23 @@ class TaskController extends Controller
         return redirect()->route('organize.tasks', $group);
     }
 
-    public function show(Group $group, Task $task)
+    public function show(Event $event, Task $task)
     {
         Session::flash('url', \request()->server('HTTP_REFERER'));
 
         return view('tabor_web.tasks.show', [
-            'task'  => $task,
-            'group' => $group,
+            'main_event' => $event,
 
-            'users'          => $group->users,
+            'task'  => $task,
+            'group' => $event->owner_group,
+
+            'users'          => $event->owner_group->users,
             'users_selected' => $task->users,
 
-            'groups'          => $group->childGroups()->get()->push(Group::first()),
+            'groups'          => $event->owner_group->childGroups()->get()->push(Group::first()),
             'groups_selected' => $task->groups,
 
-            'events'          => $group->mainEvent->events,
+            'events'          => $event->events,
             'events_selected' => $task->events,
         ]);
     }
@@ -184,7 +186,7 @@ class TaskController extends Controller
 
         return view('tabor_web.tasks.todo', [
             'group'                     => $event->owner_group,
-            'main_event'                     => $event,
+            'main_event'                => $event,
             'percent_assigned'          => $percent_assigned,
             'events_without_garant'     => $event->events()->doesntHave('garants')->get(),
             'events_with_missing_roles' => $event->events->filter(function (Event $ev)

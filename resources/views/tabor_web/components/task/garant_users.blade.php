@@ -1,7 +1,7 @@
 {{--User info--}}
 @forelse($task->users as $user)
     <span style="color: #0800ff; text-transform: uppercase"
-          title="{{$user->getWholeName()}}"><b>{{$user->getNick($group->mainEvent)}}</b></span>
+          title="{{$user->getWholeName()}}"><b>{{$user->getNick($main_event)}}</b></span>
     <br>
 @empty
     {{-- If user belongs to subgroup, allow assign --}}

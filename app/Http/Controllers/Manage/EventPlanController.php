@@ -159,14 +159,15 @@ class EventPlanController extends Controller
     /**
      * Update event.
      *
-     * @param  Group  $group
-     * @param  Event  $event
+     * @param $event_id
      * @param  Request  $request
      *
      * @return RedirectResponse
      */
-    public function update(Group $group, Event $event, Request $request)
+    public function update($event_id, Request $request)
     {
+        $event = $this->findById($event_id);
+
         $event->name = $request['name'];
 
         if ($request->has('type'))
@@ -182,7 +183,7 @@ class EventPlanController extends Controller
             if ($request['day'] != 'all')
             {
                 // Compute Carbon date
-                $start_date = $this->getDateFromRelativeDay($group->mainEvent, $request['day']);
+                $start_date = $this->getDateFromRelativeDay($event->parentEvent, $request['day']);
                 $start_date = $start_date->format('Y/m/d');
 
                 // Time from
@@ -204,24 +205,24 @@ class EventPlanController extends Controller
             $event->notice  = $request['notice'];
         }
 
+        // Save model
+        $event->save();
 
-        // Author group
+        // Sync related group
         $event->groups()->sync($request['author_groups']);
 
-        // Garants
+        // Sync related users
         $event->users()->withPivotValue('status', 5)->sync($request['author_users']);
         $event->users()->withPivotValue('status', 4)->sync($request['garant_users']);
 
 
-        $event->save();
-
         if ( ! $event->isMainEvent())
         {
-            return redirect()->route('organize.event', [$group, $event]);
+            return redirect()->route('organize.events.show', [$event->parentEvent, $event]);
         }
         else
         {
-            return redirect()->route('organize.program', $group);
+            return redirect()->route('organize.program', $event);
         }
     }
 
@@ -271,19 +272,23 @@ class EventPlanController extends Controller
     }
 
 
-    public function storeBlock(Group $group, Event $event, Request $request)
+    public function storeBlock(Event $event, Request $request)
     {
         $block           = new Block();
         $block->event_id = $event->id;
         $block->title    = $request['title'];
         $block->save();
 
-        return redirect()->route('organize.block.edit', [$group, $block]);
+        return redirect()->route('organize.blocks.edit', [$event, $block]);
     }
 
-    public function editBlock(Group $group, Block $block)
+    public function editBlock(Event $event, Block $block)
     {
-        return view('tabor_web.blocks.edit')->withBlock($block)->withGroup($group);
+        return view('tabor_web.blocks.edit', [
+            'block'      => $block,
+            'group'      => $event->owner_group,
+            'main_event' => $event,
+        ]);
     }
 
     public function updateBlock(Group $group, Block $block, Request $request)
