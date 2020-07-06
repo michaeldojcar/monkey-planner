@@ -1,10 +1,8 @@
 @extends('layouts.fullscreen')
 
-@if(isset($group))
-    @section('title', ucfirst($group->name) . ' - ' . $group->mainEvent->name)
-@else
-    @section('title', 'Plánovač akcí')
-@endif
+
+@section('title', ucfirst($group->name) . ' - ' . $main_event->name)
+
 
 @push('css')
     <link rel="stylesheet"

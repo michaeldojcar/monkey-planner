@@ -6,10 +6,11 @@ use App\Backend\Lang;
 use App\Event;
 use App\Group;
 use App\User;
-use Auth;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 
 class DashController extends Controller
@@ -20,23 +21,23 @@ class DashController extends Controller
     }
 
     /**
-     * Úvodní nástěnka táborového webu.
-     * Statistiky, progress.
+     * Dashboard of selected mother event.
      *
-     * @param $group_id
+     * @param $event_id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
-    public function dashboard($group_id)
+    public function dashboard($event_id)
     {
+        $main_event = Event::findOrFail($event_id);
+
+        // TODO: move to middleware
         Auth::user()->last_login_at = Carbon::now();
         Auth::user()->save();
 
         // Eager data loading
-        $group       = Group::with(['mainEvent', 'mainEvent.tasks', 'mainEvent.events.tasks', 'mainEvent.events.parentEvent'])->findOrFail($group_id);
+        $group       = Group::with(['mainEvent', 'mainEvent.tasks', 'mainEvent.events.tasks', 'mainEvent.events.parentEvent'])->findOrFail($main_event->owner_group_id);
         $logged_user = User::with(['events', 'tasks', 'events.tasks'])->findOrFail(Auth::id());
-
-        $main_event = $group->mainEvent;
 
         $event_tasks = $main_event->tasks;
 
@@ -57,6 +58,14 @@ class DashController extends Controller
         ]);
     }
 
+    /**
+     * Dashboard of selected sub-event.
+     *
+     * @param  Group  $group
+     * @param  Group  $subgroup
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|View
+     */
     public function subGroupDashboard(Group $group, Group $subgroup)
     {
         Auth::user()->last_login_at = Carbon::now();

@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{ucfirst($group->mainEvent->name)}} - moje nástěnka</h1>
+        <h1 class="h2">{{ucfirst($main_event->name)}} - moje nástěnka</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{route('dashboard')}}"
+            <a href="{{route('user.events.index')}}"
                class="btn btn-sm btn-outline-secondary">
-                Zpět do portálu
+                Zpět na nástěnku
             </a>
         </div>
     </div>
@@ -25,8 +25,8 @@
                 <div class="col-sm-6">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h1>{{$group->mainEvent->tasks()->count()}}</h1>
-                            <h5>{{$lang->sayCount($group->mainEvent->tasks()->count(), 'zapsaná věc','zapsané věci','zapsaných věcí')}}</h5>
+                            <h1>{{$main_event->tasks()->count()}}</h1>
+                            <h5>{{$lang->sayCount($main_event->tasks()->count(), 'zapsaná věc','zapsané věci','zapsaných věcí')}}</h5>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h1>{{$week_to_event}}</h1>
-                            <h5>{{$lang->sayCount($group->mainEvent->tasks()->count(), 'den do tábora','dny do tábora','dní do tábora')}}</h5>
+                            <h5>{{$lang->sayCount($main_event->tasks()->count(), 'den do tábora','dny do tábora','dní do tábora')}}</h5>
                         </div>
                     </div>
                 </div>
@@ -51,13 +51,13 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            @if($group->mainEvent->notAssignedTasks()->count() > 0)
+                            @if($main_event->notAssignedTasks()->count() > 0)
                                 <a href="{{route('organize.todo', $group)}}"
                                    class="btn btn-success float-sm-right mobile-full-width">Napsat se
                                     <br>na něco!</a>
 
-                                <h1 class="{{$group->mainEvent->notAssignedTasks()->count() > 0 ? 'text-danger' : ''}}">{{ $group->mainEvent->notAssignedTasks()->count() }}</h1>
-                                <h5>{{$lang->sayCount($group->mainEvent->notAssignedTasks()->count(), 'věc nemá','věci nemají','věcí nemá')}}
+                                <h1 class="{{$main_event->notAssignedTasks()->count() > 0 ? 'text-danger' : ''}}">{{ $main_event->notAssignedTasks()->count() }}</h1>
+                                <h5>{{$lang->sayCount($main_event->notAssignedTasks()->count(), 'věc nemá','věci nemají','věcí nemá')}}
                                     garanta</h5>
                             @else
                                 <h1>:)</h1>
@@ -69,12 +69,12 @@
             </div>
         </div>
 
-        @if(!empty ($group->mainEvent->notice))
+        @if(!empty ($main_event->notice))
             <div class="col-sm">
                 <div class="card">
                     <div class="card-header bg-blue text-white font-weight-bold">Důležité informace</div>
                     <div class="card-body">
-                        {!! $group->mainEvent->notice !!}
+                        {!! $main_event->notice !!}
                     </div>
 
                 </div>
@@ -172,11 +172,11 @@
                         @foreach($my_roles as $role)
                             <tr>
                                 <td>
-                                    <a href="{{route('organize.event', [$group, $role->events->where('id','!=',$group->mainEvent->id)->first()])}}">{{$role->name}}</a>
+                                    <a href="{{route('organize.event', [$group, $role->events->where('id','!=',$main_event->id)->first()])}}">{{$role->name}}</a>
                                 </td>
                                 <td>
                                     <a style="color: black;"
-                                       href="{{route('organize.event',[$group, $role->events->where('id','!=',$group->mainEvent->id)->first()])}}">{{ucfirst($role->events->where('id','!=',$group->mainEvent->id)->first()->name)}}</a>
+                                       href="{{route('organize.event',[$group, $role->events->where('id','!=',$main_event->id)->first()])}}">{{ucfirst($role->events->where('id','!=',$main_event->id)->first()->name)}}</a>
                                 </td>
                             </tr>
                         @endforeach

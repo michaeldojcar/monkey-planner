@@ -18,6 +18,8 @@ class EventController extends Controller
     public function __construct(EventRepository $event_repository)
     {
         $this->eventRepository = $event_repository;
+
+        $this->middleware('auth');
     }
 
     /**
@@ -30,7 +32,7 @@ class EventController extends Controller
         // Online users counter.
         $this->updateCounter();
 
-        return view('user.layout.my_events', [
+        return view('user.events.index', [
             'events' => $this->eventRepository->getUserMotherEvents(Auth::user()),
 
             'online' => User::where('updated_at', '>', Carbon::now()->subMinutes(5))->get(),

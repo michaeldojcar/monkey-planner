@@ -1,7 +1,7 @@
 <ul class="nav flex-column">
     <li class="nav-item">
         <a class="nav-link {{ request()->is('organizace-akce/team/*/nastenka') ? 'active' : '' }}"
-           href="{{route('user.events')}}">
+           href="{{route('user.events.index')}}">
             <span data-feather="home"></span>
             Moje akce
         </a>
@@ -9,7 +9,7 @@
 
     <li class="nav-item">
         <a class="nav-link {{ request()->is('organizace-akce/team/*/clenove') ? 'active' : '' }}"
-           href="{{route('user.groups')}}">
+           href="{{route('user.groups.index')}}">
             <span data-feather="users"></span>
             Teamy
         </a>

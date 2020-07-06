@@ -10,6 +10,6 @@ class GroupRepository
 {
     public function motherGroupsForUser(User $user)
     {
-        return $user->groups->where('parent_group_id', null);
+        return $user->groups()->where('parent_group_id', null);
     }
 }

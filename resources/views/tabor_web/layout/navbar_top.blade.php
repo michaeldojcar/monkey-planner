@@ -1,8 +1,8 @@
 <a class="navbar-brand"
-   href="{{route('organize.dashboard',$group)}}">
+   href="{{route('organize.dashboard', $main_event)}}">
     <img width="20"
          src="{{asset('img/tabor_web/favicon-32x32.png')}}"> {{ucfirst($group->name)}}
-    - {{$group->mainEvent->name}}</a>
+    - {{$main_event->name}}</a>
 <button class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -20,14 +20,14 @@
     <ul class="navbar-nav d-block d-sm-none">
         <li class="nav-item">
             <a class="nav-link {{ request()->is('planovani/team/*/nastenka') ? 'active' : '' }}"
-               href="{{route('organize.dashboard',['group_id'=>$group->id])}}">
+               href="{{route('organize.dashboard', $main_event)}}">
                 <span data-feather="home"></span>
                 Moje nástěnka
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ request()->is('organizace-akce/team/*/program') ? 'active' : '' }}"
-               href="{{route('organize.program',['group_id'=>$group->id])}}">
+               href="{{route('organize.program', $main_event)}}">
                 <span data-feather="file"></span>
                 Program tábora
             </a>
@@ -41,7 +41,7 @@
         {{--        </li>--}}
         <li class="nav-item">
             <a class="nav-link {{ request()->is('planovani/team/*/todo') ? 'active' : '' }}"
-               href="{{route('organize.todo',['group_id'=>$group->id])}}">
+               href="{{route('organize.todo', $main_event)}}">
                 <span data-feather="check-square"></span>
                 Co je ještě potřeba
             </a>
@@ -49,7 +49,7 @@
 
         <li class="nav-item">
             <a class="nav-link {{ request()->is('planovani/team/*/clenove') ? 'active' : '' }}"
-               href="{{route('organize.members',['group_id'=>$group->id])}}">
+               href="{{route('organize.members', $main_event)}}">
                 <span data-feather="users"></span>
                 Team
             </a>
@@ -64,7 +64,7 @@
         @foreach($group->myGroups() as $subgroup)
             <li class="nav-item">
                 <a class="nav-link"
-                   href="{{route('organize.dashboard.subGroup',[$group, $subgroup])}}">
+                   href="{{route('organize.dashboard.subGroup',[$main_event, $subgroup])}}">
                     <span data-feather="users"></span>
                     Nástěnka: {{ $subgroup->name }}
                 </a>

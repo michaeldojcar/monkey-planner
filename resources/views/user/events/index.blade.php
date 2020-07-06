@@ -14,7 +14,7 @@
             </tr>
             @foreach($events as $event)
                 <tr>
-                    <td><a href="">{{$event->name}}</a></td>
+                    <td><a href="{{route('organize.dashboard', $event)}}">{{$event->name}}</a></td>
                     <td>{{ Carbon\Carbon::parse($event->from)->format('H:i d.m.') }}
                         ({{ Carbon\Carbon::parse($event->from)->diffForHumans() }})
                     </td>
