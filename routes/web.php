@@ -23,9 +23,9 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 /**
  * Logged user space (generic).
  */
+Route::get('/user/events', 'User\EventController@index')->name('user.events');
+Route::get('/user/groups', 'User\GroupController@index')->name('user.groups');
 
-// Výběr groupy
-Route::get('/nastenka', 'PublicPortal\DashController@dashboard')->name('dashboard');
 Route::get('/skupina/{id}', 'PublicPortal\DashController@group')->name('group');
 Route::get('/skupina/{group_id}/adduser/{user_id}', 'PublicPortal\DashController@addUserToGroup')->name('group.user.add');
 

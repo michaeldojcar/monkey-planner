@@ -19,29 +19,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class DashController extends Controller
 {
-    public function __construct()
-    {
-        Carbon::setLocale('cs');
-    }
-
-    public function dashboard()
-    {
-        // Online users counter.
-        $this->updateCounter();
-
-        return view('user.dashboard', [
-            'events' => Auth::user()->events()
-                ->where('from', '>', Carbon::now())
-                ->orderBy('from')
-                ->where('parent_event_id', null)
-                ->get()->take(10),
-
-            'online' => User::where('updated_at', '>', Carbon::now()->subMinutes(5))->get(),
-
-            'groups' => Auth::user()->groups->where('parent_group_id', null),
-        ]);
-    }
-
     public function group($id)
     {
         // Online users counter.
@@ -153,7 +130,6 @@ class DashController extends Controller
 
     private function updateCounter()
     {
-        // Obnoví updated_at pro počítadlo.
         $user             = Auth::user();
         $user->updated_at = Carbon::now('europe/prague');
         $user->save();

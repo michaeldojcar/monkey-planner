@@ -6,8 +6,6 @@
 
         <h4 class="mb-4">Moje akce</h4>
 
-
-
         <table class="table">
             <tr>
                 <th>Název</th>
@@ -20,7 +18,7 @@
                     <td>{{ Carbon\Carbon::parse($event->from)->format('H:i d.m.') }}
                         ({{ Carbon\Carbon::parse($event->from)->diffForHumans() }})
                     </td>
-                    <td>{{ $event->group->first()->name }}</td>
+                    <td>{{ $event->owner_group->name }}</td>
                 </tr>
             @endforeach
         </table>
