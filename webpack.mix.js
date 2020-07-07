@@ -12,9 +12,4 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/simple.scss', 'public/css')
-    .sass('resources/sass/ui_fullscreen.scss', 'public/css')
-    .sass('resources/sass/print.scss', 'public/css')
-    .browserSync('localhost:8000');
-
-// mix.browserSync('192.168.0.81:8000');
+    .sass('resources/sass/app.scss', 'public/css');
