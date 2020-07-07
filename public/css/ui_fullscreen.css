@@ -1,9 +1,7 @@
-@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css2?family=Rubik&display=swap);@charset "UTF-8";
 
 /**
-Fullscreen layout manage dashboard for Táborový web and portal.farnostdolany.cz.
-
-From Twitter Bootstrap 4.3.
+Fullscreen layout manage dashboard.
  */
 
 /*!
@@ -10935,6 +10933,7 @@ a.text-dark:focus {
 }
 
 body {
+  font-family: "Segoe UI", serif;
   font-size: 0.875rem;
   margin-top: 68px;
 }
