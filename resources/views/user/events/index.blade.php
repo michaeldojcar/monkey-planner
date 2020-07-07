@@ -7,7 +7,7 @@
 
         <h4 class="mb-4">Moje akce</h4>
 
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>Název</th>
                 <th>Termín</th>
@@ -26,7 +26,7 @@
 
         <h5 class="mb-4">Předešlé akce</h5>
 
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>Název</th>
                 <th>Termín</th>
