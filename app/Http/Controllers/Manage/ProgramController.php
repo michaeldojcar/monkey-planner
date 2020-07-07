@@ -6,6 +6,7 @@ use App\Event;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProgramController extends Controller
@@ -57,6 +58,40 @@ class ProgramController extends Controller
 
             'non_scheduled' => $event->events()->where('is_scheduled', false)->orderBy('name')->get(),
         ]);
+    }
+
+    public function calendarApiIndex(Event $event)
+    {
+        $events_array = [];
+
+        foreach ($event->events as $sub_event)
+        {
+            $events_array[] = [
+                'name' => $sub_event->name,
+                'id'   => $sub_event->id,
+
+                'color' => '#2196f3',
+                'start' => $sub_event->from->timestamp * 1000,
+                'end'   => $sub_event->to->timestamp * 1000,
+                'timed' => true,
+            ];
+        }
+
+        return [
+            'event'  => [
+                'from' => $event->from->timestamp * 1000,
+                'to'   => $event->to->timestamp * 1000,
+                'days' => $event->getAllDaysCount(),
+            ],
+            'events' => $events_array
+        ];
+    }
+
+    public function storeCalendar(Request $request)
+    {
+        $request->input('');
+
+//        foreach ();
     }
 
 

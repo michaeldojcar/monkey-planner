@@ -1946,20 +1946,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Program",
   components: {},
   data: function data() {
     return {
       value: '',
-      events: [{
-        color: "#757575",
-        end: 1594376100000,
-        name: "Conference",
-        start: 1594373400000,
-        timed: true
-      }],
-      colors: ['#2196F3', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
+      event: {},
+      events: [],
+      colors: ['#2196f3', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
       names: ['Houpačka', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
       dragEvent: null,
       dragStart: null,
@@ -1968,7 +1969,18 @@ __webpack_require__.r(__webpack_exports__);
       extendOriginal: null
     };
   },
+  mounted: function mounted() {
+    this.fetch();
+  },
   methods: {
+    fetch: function fetch() {
+      var _this = this;
+
+      axios.get('/api/event/1/calendar').then(function (response) {
+        _this.event = response.data.event;
+        _this.events = response.data.events;
+      });
+    },
     startDrag: function startDrag(_ref) {
       var event = _ref.event,
           timed = _ref.timed;
@@ -1996,6 +2008,9 @@ __webpack_require__.r(__webpack_exports__);
         };
         this.events.push(this.createEvent);
       }
+    },
+    intervalFormat: function intervalFormat(interval) {
+      return interval.time;
     },
     extendBottom: function extendBottom(event) {
       this.createEvent = event;
@@ -2067,10 +2082,6 @@ __webpack_require__.r(__webpack_exports__);
     getEvents: function getEvents(_ref2) {
       var start = _ref2.start,
           end = _ref2.end;
-      var events = [];
-      var min = new Date("".concat(start.date, "T00:00:00")).getTime();
-      var max = new Date("".concat(end.date, "T23:59:59")).getTime();
-      var days = (max - min) / 86400000; // this.events = events
     },
     rnd: function rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
@@ -38292,8 +38303,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticStyle: { height: "100vh" } },
     [
+      _c("a", { on: { click: _vm.fetch } }, [_vm._v("Obnovit")]),
+      _vm._v(" "),
       _c(
         "v-row",
         { staticClass: "fill-height" },
@@ -38303,16 +38315,20 @@ var render = function() {
             [
               _c(
                 "v-sheet",
-                { attrs: { height: "600" } },
+                { attrs: { height: "800" } },
                 [
                   _c("v-calendar", {
                     ref: "calendar",
                     attrs: {
                       color: "primary",
-                      type: "week",
+                      type: "custom-daily",
+                      start: _vm.event.from,
+                      end: _vm.event.to,
+                      "max-days": _vm.event.days,
                       events: _vm.events,
                       "event-color": _vm.getEventColor,
-                      "event-ripple": false
+                      "event-ripple": false,
+                      "interval-format": _vm.intervalFormat
                     },
                     on: {
                       change: _vm.getEvents,

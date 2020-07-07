@@ -1,13 +1,18 @@
 <template>
-    <div style="height: 100vh;">
+    <div>
+        <a @click="fetch">Obnovit</a>
+
         <v-row class="fill-height">
             <v-col>
-                <v-sheet height="600">
+                <v-sheet height="800">
                     <v-calendar
                         ref="calendar"
                         v-model="value"
                         color="primary"
-                        type="week"
+                        type="custom-daily"
+                        :start="event.from"
+                        :end="event.to"
+                        :max-days="event.days"
                         :events="events"
                         :event-color="getEventColor"
                         :event-ripple="false"
@@ -17,6 +22,7 @@
                         @mousemove:time="mouseMove"
                         @mouseup:time="endDrag"
                         @mouseleave.native="cancelDrag"
+                        :interval-format="intervalFormat"
                     >
                         <template #event="{ event, timed, eventSummary }">
                             <div
@@ -44,16 +50,9 @@
 
         data: () => ({
             value: '',
-            events: [
-                {
-                    color: "#757575",
-                    end: 1594376100000,
-                    name: "Conference",
-                    start: 1594373400000,
-                    timed: true
-                }
-            ],
-            colors: ['#2196F3', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
+            event: {},
+            events: [],
+            colors: ['#2196f3', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
             names: ['Houpačka', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
             dragEvent: null,
             dragStart: null,
@@ -62,7 +61,19 @@
             extendOriginal: null,
         }),
 
+        mounted() {
+            this.fetch()
+        },
+
         methods: {
+            fetch() {
+                axios.get('/api/event/1/calendar')
+                    .then((response) => {
+                        this.event = response.data.event
+                        this.events = response.data.events;
+                    })
+            },
+
             startDrag({event, timed}) {
                 if (event && timed) {
                     this.dragEvent = event
@@ -90,6 +101,11 @@
                     this.events.push(this.createEvent)
                 }
             },
+
+            intervalFormat(interval) {
+                return interval.time
+            },
+
             extendBottom(event) {
                 this.createEvent = event
                 this.createStart = event.start
@@ -165,13 +181,7 @@
                         : event.color
             },
             getEvents({start, end}) {
-                const events = []
 
-                const min = new Date(`${start.date}T00:00:00`).getTime()
-                const max = new Date(`${end.date}T23:59:59`).getTime()
-                const days = (max - min) / 86400000
-
-                // this.events = events
             },
             rnd(a, b) {
                 return Math.floor((b - a + 1) * Math.random()) + a
