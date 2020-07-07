@@ -1,7 +1,5 @@
 <template>
     <div>
-        <a @click="fetch">Obnovit</a>
-
         <v-row class="fill-height">
             <v-col>
                 <v-sheet height="800">
@@ -63,6 +61,10 @@
 
         mounted() {
             this.fetch()
+
+            setInterval(() => {
+                this.fetch()
+            }, 60000);
         },
 
         methods: {
@@ -74,6 +76,12 @@
                     })
             },
 
+            push() {
+                axios.post('/api/event/1/calendar', {
+                    events: this.events
+                });
+            },
+
             startDrag({event, timed}) {
                 if (event && timed) {
                     this.dragEvent = event
@@ -81,6 +89,7 @@
                     this.extendOriginal = null
                 }
             },
+
             startTime(tms) {
                 const mouse = this.toTime(tms)
 
@@ -139,6 +148,8 @@
                 this.createEvent = null
                 this.createStart = null
                 this.extendOriginal = null
+
+                this.push();
             },
             cancelDrag() {
                 if (this.createEvent) {

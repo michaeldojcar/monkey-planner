@@ -1950,8 +1950,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Program",
   components: {},
@@ -1970,15 +1968,25 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.fetch();
+    setInterval(function () {
+      _this.fetch();
+    }, 60000);
   },
   methods: {
     fetch: function fetch() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/api/event/1/calendar').then(function (response) {
-        _this.event = response.data.event;
-        _this.events = response.data.events;
+        _this2.event = response.data.event;
+        _this2.events = response.data.events;
+      });
+    },
+    push: function push() {
+      axios.post('/api/event/1/calendar', {
+        events: this.events
       });
     },
     startDrag: function startDrag(_ref) {
@@ -2043,6 +2051,7 @@ __webpack_require__.r(__webpack_exports__);
       this.createEvent = null;
       this.createStart = null;
       this.extendOriginal = null;
+      this.push();
     },
     cancelDrag: function cancelDrag() {
       if (this.createEvent) {
@@ -38304,8 +38313,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("a", { on: { click: _vm.fetch } }, [_vm._v("Obnovit")]),
-      _vm._v(" "),
       _c(
         "v-row",
         { staticClass: "fill-height" },

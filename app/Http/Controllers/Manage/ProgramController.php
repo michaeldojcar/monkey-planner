@@ -89,9 +89,21 @@ class ProgramController extends Controller
 
     public function storeCalendar(Request $request)
     {
-        $request->input('');
+        $events = $request->input('events');
 
-//        foreach ();
+        foreach ($events as $event_record)
+        {
+            $event = Event::find($event_record['id']);
+
+            if ($event)
+            {
+                $event->from = Carbon::parse($event_record['start'] / 1000);
+                $event->to   = Carbon::parse($event_record['end'] / 1000);
+                $event->save();
+            }
+        }
+
+        return 'Successfully updated.';
     }
 
 

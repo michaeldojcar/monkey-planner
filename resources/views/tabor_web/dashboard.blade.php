@@ -99,7 +99,8 @@
                         @foreach($my_events as $event)
                             <tr>
                                 <td>{{$event->getDayNumber()}}. DEN</td>
-                                <td><a href="{{route('organize.events.show', [$group, $event])}}">{{$event->name}}</a>
+                                <td>
+                                    <a href="{{route('organize.events.show', [$main_event, $event])}}">{{$event->name}}</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -121,11 +122,11 @@
                         @foreach($my_roles as $role)
                             <tr>
                                 <td>
-                                    <a href="{{route('organize.events.show', [$group, $role->events->where('id','!=',$main_event->id)->first()])}}">{{$role->name}}</a>
+                                    <a href="{{route('organize.events.show', ['event'=>$main_event, $role->events->where('id','!=',$main_event->id)->first()])}}">{{$role->name}}</a>
                                 </td>
                                 <td>
                                     <a style="color: black;"
-                                       href="{{route('organize.events.show',[$group, $role->events->where('id','!=',$main_event->id)->first()])}}">{{ucfirst($role->events->where('id','!=',$main_event->id)->first()->name)}}</a>
+                                       href="{{route('organize.events.show',[$main_event, $role->events->where('id','!=',$main_event->id)->first()])}}">{{ucfirst($role->events->where('id','!=',$main_event->id)->first()->name)}}</a>
                                 </td>
                             </tr>
                         @endforeach
