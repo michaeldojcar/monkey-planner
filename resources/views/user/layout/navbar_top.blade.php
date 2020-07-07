@@ -1,7 +1,7 @@
 <a class="navbar-brand"
    href="">
-    <img width="20"
-         src="{{asset('favicon-16x16.png')}}"> Monkey planner</a>
+    <img width="30"
+         src="{{asset('img/logo_monkey_planner_88px.png')}}"> Monkey planner</a>
 
 <button class="navbar-toggler"
         type="button"
