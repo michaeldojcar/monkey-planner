@@ -22,7 +22,7 @@ class PrintableProgramController extends Controller
 
     public function master(Event $event)
     {
-        $plan_controller = new EventPlanController();
+        $plan_controller = new ProgramController();
         $days            = $plan_controller->getEventsArray($event);
 
         return view('tabor_web.print.master', [
@@ -36,7 +36,7 @@ class PrintableProgramController extends Controller
 
     public function masterForUser(Group $group, User $user)
     {
-        $plan_controller = new EventPlanController();
+        $plan_controller = new ProgramController();
         $days            = $plan_controller->getEventsArray($group->mainEvent);
 
         return view('tabor_web.print.master', [
@@ -49,7 +49,7 @@ class PrintableProgramController extends Controller
 
     public function dailyForUser(Group $group, $day, User $user)
     {
-        $plan_controller = new EventPlanController();
+        $plan_controller = new ProgramController();
         $events          = $plan_controller->getEventsFromDay($group->mainEvent, $day);
 
         $all_my_today_tasks = $this->getUserDayTasks($group, $day, $user);
@@ -71,7 +71,7 @@ class PrintableProgramController extends Controller
 
     public function dailyPoster(Event $event, $day)
     {
-        $plan_controller = new EventPlanController();
+        $plan_controller = new ProgramController();
         $events          = $plan_controller->getEventsFromDay($event, $day);
 
         return view('tabor_web.print.daily_poster', [
@@ -106,7 +106,7 @@ class PrintableProgramController extends Controller
      */
     public function getUserDayTasks(Group $group, int $day, User $user)
     {
-        $plan_controller = new EventPlanController();
+        $plan_controller = new ProgramController();
 
         $selected_date = $plan_controller->getDateFromRelativeDay($group->mainEvent, $day)->startOfDay();
 

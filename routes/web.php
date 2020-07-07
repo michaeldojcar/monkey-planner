@@ -58,14 +58,16 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
     Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('blocks');
 
     // Program
-    Route::get('/event/{event}/program', 'Manage\EventPlanController@program')->name('program');
-    Route::post('/event/{event}/program', 'Manage\EventPlanController@store')->name('program');
+    Route::get('/event/{event}/program', 'Manage\ProgramController@program')->name('program');
+
+
 
     // Sub-events
-    Route::get('/events/{event}/sub-event/{sub_event}', 'Manage\EventPlanController@show')->name('events.show');
-    Route::get('/event/{event}/sub-event/{sub_event}/edit', 'Manage\EventPlanController@edit')->name('events.edit');
-    Route::post('/sub-event/{sub_event}/edit', 'Manage\EventPlanController@update')->name('events.update');
-    Route::get('/sub-event/{sub_event}/delete', 'Manage\EventPlanController@delete')->name('events.delete');
+    Route::post('/event/{event}/sub-event', 'Manage\EventController@store')->name('program');
+    Route::get('/events/{event}/sub-event/{sub_event}', 'Manage\EventController@show')->name('events.show');
+    Route::get('/event/{event}/sub-event/{sub_event}/edit', 'Manage\EventController@edit')->name('events.edit');
+    Route::post('/sub-event/{sub_event}/edit', 'Manage\EventController@update')->name('events.update');
+    Route::get('/sub-event/{sub_event}/delete', 'Manage\EventController@delete')->name('events.delete');
 
     Route::post('/event/{event}/storeRole', 'Manage\EventController@storeRole')->name('event.storeRole');
 
@@ -107,10 +109,10 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
 
     // Event blocks
     Route::post('/event/{event}/sub-event/{sub_event}/block',
-        'Manage\EventPlanController@storeBlock')->name('blocks.store');
-    Route::get('/event/{event}/sekce/{block}/edit', 'Manage\EventPlanController@editBlock')->name('blocks.edit');
-    Route::post('/event/{event}/sekce/{block}/update', 'Manage\EventPlanController@updateBlock')->name('blocks.update');
-    Route::get('/event/{event}/sekce/{block}/delete', 'Manage\EventPlanController@deleteBlock')->name('blocks.delete');
+        'Manage\ProgramController@storeBlock')->name('blocks.store');
+    Route::get('/event/{event}/sekce/{block}/edit', 'Manage\ProgramController@editBlock')->name('blocks.edit');
+    Route::post('/event/{event}/sekce/{block}/update', 'Manage\ProgramController@updateBlock')->name('blocks.update');
+    Route::get('/event/{event}/sekce/{block}/delete', 'Manage\ProgramController@deleteBlock')->name('blocks.delete');
 
     // Info blocks
     Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('blocks');
