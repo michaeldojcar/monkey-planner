@@ -1,6 +1,6 @@
 @extends('layouts.fullscreen')
 
-@section('title', 'Administrace')
+@section('title', 'Administrace - Monkey planner')
 
 @push('css')
     <link rel="stylesheet" type="text/css"
@@ -26,15 +26,15 @@
     @endcomponent
 
     @component('layouts.menu-item')
-        Skupiny
+       Týmy
         @slot('href', route('admin.groups.index'))
         @slot('active_url', 'admin/groups')
     @endcomponent
 
-    @component('layouts.menu-item')
-        Události
-        @slot('active_url', 'admin/events')
-    @endcomponent
+{{--    @component('layouts.menu-item')--}}
+{{--        Události--}}
+{{--        @slot('active_url', 'admin/events')--}}
+{{--    @endcomponent--}}
 @endsection
 
 {{-- Scripts --}}

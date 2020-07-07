@@ -1,5 +1,5 @@
 <a class="navbar-brand"
-   href="{{route('admin.dashboard')}}">Administrace</a>
+   href="{{route('admin.dashboard')}}">Administrace - Monkey planner</a>
 <button class="navbar-toggler"
         type="button"
         data-toggle="collapse"

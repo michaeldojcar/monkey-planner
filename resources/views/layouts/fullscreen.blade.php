@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{asset('favicon.ico')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon-16x16.png')}}">
 
     <title>
         @yield('title')
@@ -23,15 +23,6 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link href="{{ asset('css/ui_fullscreen.css') }}" rel="stylesheet">
-
-    {{-- Favicon --}}
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('img/tabor_web/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('img/tabor_web/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('img/tabor_web/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{asset('img/tabor_web/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{asset('img/tabor_web/safari-pinned-tab.svg')}}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
 
     {{-- Javascript --}}
     <script src="{{ asset('js/app.js') }}" defer></script>

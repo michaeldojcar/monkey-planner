@@ -1,7 +1,7 @@
 <a class="navbar-brand"
    href="">
     <img width="20"
-         src="{{asset('img/tabor_web/favicon-32x32.png')}}"> Plánovač akcí</a>
+         src="{{asset('favicon-16x16.png')}}"> Monkey planner</a>
 
 <button class="navbar-toggler"
         type="button"

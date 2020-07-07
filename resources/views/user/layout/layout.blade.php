@@ -1,7 +1,7 @@
 @extends('layouts.fullscreen')
 
 
-@section('title', 'Plánovač akcí')
+@section('title', 'Monkey planner')
 
 
 @push('css')
