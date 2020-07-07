@@ -38,6 +38,14 @@
     <script src="{{ asset('js/app.js') }}"
             defer></script>
 
+    <style>
+        body {
+            margin-top: 0;
+
+            height: 100vh;
+        }
+    </style>
+
     @stack('css')
 </head>
 
@@ -62,6 +70,25 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+
+{{--    <script src="https://www.vantajs.com/dist/three.r95.min.js"></script>--}}
+<script src="{{asset('js/libs/vanta.js')}}"></script>
+
+<script>
+    VANTA.NET({
+        el: "body",
+        mouseControls: true,
+        touchControls: true,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xcfcece,
+        backgroundColor: 0xfbf8ff,
+        points: 17.00
+    })
+</script>
 
 @stack('scripts')
 </body>
