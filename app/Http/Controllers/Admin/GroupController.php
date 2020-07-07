@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -39,29 +40,37 @@ class GroupController extends Controller
      *
      * @param  Request  $request
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $group       = new Group();
+        $group->name = $request->input('name');
+        $group->save();
+
+        return redirect()->route('admin.groups.show', $group);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function show($id)
     {
-        //
+        $group = Group::findOrFail($id);
+
+        return view('admin.groups.show', [
+            'group' => $group
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      *
      * @return Response
      */
@@ -74,7 +83,7 @@ class GroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  int                      $id
+     * @param  int  $id
      *
      * @return Response
      */
@@ -86,7 +95,7 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      *
      * @return Response
      */
