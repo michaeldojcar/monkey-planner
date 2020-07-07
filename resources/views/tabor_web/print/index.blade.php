@@ -10,7 +10,7 @@
 
     <h2>Denní plán</h2>
 
-    @for($i = 0; $i <= $group->mainEvent->getAllDaysCount(); $i++)
+    @for($i = 0; $i <= $main_event->getAllDaysCount(); $i++)
         <a class="btn btn-warning"
            href="{{ route("organize.program.print.daily.mass", [$group, $i]) }}">{{$i}}. den</a>
     @endfor
@@ -19,7 +19,7 @@
 
     <h2>Plakát s harmonogramem</h2>
 
-    @for($i = 0; $i <= $group->mainEvent->getAllDaysCount(); $i++)
+    @for($i = 0; $i <= $main_event->getAllDaysCount(); $i++)
         <a class="btn btn-primary"
            href="{{ route("organize.program.print.daily.poster", [$group, $i]) }}">{{$i}}. den</a>
     @endfor

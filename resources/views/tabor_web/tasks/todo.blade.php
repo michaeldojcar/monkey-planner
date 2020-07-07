@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">Co je potřeba?</h1>
+        <h3>Co je potřeba?</h3>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a class="btn btn-primary mr-2"
                href="{{route('organize.tasks.index', $group)}}">Všechny úkoly</a>
@@ -95,7 +95,7 @@
                             <a href="{{route('organize.tasks.show', [$group,$task])}}">{{ucfirst($task->name)}}</a>
                         </div>
                     @empty
-                        <div class="alert alert-success">Všechny úkoly jsou vyřešené.</div>
+                        <div class="alert alert-success">Všechny úkoly jsou rozdané mezi členy týmu.</div>
                     @endforelse
                 </div>
             </div>
@@ -115,7 +115,7 @@
                             <a href="{{route('organize.tasks.show', [$group,$task])}}">{{ucfirst($task->name)}}</a>
                         </div>
                     @empty
-                        <div class="alert alert-success">Všechny věci jsou zapsané.</div>
+                        <div class="alert alert-success">Všechny věci, které je potřeba zajistit, jsou rozdané.</div>
                     @endforelse
                 </div>
             </div>

@@ -3,14 +3,14 @@
 @section('content')
     <style>
         .h1-input {
-            border:           none;
+            border: none;
             background-color: transparent;
-            outline:          none;
-            font-weight:      500;
-            line-height:      1.2;
-            font-size:        2rem;
+            outline: none;
+            font-weight: 500;
+            line-height: 1.2;
+            font-size: 2rem;
 
-            width:            100%;
+            width: 100%;
         }
 
 
@@ -26,21 +26,21 @@
 
         .card-header {
             background-color: #343940;
-            color:            #e9e9e9;
-            font-weight:      bold;
+            color: #e9e9e9;
+            font-weight: bold;
         }
 
 
         .card-header-green {
-            background:  #28a745;
+            background: #28a745;
             font-weight: bold;
-            color:       white;
-            padding:     11px;
+            color: white;
+            padding: 11px;
         }
     </style>
 
     <form method="POST"
-          action="{{route('organize.task', [$group, $task])}}">
+          action="{{route('organize.tasks.update', [$main_event, $task])}}">
         @csrf
 
         <div class="flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
@@ -59,7 +59,7 @@
         </div>
 
         @if($task->type == 0)
-            <h5>Info k úkolu</h5>
+            <h5>Poznámky k úkolu</h5>
         @elseif($task->type == 1)
             <h5>Stručný popis role</h5>
         @elseif($task->type == 2)
@@ -104,9 +104,9 @@
                             <label>Typ úkolu</label>
                             <select class="form-control mb-3"
                                     name="type">
-                                <option value="0" {{$task->type == 0 ? 'selected' : 0}}>Klasický úkol</option>
+                                <option value="0" {{$task->type == 0 ? 'selected' : 0}}>Úkol</option>
                                 <option value="1" {{$task->type == 1 ? 'selected' : 0}}>Role v programu</option>
-                                <option value="2" {{$task->type == 2 ? 'selected' : 0}}>Požadavek na věc/rekvizitu
+                                <option value="2" {{$task->type == 2 ? 'selected' : 0}}>Požadavek na věc
                                 </option>
                             </select>
                         </div>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-7">
                                 <a class="btn btn-outline-danger"
-                                   href="{{ route('organize.task.delete', [$group, $task]) }}"
+                                   href="{{ route('organize.tasks.delete', [$task]) }}"
                                    onclick=" return confirm('Úkol bude ODSTRANĚN i s obsahem, jste si jisti?')"
                                    style="width: 100%;">Odstranit úkol</a>
                             </div>

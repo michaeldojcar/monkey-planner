@@ -17,13 +17,7 @@
     <p style="font-size: 11px">Vytištěno: {{\Carbon\Carbon::now()->format('j.n. Y ')}}
         v {{\Carbon\Carbon::now()->format('H:i')}}</p>
 
-    <h2>Předpověď počasí</h2>
-
-    <a href="http://www.slunecno.cz/mista/lostice-511"><img src="http://www.slunecno.cz/pocasi-na-web.php?n&amp;obr=7&amp;m=511&amp;d=8&amp;p1=FFFFFF&amp;t1=000000"
-                                                            alt="Počasí Loštice - Slunečno.cz"
-                                                            style="border: 0px; width: 80%"/></a>
-
-    <h2>Harmonogram dneška (podle večerní porady)</h2>
+    <h2>Harmonogram dneška</h2>
 
 
     <table>

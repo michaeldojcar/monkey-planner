@@ -262,7 +262,7 @@ class EventPlanController extends Controller
         ]);
     }
 
-    private function createBlock($event, $title, $content = "")
+    private function createBlock(Event $event, $title, $content = "")
     {
         $block           = new Block();
         $block->event_id = $event->id;
@@ -291,14 +291,14 @@ class EventPlanController extends Controller
         ]);
     }
 
-    public function updateBlock(Group $group, Block $block, Request $request)
+    public function updateBlock(Event $event, Block $block, Request $request)
     {
         $block->fill($request->all());
         $block->save();
 
         if (isset($block->event_id))
         {
-            return redirect()->route("organize.event", [$group, $block->event]);
+            return redirect()->route("organize.events.show", [$event, $block->event]);
         }
         else
         {

@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Event;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Task;
 use App\User;
-use Carbon\Carbon;
-use function foo\func;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use PHPUnit\Util\RegularExpressionTest;
+
 
 class PrintableProgramController extends Controller
 {
-    public function index(Group $group)
+    public function index(Event $event)
     {
-        return view('tabor_web.print.index')->withGroup($group);
+        return view('tabor_web.print.index', [
+            'group'      => $event->owner_group,
+            'main_event' => $event
+        ]);
     }
 
-    public function master(Group $group)
+    public function master(Event $event)
     {
         $plan_controller = new EventPlanController();
-        $days            = $plan_controller->getEventsArray($group->mainEvent);
+        $days            = $plan_controller->getEventsArray($event);
 
         return view('tabor_web.print.master', [
-            'group'         => $group,
-            'non_scheduled' => $group->mainEvent->events()->where('is_scheduled', false)->get(),
+            'main_event' => $event,
+
+            'group'         => $event->owner_group,
+            'non_scheduled' => $event->events()->where('is_scheduled', false)->get(),
             'days'          => $days,
         ]);
     }
@@ -66,13 +69,13 @@ class PrintableProgramController extends Controller
         ]);
     }
 
-    public function dailyPoster(Group $group, $day)
+    public function dailyPoster(Event $event, $day)
     {
         $plan_controller = new EventPlanController();
-        $events          = $plan_controller->getEventsFromDay($group->mainEvent, $day);
+        $events          = $plan_controller->getEventsFromDay($event, $day);
 
         return view('tabor_web.print.daily_poster', [
-            'group'  => $group,
+            'group'  => $event->owner_group,
 //            'days' => $days,
             'day'    => $day,
             'events' => $events,
@@ -95,9 +98,9 @@ class PrintableProgramController extends Controller
     }
 
     /**
-     * @param Group $group
-     * @param int   $day
-     * @param User  $user
+     * @param  Group  $group
+     * @param  int  $day
+     * @param  User  $user
      *
      * @return Task[]|Collection
      */

@@ -14,7 +14,7 @@
         }
     </style>
 
-    <form action="{{ route('organize.events.update', [$main_event, $block]) }}"
+    <form action="{{ route('organize.blocks.update', [$main_event, $block]) }}"
           method="POST">
         @csrf
         <div class="border-bottom"

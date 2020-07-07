@@ -2,9 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <a href=""
-           class="btn btn-success float-right">Vytvořit akci</a>
-
         <h4 class="mb-4">Moje týmy</h4>
 
         <table class="table">

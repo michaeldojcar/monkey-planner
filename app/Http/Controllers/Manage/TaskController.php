@@ -24,10 +24,11 @@ class TaskController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Group $group)
+    public function index(Event $event)
     {
         return view('tabor_web.tasks.index', [
-            'group' => $group,
+            'main_event' => $event,
+            'group'      => $event->owner_group,
         ]);
     }
 
@@ -111,26 +112,28 @@ class TaskController extends Controller
         return $task->status;
     }
 
-    public function edit(Group $group, Task $task)
+    public function edit(Event $event, Task $task)
     {
         Session::flash('url', \request()->server('HTTP_REFERER'));
 
         return view('tabor_web.tasks.edit', [
-            'task'  => $task,
-            'group' => $group,
+            'main_event' => $event,
 
-            'users'          => $group->users,
+            'task'  => $task,
+            'group' => $event->owner_group,
+
+            'users'          => $event->owner_group->users,
             'users_selected' => $task->users,
 
-            'groups'          => $group->childGroups()->get()->push(Group::first()),
+            'groups'          => $event->owner_group->childGroups()->get()->push(Group::first()),
             'groups_selected' => $task->groups,
 
-            'events'          => $group->mainEvent->events,
+            'events'          => $event->events,
             'events_selected' => $task->events,
         ]);
     }
 
-    public function update(Group $group, Task $task, Request $request)
+    public function update(Event $event, Task $task, Request $request)
     {
         $task->name           = $request['name'];
         $task->content        = $request['content'];
@@ -148,7 +151,7 @@ class TaskController extends Controller
 
         $task->save();
 
-        return Redirect::to(Session::get('url'));
+        return redirect()->route('organize.tasks.show', [$event, $task]);
     }
 
     /**
@@ -158,7 +161,7 @@ class TaskController extends Controller
      * @return RedirectResponse
      * @throws Exception
      */
-    public function delete(Group $group, Task $task)
+    public function delete(Task $task)
     {
         $task->delete();
 

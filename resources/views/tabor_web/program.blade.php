@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{$main_event->name}}</h1>
+        <h3>{{$main_event->name}} - program</h3>
         <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{route('organize.program.print.index', [$group])}}"
                class="btn btn-sm btn-primary mr-2"><i class="fas fa-print"></i> Verze pro tisk</a>

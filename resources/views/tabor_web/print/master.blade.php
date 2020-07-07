@@ -12,8 +12,8 @@
         <div id="content-wrapper"
              style="width: 100%">
             <div>
-                <h1 style="font-size: 55px">{{$group->mainEvent->name}}</h1>
-                <p>{{$group->mainEvent->from->format('j.n.')}} - {{$group->mainEvent->to->format('j.n. Y')}}</p>
+                <h1 style="font-size: 55px">{{$main_event->name}}</h1>
+                <p>{{$main_event->from->format('j.n.')}} - {{$main_event->to->format('j.n. Y')}}</p>
             </div>
 
             <div class="text-left">
@@ -29,7 +29,7 @@
     <div style="text-align: center"
          class="mt-5 mb-5">
         <h1 style="margin-bottom: 5px">Program tábora</h1>
-        <p>{{$group->mainEvent->from->format('j.n.')}} - {{$group->mainEvent->to->format('j.n. Y')}}</p>
+        <p>{{$main_event->from->format('j.n.')}} - {{$main_event->to->format('j.n. Y')}}</p>
     </div>
 
 
@@ -41,7 +41,7 @@
 
     <div class="mb-5"
          style="font-family: Arial,serif !important;">
-        {!! $group->mainEvent->content !!}
+        {!! $main_event->content !!}
     </div>
 
     @foreach($non_scheduled as $sub_event)
@@ -53,7 +53,7 @@
 
     @foreach($days as $key => $day)
         <div class="date-header">{{$key}}.
-            DEN @switch($group->mainEvent->countDateFromThisEventsDayNumber($key)->dayOfWeek)
+            DEN @switch($main_event->countDateFromThisEventsDayNumber($key)->dayOfWeek)
                 @case(0)
                 <span>(NE)</span>
                 @break

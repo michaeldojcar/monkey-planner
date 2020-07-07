@@ -40,8 +40,11 @@
     </style>
 
     <form method="POST"
-          action="{{route('organize.tasks.store', [$main_event, $task])}}">
+          action="">
         @csrf
+
+        <a href="{{route('organize.tasks.edit', [$main_event, $task])}}"
+           class="btn btn-primary float-right">Upravit</a>
 
         <div class="flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             @if($task->type == 0)
@@ -87,11 +90,13 @@
                                    value="{{$task->required_count}}">
                         @endif
 
-                        <span>Patří k programu:</span>
-
-                        @if($task->events->count() > 1)
-                            v rámci programu:
-                        @endif
+                        <table class="table">
+                            @foreach($task->events as $event)
+                                <tr>
+                                    <td><a href="{{route('organize.events.show', [$main_event, $event])}}">{{$event->name}}</a></td>
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
 
