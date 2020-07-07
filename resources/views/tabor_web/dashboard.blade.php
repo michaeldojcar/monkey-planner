@@ -7,7 +7,7 @@
         <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{route('user.events.index')}}"
                class="btn btn-sm btn-outline-secondary">
-                Zpět na nástěnku
+                Zpět do plánovače
             </a>
         </div>
     </div>

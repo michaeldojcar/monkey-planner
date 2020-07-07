@@ -1,7 +1,7 @@
 @extends('layouts.fullscreen')
 
 
-@section('title', ucfirst($group ?? ''->name) . ' - ' . $main_event->name)
+@section('title', ucfirst($group->name) . ' - ' . $main_event->name)
 
 
 @push('css')

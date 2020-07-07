@@ -129,20 +129,20 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
 /**
  * Admin.
  */
-Route::group(['prefix' => 'admin', 'as' => 'admin'], function ()
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function ()
 {
-    Route::get('/', 'Admin\AdminController@dashboard')->name('admin.dashboard');
+    Route::get('/', 'Admin\AdminController@dashboard')->name('dashboard');
 
     // Users
-    Route::resource('users', 'Admin\UserController', ['as' => 'admin']);
-    Route::get('/users/{user}/groups', 'Admin\UserGroupController@edit')->name('admin.users.groups');
-    Route::patch('/users/{user}/groups', 'Admin\UserGroupController@update')->name('admin.users.groups.update');
+    Route::resource('users', 'Admin\UserController');
+    Route::get('/users/{user}/groups', 'Admin\UserGroupController@edit')->name('users.groups');
+    Route::patch('/users/{user}/groups', 'Admin\UserGroupController@update')->name('users.groups.update');
 
     // TODO: Group (bread)
-    Route::resource('groups', 'Admin\GroupController', ['as' => 'admin']);
+    Route::resource('groups', 'Admin\GroupController');
 
     // TODO: Event (bread)
-    Route::resource('events', 'Admin\EventController', ['as' => 'admin']);
+    Route::resource('events', 'Admin\EventController');
 });
 
 /**
