@@ -32,7 +32,7 @@ class EventPlanController extends Controller
     {
         $group = $event->owner_group;
 
-        return view('tabor_web.program', [
+        return view('tabor_web.program.program', [
             'main_event' => $event,
             'group'      => $group,
 
