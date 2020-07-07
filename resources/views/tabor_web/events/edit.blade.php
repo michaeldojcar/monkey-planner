@@ -178,6 +178,7 @@
                             </div>
                         @endif
 
+
                         <div class="form-group row">
                             <label for="select2"
                                    class="col-4 col-form-label">Místo</label>
@@ -189,6 +190,33 @@
                                        class="form-control">
                             </div>
                         </div>
+
+                        @if($event->isMainEvent())
+                            <div class="form-group row">
+                                <label for="select2"
+                                       class="col-4 col-form-label">Od</label>
+                                <div class="col-8">
+                                    <input id="time_from"
+                                           name="date_from"
+                                           value="{{$event->from->format('Y-m-d')}}"
+                                           type="date"
+                                           class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="select2"
+                                       class="col-4 col-form-label">Do</label>
+                                <div class="col-8">
+                                    <input id="time_to"
+                                           name="date_to"
+                                           value="{{$event->to->format('Y-m-d')}}"
+                                           type="date"
+                                           class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -220,33 +248,35 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-header">Zodpovědné osoby</div>
-                    <div class="card-body">
+                @if(!$event->isMainEvent())
+                    <div class="card">
+                        <div class="card-header">Zodpovědné osoby</div>
+                        <div class="card-body">
 
-                        <div class="form-group">
-                            <label>Autoři</label>
-                            <input name="author_users"
-                                   id="authors_magic"
-                                   class="form-control">
+                            <div class="form-group">
+                                <label>Autoři</label>
+                                <input name="author_users"
+                                       id="authors_magic"
+                                       class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Skupiny</label>
+                                <input name="author_groups"
+                                       id="author_groups_magic"
+                                       class="form-control mb-3">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Garant na táboře</label>
+                                <input name="garant_users"
+                                       id="garants_magic"
+                                       class="form-control mb-3">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Skupiny</label>
-                            <input name="author_groups"
-                                   id="author_groups_magic"
-                                   class="form-control mb-3">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Garant na táboře</label>
-                            <input name="garant_users"
-                                   id="garants_magic"
-                                   class="form-control mb-3">
-                        </div>
                     </div>
-
-                </div>
+                @endif
 
                 <div class="card">
                     <div class="card-header">Možnosti události</div>

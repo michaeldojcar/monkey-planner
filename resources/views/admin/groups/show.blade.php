@@ -16,6 +16,7 @@
                         @forelse($group->users as $user)
                             <tr>
                                 <td>{{$user->getWholeName()}}</td>
+                                <td>{{$user->pivot->role}}</td>
                             </tr>
                         @empty
                             <tr>

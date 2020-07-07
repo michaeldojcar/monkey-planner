@@ -151,10 +151,10 @@
 
     @include('tabor_web.program.components.summary')
 
-    <div class="mb-3 mt-5">
-        <h4>Podrobný program</h4>
-    </div>
-    @include('tabor_web.program.components.events')
+{{--    <div class="mb-3 mt-5">--}}
+{{--        <h4>Podrobný program</h4>--}}
+{{--    </div>--}}
+{{--    @include('tabor_web.program.components.events')--}}
 
 
     {{-- Modal --}}

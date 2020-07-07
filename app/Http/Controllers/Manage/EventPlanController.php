@@ -201,6 +201,8 @@ class EventPlanController extends Controller
         }
         else
         {
+            $event->from = Carbon::parse($request['date_from']);
+            $event->to = Carbon::parse($request['date_to']);
             $event->content = $request['content'];
             $event->notice  = $request['notice'];
         }
