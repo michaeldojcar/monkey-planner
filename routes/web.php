@@ -113,7 +113,6 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
     Route::get('/event/{event}/sekce/{block}/delete', 'Manage\EventPlanController@deleteBlock')->name('blocks.delete');
 
     // Info blocks
-    // TODO:
     Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('blocks');
 
     // Members

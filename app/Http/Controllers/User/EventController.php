@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Event;
 use App\Http\Controllers\Controller;
 use App\Repositories\EventRepository;
+use App\Repositories\GroupRepository;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -33,7 +36,8 @@ class EventController extends Controller
         $this->updateCounter();
 
         return view('user.events.index', [
-            'events' => $this->eventRepository->getUserMotherEvents(Auth::user()),
+            'upcoming_events' => $this->eventRepository->getUserUpcomingMotherEvents(Auth::user()),
+            'previous_events' => $this->eventRepository->getUserPreviousMotherEvents(Auth::user()),
 
             'online' => User::where('updated_at', '>', Carbon::now()->subMinutes(5))->get(),
 
@@ -41,7 +45,30 @@ class EventController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(GroupRepository $group_repository)
+    {
+        return view('user.events.create', [
+            'groups' => $group_repository->motherGroupsForUser(Auth::user())->get()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $event                 = new Event();
+        $event->name           = $request->input('name');
+        $event->type           = 0;
+        $event->owner_group_id = $request->input('owner_group_id');
+        $event->short          = '';
+        $event->content        = '';
+        $event->from           = Carbon::now();
+        $event->to             = Carbon::now();
+
+        $event->save();
+
+        return redirect()->route('organize.dashboard', $event);
+    }
+
+    public function show()
     {
 
     }
@@ -54,6 +81,5 @@ class EventController extends Controller
         $user             = Auth::user();
         $user->updated_at = Carbon::now('europe/prague');
         $user->save();
-
     }
 }
