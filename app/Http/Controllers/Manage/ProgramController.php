@@ -97,8 +97,8 @@ class ProgramController extends Controller
 
             if ($event)
             {
-                $event->from = Carbon::parse($event_record['start'] / 1000);
-                $event->to   = Carbon::parse($event_record['end'] / 1000);
+                $event->from = Carbon::parse($event_record['start'] / 1000)->addHours(2);
+                $event->to   = Carbon::parse($event_record['end'] / 1000)->addHours(2);
                 $event->save();
             }
         }
