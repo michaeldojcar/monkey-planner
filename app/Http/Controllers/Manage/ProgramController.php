@@ -37,6 +37,28 @@ class ProgramController extends Controller
         ]);
     }
 
+    /**
+     * Show event calendar view.
+     *
+     * @param  Event  $event
+     *
+     * @return Factory|View Array of collection for every day.
+     */
+    public function calendar(Event $event)
+    {
+        $group = $event->owner_group;
+
+        return view('tabor_web.program.calendar', [
+            'main_event' => $event,
+            'group'      => $group,
+
+            'days'       => $this->getEventsArray($event), // Days with events
+            'days_count' => $this->getAllDaysCount($event), // Only count
+
+            'non_scheduled' => $event->events()->where('is_scheduled', false)->orderBy('name')->get(),
+        ]);
+    }
+
 
     /**
      * Return carbon date from relative day.

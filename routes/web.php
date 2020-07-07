@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
 
     // Program
     Route::get('/event/{event}/program', 'Manage\ProgramController@program')->name('program');
+    Route::get('/event/{event}/calendar', 'Manage\ProgramController@calendar')->name('program.calendar');
 
 
 
