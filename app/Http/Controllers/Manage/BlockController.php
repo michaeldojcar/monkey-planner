@@ -31,7 +31,7 @@ class BlockController extends Controller
 
 
 
-    private function createBlock(Event $event, $title, $content = "")
+    public function createBlock(Event $event, $title, $content = "")
     {
         $block           = new Block();
         $block->event_id = $event->id;

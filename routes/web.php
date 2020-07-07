@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
 
 
     // Sub-events
-    Route::post('/event/{event}/sub-event', 'Manage\EventController@store')->name('program');
+    Route::post('/event/{event}/sub-event', 'Manage\EventController@store')->name('events.store');
     Route::get('/events/{event}/sub-event/{sub_event}', 'Manage\EventController@show')->name('events.show');
     Route::get('/event/{event}/sub-event/{sub_event}/edit', 'Manage\EventController@edit')->name('events.edit');
     Route::post('/sub-event/{sub_event}/edit', 'Manage\EventController@update')->name('events.update');
@@ -109,10 +109,10 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
 
     // Event blocks
     Route::post('/event/{event}/sub-event/{sub_event}/block',
-        'Manage\ProgramController@storeBlock')->name('blocks.store');
-    Route::get('/event/{event}/sekce/{block}/edit', 'Manage\ProgramController@editBlock')->name('blocks.edit');
-    Route::post('/event/{event}/sekce/{block}/update', 'Manage\ProgramController@updateBlock')->name('blocks.update');
-    Route::get('/event/{event}/sekce/{block}/delete', 'Manage\ProgramController@deleteBlock')->name('blocks.delete');
+        'Manage\BlockController@storeBlock')->name('blocks.store');
+    Route::get('/event/{event}/sekce/{block}/edit', 'Manage\BlockController@editBlock')->name('blocks.edit');
+    Route::post('/event/{event}/sekce/{block}/update', 'Manage\BlockController@updateBlock')->name('blocks.update');
+    Route::get('/event/{event}/sekce/{block}/delete', 'Manage\BlockController@deleteBlock')->name('blocks.delete');
 
     // Info blocks
     Route::get('/event/{event}/informace', 'Manage\BlockController@index')->name('blocks');

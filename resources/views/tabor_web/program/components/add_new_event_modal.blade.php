@@ -18,7 +18,7 @@
                 </button>
             </div>
             <form method="POST"
-                  action="{{route('organize.program', $main_event)}}">
+                  action="{{route('organize.events.store', $main_event)}}">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group row">

@@ -43,31 +43,33 @@ class EventController extends Controller
         $event->to   = Carbon::parse($event->from." + 1 hour");
         $event->save();
 
+        $bc = new BlockController();
+
         // Default info blocks.
         if ($event->type == 0) // Event
         {
-            $this->createBlock($event, "Obecné informace");
+            $bc->createBlock($event, "Obecné informace");
         }
         if ($event->type == 1) // Game
         {
-            $this->createBlock($event, "Motivace");
-            $this->createBlock($event, "Scénka");
-            $this->createBlock($event, "Stručný popis pravidel", 'Stručný popis pravidel - 3 věty max.');
-            $this->createBlock($event, "Pravidla hry");
-            $this->createBlock($event, "Hrají");
+            $bc->createBlock($event, "Motivace");
+            $bc->createBlock($event, "Scénka");
+            $bc->createBlock($event, "Stručný popis pravidel", 'Stručný popis pravidel - 3 věty max.');
+            $bc->createBlock($event, "Pravidla hry");
+            $bc->createBlock($event, "Hrají");
 
         }
         if ($event->type == 2) // Part of program
         {
-            $this->createBlock($event, "Obecné informace");
+            $bc->createBlock($event, "Obecné informace");
         }
         if ($event->type == 3) // Technical
         {
-            $this->createBlock($event, "Obecné informace");
+            $bc->createBlock($event, "Obecné informace");
         }
         if ($event->type == 4) // Event
         {
-            $this->createBlock($event, "Obecné informace");
+            $bc->createBlock($event, "Obecné informace");
         }
 
         return redirect()->back();
