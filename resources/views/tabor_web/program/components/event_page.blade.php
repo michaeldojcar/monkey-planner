@@ -19,11 +19,11 @@
            style="margin-bottom: 15px;">
         <tr class="table-header text-center">
             <td>
-                <h2 style="margin: 7px">
+                <h5 style="margin: 7px">
                     @if($event->is_scheduled)
                         {{$event->getTypeString()}}:
                     @endif
-                    {{$event->name}}</h2>
+                    {{$event->name}}</h5>
             </td>
         </tr>
         <tr>

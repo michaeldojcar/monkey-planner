@@ -1,7 +1,8 @@
 <div style="page-break-inside: avoid">
     @if($event->is_scheduled)
         <p style="font-size: 24px;">{{$event->from->format("H:i")}} - {{$event->to->format("H:i")}}
-            ({{ $event->to->diffInHours($event->from) ? $event->to->diffInHours($event->from) . ' h' : $event->to->diffInMinutes($event->from) . ' minut'}})</p>
+            ({{ $event->to->diffInHours($event->from) ? $event->to->diffInHours($event->from) . ' h' : $event->to->diffInMinutes($event->from) . ' minut'}}
+            )</p>
     @endif
 
 
@@ -59,7 +60,8 @@
                         @if(isset($task->content))
                             <table style="margin-bottom: 9px; page-break-inside: avoid; font-size: 18px !important">
                                 <tr>
-                                    <td style="background-color: #c9ffaf; color: black; font-size: 18px !important"><b>{{$task->name}}</b>
+                                    <td style="background-color: #c9ffaf; color: black; font-size: 18px !important">
+                                        <b>{{$task->name}}</b>
                                         - @include('tabor_web.components.event.role_garants')</td>
                                 </tr>
                                 <tr>
@@ -99,7 +101,8 @@
                             @foreach($event->itemTasks as $task)
                                 <table style="margin-bottom: 9px; page-break-inside: avoid; font-size: 18px !important">
                                     <tr>
-                                        <td style="background-color: #c9ffaf; color: black; font-size: 18px !important"><b>{{$task->name}}</b>
+                                        <td style="background-color: #c9ffaf; color: black; font-size: 18px !important">
+                                            <b>{{$task->name}}</b>
                                             - @include('tabor_web.components.task.garant_users')</td>
                                     </tr>
                                     @if(!empty($task->content))
