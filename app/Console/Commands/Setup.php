@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\User;
 use Illuminate\Console\Command;
 
 class Setup extends Command
@@ -37,6 +38,26 @@ class Setup extends Command
      */
     public function handle()
     {
-        //
+        if ($this->confirm('Do you want to add new admin user?'))
+        {
+            $email    = $this->ask('Enter email.');
+            $password = $this->secret('Enter new password.');
+
+            $user           = new User();
+            $user->name     = 'Administrator';
+            $user->surname  = 'Administrator';
+            $user->name_5   = 'Administrator';
+            $user->email    = $email;
+            $user->phone    = '734791909';
+            $user->is_admin = true;
+            $user->password = bcrypt($password);
+
+            $user->save();
+
+            $this->info("User was created. Email: $email");
+        }
+
+
+        $this->info('Setup has been successful.');
     }
 }
