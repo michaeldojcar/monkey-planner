@@ -140,7 +140,16 @@ $shadow-material: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
 
 .card {
     box-shadow: $shadow-material;
+
+
 }
+
+.table-header {
+    background-color: #525252;
+    color: white;
+    font-weight: bold;
+}
+
 
 .bg-green {
     background: #28a745;

@@ -3,28 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h3>{{$main_event->name}} - členové týmu</h3>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-
-            </div>
-        </div>
     </div>
-
-    <style>
-        .table-header {
-            background-color: #525252;
-            color: white;
-            font-weight: bold;
-        }
-
-
-        table a {
-            color: black;
-            text-decoration: none;
-        }
-    </style>
-
-
 
     <div class="table-responsive material-shadow">
         <table class="table table-bordered mb-0">

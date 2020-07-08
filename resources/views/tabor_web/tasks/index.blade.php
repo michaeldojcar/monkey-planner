@@ -14,14 +14,6 @@
         </div>
     </div>
 
-    <style>
-        .table-header {
-            background-color: #525252;
-            color: white;
-            font-weight: bold;
-        }
-    </style>
-
     <div class="table-responsive">
         <table class="table table-bordered"
                id="data-table">
