@@ -180,11 +180,11 @@ class ProgramController extends Controller
         }
         if ($event->type == 2)
         {
-            return '#00838f';
+            return '#f4511e';
         }
         if ($event->type == 3)
         {
-            return '#f9a825';
+            return '#9025f9';
         }
         if ($event->type == 4)
         {
