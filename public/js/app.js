@@ -1973,7 +1973,7 @@ __webpack_require__.r(__webpack_exports__);
     this.fetch();
     setInterval(function () {
       _this.fetch();
-    }, 60000);
+    }, 10000);
   },
   methods: {
     fetch: function fetch() {

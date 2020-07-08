@@ -64,7 +64,7 @@
 
             setInterval(() => {
                 this.fetch()
-            }, 60000);
+            }, 10000);
         },
 
         methods: {
