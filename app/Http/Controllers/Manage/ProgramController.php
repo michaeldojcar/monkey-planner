@@ -190,7 +190,7 @@ class ProgramController extends Controller
 
         $events = $main_event->events();
 
-        return $events->whereDate('from', '=', $date)->where('is_scheduled', true)->orderBy('from')->get();
+        $events =   $events->whereDate('from', '=', $date)->where('is_scheduled', true)->orderBy('from')->get();
     }
 
     public function getEventsArray(Event $main_event)
