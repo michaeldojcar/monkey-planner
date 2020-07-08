@@ -1950,6 +1950,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Program",
   components: {},
@@ -39891,7 +39894,10 @@ var render = function() {
                       "max-days": _vm.event.days,
                       events: _vm.events,
                       "event-color": _vm.getEventColor,
-                      "event-ripple": false,
+                      "event-ripple": true,
+                      "interval-height": 90,
+                      "first-time": "4:00",
+                      "interval-count": "20",
                       "interval-format": _vm.intervalFormat
                     },
                     on: {
