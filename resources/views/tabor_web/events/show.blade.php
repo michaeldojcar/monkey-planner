@@ -33,55 +33,11 @@
         </div>
     </div>
 
-    <style>
-        .card {
-            margin-bottom: 20px;
-            border-radius: 0;
-
-            border: 1px black solid;
-        }
-
-
-        .card-header, .card-body {
-            padding: 8px 12px;
-            border-radius: 0;
-        }
-
-
-        .card-header:first-child {
-            border-radius: 0;
-        }
-
-
-        .card-header {
-            background-color: #434343;
-            color: #e9e9e9;
-            font-weight: bold;
-        }
-
-
-        .td-title {
-            background-color: #434343;
-            font-weight: bold;
-            color: white;
-        }
-
-
-        .table, td, th, tr {
-            border: black 1px solid;
-        }
-
-
-        .table td {
-            border-top: black 1px solid;
-        }
-    </style>
-
     <div class="row">
         <div class="col-sm-8">
             <div class="row">
                 <div class="col-sm-6">
-                    <table class="table">
+                    <table class="table table-black">
                         <tr>
 
                             <td width="150"
@@ -135,7 +91,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <table class="table">
+                    <table class="table table-black">
                         <tr>
                             <td width="100"
                                 class="td-title">Autor <i class="fa fa-user"></i></td>
@@ -151,7 +107,7 @@
 
             {{--<textarea class="textarea-content"></textarea>--}}
             @foreach($event->blocks as $block)
-                <div class="card">
+                <div class="card card-block">
                     <div class="card-header"
                          data-toggle="collapse"
                          href="#block{{$block->id}}body">{{$block->title}}
@@ -233,7 +189,7 @@
                 </table>
             @endif
 
-            <div class="card">
+            <div class="card card-block">
                 <div class="card-header">Role
                     <a style="float: right"
                        data-toggle="modal"
@@ -251,7 +207,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="card">
+            <div class="card card-block">
                 <div class="card-header">Úkoly
                     <a style="float:right"><i class="fa fa-plus"
                                               data-target="#taskAssignModal"
@@ -282,7 +238,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card card-block">
                 <div class="card-header">Potřebné věci
                     <a style="float:right"><i class="fa fa-plus"
                                               data-target="#itemTaskAssignModal"

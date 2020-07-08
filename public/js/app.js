@@ -1958,7 +1958,7 @@ __webpack_require__.r(__webpack_exports__);
       value: '',
       event: {},
       events: [],
-      colors: ['#2196f3', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
+      colors: ['', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
       names: ['Houpačka', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
       dragEvent: null,
       dragStart: null,
@@ -6545,7 +6545,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".theme--light.v-calendar-events .v-event-timed {\n  -moz-user-select: none;\n   -ms-user-select: none;\n       user-select: none;\n  -webkit-user-select: none;\n  padding: 3px 10px !important;\n  border: none !important;\n}\n.v-event-draggable {\n  /*padding-left: 3px;*/\n  line-break: normal;\n}\n.v-event-drag-bottom {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 4px;\n  height: 4px;\n  cursor: ns-resize;\n}\n.v-event-drag-bottom::after {\n  display: none;\n  position: absolute;\n  left: 50%;\n  height: 7px;\n  border-top: 1px solid white;\n  border-bottom: 1px solid white;\n  width: 16px;\n  margin-left: -8px;\n  opacity: 0.8;\n  content: \"\";\n}\n.v-event-drag-bottom:hover::after {\n  display: block;\n}", ""]);
+exports.push([module.i, ".theme--light.v-calendar-events .v-event-timed {\n  -moz-user-select: none;\n   -ms-user-select: none;\n       user-select: none;\n  -webkit-user-select: none;\n  padding: 3px 3px !important;\n  border: none !important;\n  color: white;\n}\n.v-event-draggable {\n  /*padding-left: 3px;*/\n  line-break: normal;\n}\n.v-event-drag-bottom {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 4px;\n  height: 4px;\n  cursor: ns-resize;\n}\n.v-event-drag-bottom::after {\n  display: none;\n  position: absolute;\n  left: 50%;\n  height: 7px;\n  border-top: 1px solid white;\n  border-bottom: 1px solid white;\n  width: 16px;\n  margin-left: -8px;\n  opacity: 0.8;\n  content: \"\";\n}\n.v-event-drag-bottom:hover::after {\n  display: block;\n}", ""]);
 
 // exports
 

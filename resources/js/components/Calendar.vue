@@ -50,7 +50,7 @@
             value: '',
             event: {},
             events: [],
-            colors: ['#2196f3', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
+            colors: ['', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
             names: ['Houpačka', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
             dragEvent: null,
             dragStart: null,
@@ -210,9 +210,11 @@
         user-select: none;
         -webkit-user-select: none;
 
-        padding: 3px 10px !important;
+        padding: 3px 3px !important;
 
         border: none !important;
+
+        color: white;
     }
 
     .v-event-draggable {

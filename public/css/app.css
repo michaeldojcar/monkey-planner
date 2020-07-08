@@ -11173,3 +11173,42 @@ body {
   color: #444444;
 }
 
+.card-block {
+  margin-bottom: 20px;
+  border-radius: 0;
+  border: 1px black solid;
+}
+
+.card-block .card-header,
+.card-block .card-body {
+  padding: 8px 12px;
+  border-radius: 0;
+}
+
+.card-block .card-header:first-child {
+  border-radius: 0;
+}
+
+.card-block .card-header {
+  background-color: #434343;
+  color: #e9e9e9;
+  font-weight: bold;
+}
+
+.table-black .td-title {
+  background-color: #434343;
+  font-weight: bold;
+  color: white;
+}
+
+.table-black .table,
+.table-black td,
+.table-black th,
+.table-black tr {
+  border: black 1px solid;
+}
+
+.table-black td {
+  border-top: black 1px solid;
+}
+

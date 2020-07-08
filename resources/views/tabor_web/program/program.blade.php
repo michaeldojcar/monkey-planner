@@ -22,7 +22,7 @@
     <div class="row">
         @if($main_event->content)
             <div class="col-sm">
-                <div class="card">
+                <div class="card card-block">
                     <div class="card-header">
                         Základní informace
                     </div>
