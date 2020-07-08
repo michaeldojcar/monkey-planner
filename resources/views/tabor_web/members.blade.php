@@ -5,9 +5,7 @@
         <h3>{{$main_event->name}} - členové týmu</h3>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                {{--<button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">--}}
-                {{--<i class="fas fa-plus" style="color: #00891a"></i> Nový blok programu--}}
-                {{--</button>--}}
+
             </div>
         </div>
     </div>
