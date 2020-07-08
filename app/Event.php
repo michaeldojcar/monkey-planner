@@ -99,6 +99,10 @@ class Event extends Model
         return $this->belongsTo(Group::class, 'owner_group_id');
     }
 
+    public function event_times()
+    {
+        return $this->hasMany(EventTime::class);
+    }
 
     public function tasks()
     {
