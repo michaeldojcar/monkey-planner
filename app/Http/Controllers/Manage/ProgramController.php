@@ -193,7 +193,7 @@ class ProgramController extends Controller
 
         $events_for_day = $events->whereDate('from', '=', $date)
                                  ->where('is_scheduled', true)
-                                 ->where('has_multiple_times')
+                                 ->where('has_multiple_times', false)
                                  ->get();
 
         // Event times
