@@ -13,6 +13,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 Vue.component('calendar', require('./components/Calendar.vue').default);
 
 
+// Load Vue.js
 const app = new Vue({
     vuetify,
     el: '#app',

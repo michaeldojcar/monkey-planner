@@ -1,9 +1,257 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+/**
+Monkey planner CSS stylesheet.
+ */
+@import "~bootstrap/scss/bootstrap";
 
-// Variables
-@import 'variables';
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Vuetify
+@import '~vuetify/dist/vuetify.min.css';
+
+
+body {
+    font-family: "Segoe UI", serif;
+
+    font-size: .875rem;
+
+    margin-top: 68px;
+
+    @include media-breakpoint-down(sm) {
+        background-color: #efefef;
+    }
+}
+
+// Material design shadow (strong)
+$shadow-material: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+.row {
+    margin-bottom: 18px;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 53px;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 0;
+
+    box-shadow: $shadow-material;
+}
+
+.sidebar-sticky {
+    top: 48px; /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+.navbar {
+    z-index: 200;
+}
+
+.navbar-brand {
+    font-size: 1.00rem;
+}
+
+/*
+ * Utilities
+ */
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/**
+ Mobile responsivity
+ */
+@include media-breakpoint-down(sm) {
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+.mobile-full-width {
+    @include media-breakpoint-down(sm) {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.h2 {
+    @include media-breakpoint-down(sm) {
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+}
+
+/**
+ * Elements style
+ */
+
+
+.table {
+    background-color: white;
+}
+
+.card {
+    box-shadow: $shadow-material;
+}
+
+.bg-green {
+    background: #28a745;
+}
+
+.bg-blue {
+    background: #4b4ba7;
+}
+
+.bg-red {
+    background: #a74b4b;
+}
+
+.material-shadow {
+    box-shadow: $shadow-material;
+}
+
+
+.table-program {
+    border: 1px #0c0c0c solid;
+    color: #333;
+    background-color: #f8f9fa;
+
+    td {
+        border: 1px #0c0c0c solid;
+        padding: 9px;
+    }
+
+    .table-header {
+        background-color: #512da8;
+        color: white;
+        font-weight: bold;
+    }
+
+    .table-header-dark {
+        background-color: #282828;
+        color: white;
+        font-weight: bold;
+    }
+
+
+    .table-inner {
+        margin: 0;
+        width: 100%;
+        height: 0;
+    }
+
+
+    .table-inner tr {
+        border: none;
+    }
+
+
+    .table-inner td {
+        border-bottom: 1px #0c0c0c solid;
+    }
+
+
+    .table-inner {
+        border-collapse: collapse;
+    }
+
+
+    .table-inner td {
+        border: 1px #0c0c0c solid;
+    }
+
+
+    .table-inner tr:first-child td {
+        border-top: 0;
+    }
+
+
+    .table-inner tr td:first-child {
+        border-left: 0;
+    }
+
+
+    .table-inner tr:last-child td {
+        border-bottom: 0;
+    }
+
+
+    .table-inner tr td:last-child {
+        border-right: 0;
+    }
+
+
+    table a {
+        color: black;
+        text-decoration: none;
+    }
+
+
+    .muted td {
+        font-size: 10px;
+        padding: 4px 9px;
+    }
+
+
+    .muted a, .muted td {
+        color: #444444;
+    }
+}
+
+
+
+
+
+
+
+
+
 

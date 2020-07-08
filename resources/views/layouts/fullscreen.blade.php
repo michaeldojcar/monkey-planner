@@ -34,7 +34,7 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
           crossorigin="anonymous">
 
-    <link href="{{ asset('css/ui_fullscreen.css') }}"
+    <link href="{{ asset('css/app.css') }}"
           rel="stylesheet">
 
     {{-- Javascript --}}
@@ -45,24 +45,23 @@
 </head>
 
 <body>
-<div id="app">
-    @component('layouts.navbar_top')
-        @yield('navbar_top')
-    @endcomponent
 
+@component('layouts.navbar_top')
+    @yield('navbar_top')
+@endcomponent
 
-    {{-- Content after panel top --}}
-    <div class="container-fluid">
-        <div class="row">
-            @component('layouts.sidebar')
-                @yield('sidebar')
-            @endcomponent
+{{-- Content after panel top --}}
+<div class="container-fluid">
+    <div class="row">
+        @component('layouts.sidebar')
+            @yield('sidebar')
+        @endcomponent
 
-            <main role="main"
-                  class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-                @yield('content')
-            </main>
-        </div>
+        <main role="main"
+              id="app"
+              class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            @yield('content')
+        </main>
     </div>
 </div>
 

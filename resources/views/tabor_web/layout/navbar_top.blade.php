@@ -95,7 +95,6 @@
                href="{{route('logout')}}">
                 <i class="fas fa-sign-out-alt"></i>
                 Odhlásit se</a>
-            </a>
         </li>
     </ul>
 </div>

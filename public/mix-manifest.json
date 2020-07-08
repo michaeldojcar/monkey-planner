@@ -1,6 +1,5 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/simple.css": "/css/simple.css",
-    "/css/ui_fullscreen.css": "/css/ui_fullscreen.css",
+    "/css/app.css": "/css/app.css",
     "/css/print.css": "/css/print.css"
 }

@@ -1,5 +1,5 @@
 <div class="table-responsive material-shadow">
-    <table class="table"
+    <table class="table table-program"
            style="border-top: black 1px solid !important; margin-bottom: 0px !important;">
         <tr class="table-header">
             <td width="40"><span class="d-none d-sm-block">Den</span><span class="d-block d-sm-none">#</span></td>

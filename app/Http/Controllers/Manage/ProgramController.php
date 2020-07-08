@@ -81,7 +81,7 @@ class ProgramController extends Controller
             'event'  => [
                 'from' => $event->from->timestamp * 1000,
                 'to'   => $event->to->timestamp * 1000,
-                'days' => $event->getAllDaysCount(),
+                'days' => $event->getAllDaysCount() + 1,
             ],
             'events' => $events_array
         ];
