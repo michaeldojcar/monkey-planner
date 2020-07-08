@@ -1,44 +1,6 @@
 @extends('tabor_web.layout')
 
 @section('content')
-    <style>
-        .h1-input {
-            border: none;
-            background-color: transparent;
-            outline: none;
-            font-weight: 500;
-            line-height: 1.2;
-            font-size: 2rem;
-
-            width: 100%;
-        }
-
-
-        .card {
-            margin-bottom: 20px;
-        }
-
-
-        .card-header, .card-body {
-            padding: 8px 12px;
-        }
-
-
-        .card-header {
-            background-color: #343940;
-            color: #e9e9e9;
-            font-weight: bold;
-        }
-
-
-        .card-header-green {
-            background: #28a745;
-            font-weight: bold;
-            color: white;
-            padding: 11px;
-        }
-    </style>
-
     <form method="POST"
           action="">
         @csrf

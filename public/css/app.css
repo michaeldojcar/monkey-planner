@@ -11181,7 +11181,7 @@ body {
 
 .card-block .card-header,
 .card-block .card-body {
-  padding: 8px 12px;
+  padding: 8px 18px;
   border-radius: 0;
 }
 
@@ -11210,5 +11210,15 @@ body {
 
 .table-black td {
   border-top: black 1px solid;
+}
+
+.h1-input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 2rem;
+  width: 100%;
 }
 

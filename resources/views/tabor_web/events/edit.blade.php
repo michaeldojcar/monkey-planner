@@ -22,44 +22,12 @@
         </div>
     </div>
 
-    <style>
-        .card {
-            margin-bottom: 20px;
-            border-radius: 0;
-
-            border: 1px black solid;
-        }
-
-
-        .card-header, .card-body {
-            padding: 8px 12px;
-            border-radius: 0;
-        }
-
-
-        .card-header:first-child {
-            border-radius: 0;
-        }
-
-
-        .card-header {
-            background-color: #434343;
-            color: #e9e9e9;
-            font-weight: bold;
-        }
-
-
-        .table td {
-            border-top: black 1px solid;
-        }
-    </style>
-
     <form action="{{route('organize.events.update', ['sub_event' => $event])}}"
           method="POST">
         @csrf
         <div class="row">
             <div class="col-sm-8">
-                <div class="card">
+                <div class="card card-block">
                     <div class="card-header">
                         @if($event->isMainEvent())
                             Úprava hl. události
@@ -220,18 +188,19 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">Popis události</div>
-                    <div class="card-body">
+                @if($event->isMainEvent())
+                    <div class="card">
+                        <div class="card-header">Popis události</div>
+                        <div class="card-body">
                         <textarea name="content"
                                   style="height: calc(100vh - 170px); font-size: 16px"
                                   title="">
                             {!! $event->content !!}
                         </textarea>
+                        </div>
                     </div>
-                </div>
 
-                @if($event->isMainEvent())
+
                     <div class="card">
                         <div class="card-header">Globální upozornění na nástěnce</div>
                         <div class="card-body">
@@ -249,7 +218,7 @@
 
             <div class="col-sm-4">
                 @if(!$event->isMainEvent())
-                    <div class="card">
+                    <div class="card card-block">
                         <div class="card-header">Zodpovědné osoby</div>
                         <div class="card-body">
 

@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "magicsuggest": "^2.1.4",
         "vuetify": "^2.3.3"
     }
 }

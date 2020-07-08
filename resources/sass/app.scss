@@ -263,7 +263,7 @@ $shadow-material: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
     border: 1px black solid;
 
     .card-header, .card-body {
-        padding: 8px 12px;
+        padding: 8px 18px;
         border-radius: 0;
     }
 
@@ -297,6 +297,17 @@ $shadow-material: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
     td {
         border-top: black 1px solid;
     }
+}
+
+.h1-input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 2rem;
+
+    width: 100%;
 }
 
 

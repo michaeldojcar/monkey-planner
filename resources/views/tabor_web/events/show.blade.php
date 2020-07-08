@@ -80,8 +80,12 @@
                             <td class="td-title">Předpokládaný čas</td>
                             <td>
                                 @if($event->is_scheduled)
-                                    {{$event->from->format('G:i')}} - {{$event->to->format('G:i')}}
-                                    ({{$event->to->diffInHours($event->from)}} h)
+                                    @if($event->has_multiple_times)
+                                        více výskytů
+                                    @else
+                                        {{$event->from->format('G:i')}} - {{$event->to->format('G:i')}}
+                                        ({{$event->to->diffInHours($event->from)}} h)
+                                    @endif
                                 @else
                                     -
                                 @endif
@@ -189,6 +193,23 @@
                 </table>
             @endif
 
+            @if($event->has_multiple_times)
+
+                <div class="card card-block">
+                    <div class="card-header">Výskyty bloku</div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            @foreach($event->event_times->sortBy('from') as $event_time)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{$event_time->from}}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
+
             <div class="card card-block">
                 <div class="card-header">Role
                     <a style="float: right"
@@ -214,11 +235,6 @@
                                               data-toggle="modal"></i></a>
                 </div>
                 <div class="card-body">
-                    <style>
-                        td {
-                            padding: 5px 0;
-                        }
-                    </style>
 
                     <table style="width: 100%;">
 
@@ -245,11 +261,6 @@
                                               data-toggle="modal"></i></a>
                 </div>
                 <div class="card-body">
-                    <style>
-                        td {
-                            padding: 5px 0;
-                        }
-                    </style>
 
                     <table style="width: 100%;">
 

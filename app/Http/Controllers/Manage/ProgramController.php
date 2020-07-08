@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Event;
+use App\EventTime;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -69,11 +70,13 @@ class ProgramController extends Controller
         foreach ($events as $sub_event)
         {
             // Sub events with single time
-            if (!$sub_event->has_multiple_times)
+            if ( ! $sub_event->has_multiple_times)
             {
                 $events_array[] = [
                     'name' => $sub_event->name,
                     'id'   => $sub_event->id,
+
+                    'type' => 'event',
 
                     'color' => $this->getColorForEventType($sub_event),
                     'start' => $sub_event->from->timestamp * 1000,
@@ -88,7 +91,9 @@ class ProgramController extends Controller
                 {
                     $events_array[] = [
                         'name' => $sub_event->name,
-                        'id'   => $sub_event->id,
+                        'id'   => $event_time->id,
+
+                        'type' => 'event_time',
 
                         'color' => $this->getColorForEventType($sub_event),
                         'start' => $event_time->from->timestamp * 1000,
@@ -101,7 +106,7 @@ class ProgramController extends Controller
 
 
         return [
-            'event'  => [
+            'event' => [
                 'from' => $event->from->timestamp * 1000,
                 'to'   => $event->to->timestamp * 1000,
                 'days' => $event->getAllDaysCount() + 1,
@@ -117,13 +122,29 @@ class ProgramController extends Controller
 
         foreach ($events as $event_record)
         {
-            $event = Event::find($event_record['id']);
-
-            if ($event)
+            if ($event_record['type'] == 'event')
             {
-                $event->from = Carbon::parse($event_record['start'] / 1000)->addHours(2);
-                $event->to   = Carbon::parse($event_record['end'] / 1000)->addHours(2);
-                $event->save();
+                $event = Event::find($event_record['id']);
+
+                if ($event)
+                {
+                    $event->from = Carbon::parse($event_record['start'] / 1000)->addHours(2);
+                    $event->to   = Carbon::parse($event_record['end'] / 1000)->addHours(2);
+                    $event->save();
+                }
+            }
+
+            if ($event_record['type'] == 'event_time')
+            {
+                $event_time = EventTime::find($event_record['id']);
+
+                if ($event_time)
+                {
+                    $event_time->from = Carbon::parse($event_record['start'] / 1000)->addHours(2);
+                    $event_time->to   = Carbon::parse($event_record['end'] / 1000)->addHours(2);
+                    $event_time->save();
+                }
+
             }
         }
 
