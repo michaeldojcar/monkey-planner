@@ -172,7 +172,7 @@ class ProgramController extends Controller
     {
         if ($event->type == 0)
         {
-            return '#2196f3';
+            return '#ff9100';
         }
         if ($event->type == 1)
         {
