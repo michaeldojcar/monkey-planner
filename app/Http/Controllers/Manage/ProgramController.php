@@ -188,9 +188,19 @@ class ProgramController extends Controller
     {
         $date = $this->getDateFromRelativeDay($main_event, $day_num);
 
+        // Events
         $events = $main_event->events();
 
-        $events =   $events->whereDate('from', '=', $date)->where('is_scheduled', true)->orderBy('from')->get();
+        $events_for_day = $events->whereDate('from', '=', $date)
+                                 ->where('is_scheduled', true)
+                                 ->where('has_multiple_times')
+                                 ->get();
+
+        // Event times
+        $event_times = EventTime::whereDate('from', '=', $date)
+                                ->get();
+
+        return $events_for_day->merge($event_times)->sortBy('from');
     }
 
     public function getEventsArray(Event $main_event)

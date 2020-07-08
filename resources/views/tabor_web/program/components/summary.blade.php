@@ -42,20 +42,39 @@
                             @if($sub_event->type == 3 ||$sub_event->type == 6)
                                 <?php $sub_event_class = 'muted' ?>
                             @endif
-                            <tr class="{{$sub_event_class}}">
-                                <td width="60">{{$sub_event->from->format('H:i')}}</td>
-                                <td width="120"
-                                    style="text-align: right">
-                                    {{ucfirst($sub_event->getTypeString())}}</td>
-                                <td width="400">
-                                    <b>
-                                        <a href="{{route('organize.events.show', [$group, $sub_event])}}">{{mb_strtoupper($sub_event->name)}}</a>
-                                    </b>
-                                </td>
-                                <td>
-                                    @component('tabor_web.components.program.event_authors_hybrid', ['event' => $sub_event])@endcomponent
-                                </td>
-                            </tr>
+
+                            @if($sub_event instanceof \App\Event)
+                                <tr class="{{$sub_event_class}}">
+                                    <td width="60">{{$sub_event->from->format('H:i')}}</td>
+                                    <td width="120"
+                                        style="text-align: right">
+                                        {{ucfirst($sub_event->getTypeString())}}</td>
+                                    <td width="400">
+                                        <b>
+                                            <a href="{{route('organize.events.show', [$group, $sub_event])}}">{{mb_strtoupper($sub_event->name)}}</a>
+                                        </b>
+                                    </td>
+                                    <td>
+                                        @component('tabor_web.components.program.event_authors_hybrid', ['event' => $sub_event])@endcomponent
+                                    </td>
+                                </tr>
+                            @elseif($sub_event instanceof \App\EventTime)
+                                <tr class="{{$sub_event_class}}">
+                                    <td width="60">{{$sub_event->from->format('H:i')}}</td>
+                                    <td width="120"
+                                        style="text-align: right">
+                                        {{ucfirst($sub_event->event->getTypeString())}}</td>
+                                    <td width="400">
+                                        <b>
+                                            <a href="{{route('organize.events.show', [$group, $sub_event->event])}}">{{mb_strtoupper($sub_event->event->name)}}</a>
+                                        </b>
+                                    </td>
+                                    <td>
+                                        @component('tabor_web.components.program.event_authors_hybrid', ['event' => $sub_event->event])@endcomponent
+                                    </td>
+                                </tr>
+                            @endif
+
                         @empty
                             <tr>
                                 <td>-</td>
