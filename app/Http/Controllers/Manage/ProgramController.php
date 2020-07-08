@@ -70,7 +70,7 @@ class ProgramController extends Controller
                 'name' => $sub_event->name,
                 'id'   => $sub_event->id,
 
-                'color' => '#2196f3',
+                'color' => $this->getColorForEventType($sub_event),
                 'start' => $sub_event->from->timestamp * 1000,
                 'end'   => $sub_event->to->timestamp * 1000,
                 'timed' => true,
@@ -166,5 +166,37 @@ class ProgramController extends Controller
     private function findById($id)
     {
         return Event::findOrFail($id);
+    }
+
+    private function getColorForEventType(Event $event)
+    {
+        if ($event->type == 0)
+        {
+            return '#2196f3';
+        }
+        if ($event->type == 1)
+        {
+            return '#c62828';
+        }
+        if ($event->type == 2)
+        {
+            return '#00838f';
+        }
+        if ($event->type == 3)
+        {
+            return '#f9a825';
+        }
+        if ($event->type == 4)
+        {
+            return '#424242';
+        }
+        if ($event->type == 5)
+        {
+            return '#4a148c';
+        }
+        if ($event->type == 6)
+        {
+            return '#0097a7';
+        }
     }
 }

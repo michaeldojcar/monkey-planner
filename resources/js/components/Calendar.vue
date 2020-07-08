@@ -204,15 +204,20 @@
     }
 </script>
 
-<style scoped
-       lang="scss">
-    .v-event-draggable {
-        padding-left: 6px;
-    }
+<style lang="scss">
 
-    .v-event-timed {
+    .theme--light.v-calendar-events .v-event-timed {
         user-select: none;
         -webkit-user-select: none;
+
+        padding: 3px 10px !important;
+
+        border: none !important;
+    }
+
+    .v-event-draggable {
+        /*padding-left: 3px;*/
+        line-break: normal;
     }
 
     .v-event-drag-bottom {
@@ -227,7 +232,7 @@
             display: none;
             position: absolute;
             left: 50%;
-            height: 4px;
+            height: 7px;
             border-top: 1px solid white;
             border-bottom: 1px solid white;
             width: 16px;
