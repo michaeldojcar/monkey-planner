@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Event;
+use App\EventTime;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Role;
@@ -35,6 +36,7 @@ class EventController extends Controller
         $event->content         = $request['name'];
         $event->parent_event_id = $main_event->id;
 
+
         $start_date = $this->getDateFromRelativeDay($main_event, $request['day']);
         $start_date = $start_date->format('Y/m/d');
         $start_time = $request['time'];
@@ -43,33 +45,15 @@ class EventController extends Controller
         $event->to   = Carbon::parse($event->from." + 1 hour");
         $event->save();
 
-        $bc = new BlockController();
+        $this->createDefaultBlocksForEvent($event);
 
-        // Default info blocks.
-        if ($event->type == 0) // Event
+        // Create multiple event times if necessary
+        if ($request['day'] == 'all')
         {
-            $bc->createBlock($event, "Obecné informace");
-        }
-        if ($event->type == 1) // Game
-        {
-            $bc->createBlock($event, "Motivace");
-            $bc->createBlock($event, "Scénka");
-            $bc->createBlock($event, "Stručný popis pravidel", 'Stručný popis pravidel - 3 věty max.');
-            $bc->createBlock($event, "Pravidla hry");
-            $bc->createBlock($event, "Hrají");
+            $event->has_multiple_times = true;
+            $event->save();
 
-        }
-        if ($event->type == 2) // Part of program
-        {
-            $bc->createBlock($event, "Obecné informace");
-        }
-        if ($event->type == 3) // Technical
-        {
-            $bc->createBlock($event, "Obecné informace");
-        }
-        if ($event->type == 4) // Event
-        {
-            $bc->createBlock($event, "Obecné informace");
+            $this->createEventTimeForEachDayOfMainEvent($event, $request);
         }
 
         return redirect()->back();
@@ -369,5 +353,65 @@ class EventController extends Controller
         $events = $main_event->events();
 
         return $events->whereDate('from', '=', $date)->where('is_scheduled', true)->orderBy('from')->get();
+    }
+
+    /**
+     * @param  Event  $event
+     */
+    private function createDefaultBlocksForEvent(Event $event): void
+    {
+        $bc = new BlockController();
+
+        // Default info blocks.
+        if ($event->type == 0) // Event
+        {
+            $bc->createBlock($event, "Obecné informace");
+        }
+        if ($event->type == 1) // Game
+        {
+            $bc->createBlock($event, "Motivace");
+            $bc->createBlock($event, "Scénka");
+            $bc->createBlock($event, "Stručný popis pravidel", 'Stručný popis pravidel - 3 věty max.');
+            $bc->createBlock($event, "Pravidla hry");
+            $bc->createBlock($event, "Hrají");
+
+        }
+        if ($event->type == 2) // Part of program
+        {
+            $bc->createBlock($event, "Obecné informace");
+        }
+        if ($event->type == 3) // Technical
+        {
+            $bc->createBlock($event, "Obecné informace");
+        }
+        if ($event->type == 4) // Event
+        {
+            $bc->createBlock($event, "Obecné informace");
+        }
+    }
+
+    /**
+     * @param  Event  $event
+     * @param  Request  $request
+     */
+    private function createEventTimeForEachDayOfMainEvent(Event $event, Request $request): void
+    {
+        $main_event = $event->parentEvent;
+        $start_time = $request['time'];
+
+        $days_count = $main_event->getAllDaysCount();
+
+        // Create event times
+        for ($x = 0; $x <= $days_count; $x++)
+        {
+            $current_date = $this->getDateFromRelativeDay($main_event, $x);
+            $current_date = $current_date->format('Y/m/d');
+
+            $event_time           = new EventTime();
+            $event_time->event_id = $event->id;
+            $event_time->from     = Carbon::createFromFormat('Y/m/d H:i', $current_date.' '.$start_time);
+            $event_time->to       = Carbon::parse($event_time->from." + 1 hour");;
+            $event_time->save();
+        }
     }
 }

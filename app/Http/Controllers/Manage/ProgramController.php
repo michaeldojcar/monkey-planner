@@ -64,18 +64,41 @@ class ProgramController extends Controller
     {
         $events_array = [];
 
-        foreach ($event->events as $sub_event)
-        {
-            $events_array[] = [
-                'name' => $sub_event->name,
-                'id'   => $sub_event->id,
+        $events = $event->events;
 
-                'color' => $this->getColorForEventType($sub_event),
-                'start' => $sub_event->from->timestamp * 1000,
-                'end'   => $sub_event->to->timestamp * 1000,
-                'timed' => true,
-            ];
+        foreach ($events as $sub_event)
+        {
+            // Sub events with single time
+            if (!$sub_event->has_multiple_times)
+            {
+                $events_array[] = [
+                    'name' => $sub_event->name,
+                    'id'   => $sub_event->id,
+
+                    'color' => $this->getColorForEventType($sub_event),
+                    'start' => $sub_event->from->timestamp * 1000,
+                    'end'   => $sub_event->to->timestamp * 1000,
+                    'timed' => true,
+                ];
+            }
+            // Sub events with multiple times
+            else
+            {
+                foreach ($sub_event->event_times as $event_time)
+                {
+                    $events_array[] = [
+                        'name' => $sub_event->name,
+                        'id'   => $sub_event->id,
+
+                        'color' => $this->getColorForEventType($sub_event),
+                        'start' => $event_time->from->timestamp * 1000,
+                        'end'   => $event_time->to->timestamp * 1000,
+                        'timed' => true,
+                    ];
+                }
+            }
         }
+
 
         return [
             'event'  => [
@@ -83,6 +106,7 @@ class ProgramController extends Controller
                 'to'   => $event->to->timestamp * 1000,
                 'days' => $event->getAllDaysCount() + 1,
             ],
+
             'events' => $events_array
         ];
     }
