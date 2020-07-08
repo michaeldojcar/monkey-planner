@@ -13,6 +13,13 @@
             Program
         </a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link {{ request()->is('organizace-akce/team/*/program') ? 'active' : '' }}"
+           href="{{route('organize.program.calendar', $main_event)}}">
+            <span data-feather="calendar"></span>
+            Kalendář
+        </a>
+    </li>
     {{--<li class="nav-item">--}}
     {{--<a class="nav-link {{ request()->is('organizace-akce/team/*/informace') ? 'active' : '' }}"--}}
     {{--href="{{route('organize.blocks',['group_id'=>$group->id])}}">--}}
