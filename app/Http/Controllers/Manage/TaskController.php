@@ -161,7 +161,12 @@ class TaskController extends Controller
 
         $task->save();
 
-        return redirect('/events/1/sub-event/8');
+        if($task->events()->first())
+        {
+            return redirect()->route('organize.events.show', [$event, $task->events()->first()]);
+        }
+
+        return redirect()->route('organize.tasks.index', [$event]);
     }
 
     /**
