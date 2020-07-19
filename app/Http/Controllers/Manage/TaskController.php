@@ -161,7 +161,7 @@ class TaskController extends Controller
 
         $task->save();
 
-        if($task->events()->first())
+        if ($task->events()->first())
         {
             return redirect()->route('organize.events.show', [$event, $task->events()->first()]);
         }
@@ -177,7 +177,14 @@ class TaskController extends Controller
      */
     public function delete(Task $task)
     {
+        $event = $task->events()->first();
+
         $task->delete();
+
+        if ($event)
+        {
+            return redirect()->route('organize.events.show', [$event->parentEvent, $event]);
+        }
 
         return Redirect::to(Session::get('url'));
     }
