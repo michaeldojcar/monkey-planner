@@ -21,6 +21,6 @@ class UserSettingsController extends Controller
 
         $user->save();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('user.events.index');
     }
 }

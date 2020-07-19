@@ -15,6 +15,8 @@
  * Public routes.
  */
 
+use App\Http\Middleware\CheckEmptyPwd;
+
 Auth::routes();
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('root');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -23,17 +25,19 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 /**
  * Logged user space.
  */
-Route::group(['as' => 'user.'], function ()
+Route::group(['middleware' => ['auth', CheckEmptyPwd::class], 'as' => 'user.'], function ()
 {
     Route::resource('/user/events', 'User\EventController');
     Route::resource('/user/groups', 'User\GroupController');
 });
 
+Route::get('/ucet/init-pwd', 'UserSettingsController@emptyPassword')->name('new-pwd');
+Route::post('/ucet/init-pwd', 'UserSettingsController@storeNewPassword')->name('new-pwd');
 
 /**
  * Event management.
  */
-Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
+Route::group(['middleware' => ['auth', CheckEmptyPwd::class], 'as' => 'organize.'], function ()
 {
     Route::get('/event/{event}/nastenka', 'Manage\DashController@dashboard')->name('dashboard');
 

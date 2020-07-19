@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user.layout.layout')
 
 @section('content')
 <div class="container">
@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Heslo od farního portálu</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Heslo od plánování</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required autofocus>
