@@ -29,139 +29,144 @@
                         <div class="card-header">Údaje uživatele</div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="name" class="col-3 col-form-label">Jméno uživatele</label>
+                                <label for="name"
+                                       class="col-3 col-form-label">Jméno uživatele</label>
                                 <div class="col-9">
-                                    <input id="name" name="name" type="text" class="form-control"
-                                           value="{{old('name', $user->name)}}" required="required">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="surname" class="col-3 col-form-label">Příjmení</label>
-                                <div class="col-9">
-                                    <input id="surname" name="surname" type="text" class="form-control"
-                                           value="{{old('surname', $user->surname, 'aho')}}" required="required">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="name_5" class="col-3 col-form-label">Oslovení v 5. pádě</label>
-                                <div class="col-9">
-                                    <input id="name_5" name="name_5" type="text" class="form-control"
-                                           aria-describedby="name_5HelpBlock" value="{{old('name_5', $user->name_5)}}"
+                                    <input id="name"
+                                           name="name"
+                                           type="text"
+                                           class="form-control"
+                                           value="{{old('name', $user->name)}}"
                                            required="required">
-                                    <span id="name_5HelpBlock" class="form-text text-muted">Použije se v automatických zprávách a v některých zobrazeních webu.</span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="email" class="col-3 col-form-label">Emailová adresa</label>
+                                <label for="surname"
+                                       class="col-3 col-form-label">Příjmení</label>
                                 <div class="col-9">
-                                    <input id="email" name="email" placeholder="@" type="email" class="form-control"
-                                           value="{{old('email', $user->email)}}" required="required">
+                                    <input id="surname"
+                                           name="surname"
+                                           type="text"
+                                           class="form-control"
+                                           value="{{old('surname', $user->surname, 'aho')}}"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name_5"
+                                       class="col-3 col-form-label">Oslovení v 5. pádě</label>
+                                <div class="col-9">
+                                    <input id="name_5"
+                                           name="name_5"
+                                           type="text"
+                                           class="form-control"
+                                           aria-describedby="name_5HelpBlock"
+                                           value="{{old('name_5', $user->name_5)}}"
+                                           required="required">
+                                    <span id="name_5HelpBlock"
+                                          class="form-text text-muted">Použije se v automatických zprávách a v některých zobrazeních webu.</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email"
+                                       class="col-3 col-form-label">Emailová adresa</label>
+                                <div class="col-9">
+                                    <input id="email"
+                                           name="email"
+                                           placeholder="@"
+                                           type="email"
+                                           class="form-control"
+                                           value="{{old('email', $user->email)}}"
+                                           required="required">
                                 </div>
                             </div>
 
                             {{--Heslo--}}
-                            <div class="card" style="margin-bottom: 20px">
-                                @if(! isset($user))
-                                    <div class="card-header">Nastavení hesla</div>
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label for="password" class="col-3 col-form-label">Heslo</label>
-                                            <div class="col-9">
-                                                <input id="password" name="password" type="password"
-                                                       class="form-control"
-                                                       aria-describedby="passwordHelpBlock" required>
-                                            </div>
-                                        </div>
+                            <div class="card"
+                                 style="margin-bottom: 20px">
+                                <div class="card-header">Nastavení hesla</div>
+                                <div class="card-body">
+                                    <div>
+                                        Resetovat uživatelské heslo <input name="reset_password"
+                                                                           type="checkbox">
 
-                                        <div class="form-group row">
-                                            <label for="password_confirmation" class="col-3 col-form-label">Heslo pro
-                                                kontrolu</label>
-                                            <div class="col-9">
-                                                <input id="password_confirmation" name="password_confirmation"
-                                                       type="password"
-                                                       class="form-control"
-                                                       aria-describedby="passwordConfirmationHelpBlock" required>
-                                                <span id="passwordConfirmationHelpBlock" class="form-text text-muted">Hesla se musí shodovat.</span>
-                                            </div>
-                                        </div>
+                                        <hr>
+                                        <small>Po resetu bude nastaveno dočasné heslo: 123456</small>
                                     </div>
-                                @else
-                                    <div class="card-header">Nastavení hesla</div>
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            Zresetovat heslo: uživatel si nastaví sám. <input name="keep_empty_pwd" type="checkbox">
-                                        </div>
-
-                                        <p>Pokud má být zachováno současné heslo, ponechte prázdné.</p>
-
-                                        <div class="form-group row">
-                                            <label for="password" class="col-3 col-form-label">Heslo</label>
-                                            <div class="col-9">
-                                                <input id="password" name="password" type="password"
-                                                       class="form-control"
-                                                       aria-describedby="passwordHelpBlock">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="password_confirmation" class="col-3 col-form-label">Heslo
-                                                pro
-                                                kontrolu</label>
-                                            <div class="col-9">
-                                                <input id="password_confirmation" name="password_confirmation"
-                                                       type="password"
-                                                       class="form-control"
-                                                       aria-describedby="passwordConfirmationHelpBlock">
-                                                <span id="passwordConfirmationHelpBlock"
-                                                      class="form-text text-muted">Hesla se musí shodovat.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
+                                </div>
                             </div>
 
 
                             <div class="form-group row">
-                                <label for="phone" class="col-3 col-form-label">Telefonní číslo</label>
+                                <label for="phone"
+                                       class="col-3 col-form-label">Telefonní číslo</label>
                                 <div class="col-9">
-                                    <input id="phone" name="phone" type="text" class="form-control"
-                                           value="{{old('phone', $user->phone)}}" aria-describedby="phoneHelpBlock">
-                                    <span id="phoneHelpBlock" class="form-text text-muted">Ve formátu +420 XXX XXX XXX nebo pouze XXX XXX XXX.</span>
+                                    <input id="phone"
+                                           name="phone"
+                                           type="text"
+                                           class="form-control"
+                                           value="{{old('phone', $user->phone)}}"
+                                           aria-describedby="phoneHelpBlock">
+                                    <span id="phoneHelpBlock"
+                                          class="form-text text-muted">Ve formátu +420 XXX XXX XXX nebo pouze XXX XXX XXX.</span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="text" class="col-3 col-form-label">Ulice a č.p.</label>
+                                <label for="text"
+                                       class="col-3 col-form-label">Ulice a č.p.</label>
                                 <div class="col-9">
-                                    <input id="street" name="street" type="text" class="form-control"
-                                           aria-describedby="textHelpBlock" value="{{old('street', $user->street)}}">
-                                    <span id="textHelpBlock" class="form-text text-muted">Volitelné.</span>
+                                    <input id="street"
+                                           name="street"
+                                           type="text"
+                                           class="form-control"
+                                           aria-describedby="textHelpBlock"
+                                           value="{{old('street', $user->street)}}">
+                                    <span id="textHelpBlock"
+                                          class="form-text text-muted">Volitelné.</span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="town" class="col-3 col-form-label">Obec</label>
+                                <label for="town"
+                                       class="col-3 col-form-label">Obec</label>
                                 <div class="col-9">
-                                    <input id="town" name="town" type="text" class="form-control"
-                                           value="{{old('town', $user->town)}}" aria-describedby="townHelpBlock">
-                                    <span id="townHelpBlock" class="form-text text-muted">Volitelné.</span>
+                                    <input id="town"
+                                           name="town"
+                                           type="text"
+                                           class="form-control"
+                                           value="{{old('town', $user->town)}}"
+                                           aria-describedby="townHelpBlock">
+                                    <span id="townHelpBlock"
+                                          class="form-text text-muted">Volitelné.</span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="postal" class="col-3 col-form-label">PSČ</label>
+                                <label for="postal"
+                                       class="col-3 col-form-label">PSČ</label>
                                 <div class="col-9">
-                                    <input id="postal" name="postal" type="text" class="form-control"
-                                           aria-describedby="postalHelpBlock" value="{{old('postal', $user->postal)}}">
-                                    <span id="postalHelpBlock" class="form-text text-muted">Volitelné.</span>
+                                    <input id="postal"
+                                           name="postal"
+                                           type="text"
+                                           class="form-control"
+                                           aria-describedby="postalHelpBlock"
+                                           value="{{old('postal', $user->postal)}}">
+                                    <span id="postalHelpBlock"
+                                          class="form-text text-muted">Volitelné.</span>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="country" class="col-3 col-form-label">Země</label>
+                                <label for="country"
+                                       class="col-3 col-form-label">Země</label>
                                 <div class="col-9">
-                                    <select id="country" name="country" class="custom-select"
-                                            aria-describedby="countryHelpBlock" required="required">
+                                    <select id="country"
+                                            name="country"
+                                            class="custom-select"
+                                            aria-describedby="countryHelpBlock"
+                                            required="required">
                                         <option value="Česká republika">Česká republika</option>
                                         <option value="Slovensko">Slovensko</option>
                                     </select>
-                                    <span id="countryHelpBlock" class="form-text text-muted">Volitelné.</span>
+                                    <span id="countryHelpBlock"
+                                          class="form-text text-muted">Volitelné.</span>
                                 </div>
                             </div>
                         </div>
@@ -172,14 +177,20 @@
                         <div class="card-header">Možnosti</div>
                         <div class="card-body">
                             @if(! isset($user))
-                                <input type="submit" class="btn btn-primary" value="Vytvořit uživatele">
+                                <input type="submit"
+                                       class="btn btn-primary"
+                                       value="Vytvořit uživatele">
 
-                                <a class="btn btn-warning" href="{{route('admin.users.index')}}"
+                                <a class="btn btn-warning"
+                                   href="{{route('admin.users.index')}}"
                                    onclick="return confirm('Pozor! Při stornu nebude záznam vytvořen. Chcete pokračovat?')">Storno</a>
                             @else
-                                <input type="submit" class="btn btn-primary" value="Uložit změny">
+                                <input type="submit"
+                                       class="btn btn-primary"
+                                       value="Uložit změny">
 
-                                <a class="btn btn-warning" href="{{route('admin.users.groups', $user)}}">Nastavení
+                                <a class="btn btn-warning"
+                                   href="{{route('admin.users.groups', $user)}}">Nastavení
                                     skupin</a>
                             @endif
                         </div>

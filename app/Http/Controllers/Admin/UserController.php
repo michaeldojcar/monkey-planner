@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
+use App\Http\Controllers\Controller;
 use App\User;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -40,9 +40,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -50,15 +50,8 @@ class UserController extends Controller
 
         $user->fill($request->all());
 
-        if ($request->has('keep_empty_pwd'))
-        {
-            $user->password = bcrypt('123456');
-            $user->reset_password = true;
-        }
-        else
-        {
-            $user->password = bcrypt($request['password']);
-        }
+        $user->password       = bcrypt('123456');
+        $user->reset_password = true;
 
         $user->save();
 
@@ -68,7 +61,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      *
      * @return Response
      */
@@ -80,7 +73,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  User  $user
      *
      * @return Response
      */
@@ -92,23 +85,18 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param User                      $user
+     * @param  Request  $request
+     * @param  User  $user
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(Request $request, User $user)
     {
         $user->fill($request->all());
 
-        if ($request['password'] != "")
+        if ($request->has('reset_password'))
         {
-            $user->password = bcrypt($request['password']);
-        }
-
-        if ($request->has('keep_empty_pwd'))
-        {
-            $user->password = bcrypt('123456');
+            $user->password       = bcrypt('123456');
             $user->reset_password = true;
         }
 
@@ -120,7 +108,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
+     * @param  User  $user
      *
      * @return RedirectResponse
      * @throws Exception
