@@ -208,7 +208,7 @@
                     <ul class="list-group">
                         @foreach($event->roleTasks as $task)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="{{route('organize.tasks.show', [$main_event, $task])}}">{{ucfirst($task->name)}}</a>
+                                <a href="{{route('organize.tasks.edit', [$main_event, $task])}}">{{ucfirst($task->name)}}</a>
                                 @include('tabor_web.components.event.role_garants')
                             </li>
                         @endforeach
@@ -250,8 +250,6 @@
                 <div class="card-body">
 
                     <table style="width: 100%;">
-
-
                         <ul class="list-group">
                             @foreach($event->itemTasks as $task)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -283,7 +281,7 @@
                         <ul class="list-group">
                             @foreach($event->event_times->sortBy('from') as $event_time)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{$event_time->getDayNumber()}}. den {{$event_time->from->format('m:i')}}
+                                    {{$event_time->getDayNumber()}}. den {{$event_time->from->format('H:i')}}
 
                                     @if($event_time->event->event_times->count() > 1)
                                         <a class="text-black-50"

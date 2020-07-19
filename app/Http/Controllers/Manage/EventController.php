@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Manage;
 
 use App\Event;
 use App\EventTime;
-use App\Group;
 use App\Http\Controllers\Controller;
 use App\Role;
 use App\Task;
@@ -137,21 +136,21 @@ class EventController extends Controller
             // Not scheduled
             if ($request['day'] == 'not_scheduled')
             {
-                $event->is_scheduled = false;
+                $event->is_scheduled       = false;
                 $event->has_multiple_times = false;
             }
 
             // Multiple times
             elseif ($request['day'] == 'multiple')
             {
-                $event->is_scheduled = true;
+                $event->is_scheduled       = true;
                 $event->has_multiple_times = true;
             }
 
             // Selected time
             else
             {
-                $event->is_scheduled = true;
+                $event->is_scheduled       = true;
                 $event->has_multiple_times = false;
 
                 // Compute Carbon date
@@ -198,17 +197,19 @@ class EventController extends Controller
     }
 
     /**
-     * @param  Group  $group
-     * @param  Event  $event
+     * @param $event_id
      *
      * @return mixed
-     * @throws Exception
      */
-    public function delete(Group $group, Event $event)
+    public function delete($event_id)
     {
+        $event = Event::findOrFail($event_id);
+
+        $event->event_times()->delete();
+
         $event->delete();
 
-        return redirect()->route('organize.program', $group);
+        return redirect()->route('organize.program', ['event' => $event->parent_event_id]);
     }
 
     /**
@@ -335,7 +336,6 @@ class EventController extends Controller
             $task->groups()->attach($request['group_id']);
         }
 
-        $task->events()->attach($event->parent_event_id);
         $task->events()->attach($event->id);
 
         return redirect()->back();

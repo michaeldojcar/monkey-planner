@@ -40,12 +40,14 @@ class TaskController extends Controller
         $task->status  = 0; // Ready
         $task->save();
 
+
+        $task->events()->attach($group->main_event_id);
+
+
         if ($request['group_id'] != 0)
         {
             $task->groups()->attach($request['group_id']);
         }
-
-        $task->events()->attach($group->main_event_id);
 
         return redirect()->route('organize.tasks', $group);
     }
@@ -114,7 +116,7 @@ class TaskController extends Controller
 
     public function edit(Event $event, Task $task)
     {
-        Session::flash('url', \request()->server('HTTP_REFERER'));
+        Session::flash('url_back', \request()->server('HTTP_REFERER'));
 
         return view('tabor_web.tasks.edit', [
             'main_event' => $event,
@@ -151,11 +153,10 @@ class TaskController extends Controller
 
         $task->save();
 
-        return redirect()->route('organize.tasks.show', [$event, $task]);
+        return redirect(Session::get('url_back'));
     }
 
     /**
-     * @param  Group  $group
      * @param  Task  $task
      *
      * @return RedirectResponse
