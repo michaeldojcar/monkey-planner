@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-7">
                                 <a class="btn btn-outline-danger"
-                                   href="{{ route('organize.blocks.delete', [$main_event, $block]) }}"
+                                   href="{{ route('organize.blocks.delete', ['event'=>$main_event, 'block'=>$block]) }}"
                                    onclick=" return confirm('Sekce bude ODSTRANĚNA i s obsahem, jste si jisti?')"
                                    style="width: 100%;">Odstranit tuto sekci</a>
                             </div>

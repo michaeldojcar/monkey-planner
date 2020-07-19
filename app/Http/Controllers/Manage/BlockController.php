@@ -61,15 +61,15 @@ class BlockController extends Controller
         }
         else
         {
-            return redirect()->route("organize.dashboard.subGroup", [$group, $block->group_id]);
+            return redirect()->route("organize.dashboard.subGroup", [$event, $block->group_id]);
         }
     }
 
-    public function deleteBlock(Group $group, Block $block)
+    public function deleteBlock(Event $event, Block $block)
     {
         $block->delete();
 
-        return redirect()->route("organize.event", [$group, $block->event]);
+        return redirect()->route("organize.events.show", [$event, $block->event]);
     }
 
 
