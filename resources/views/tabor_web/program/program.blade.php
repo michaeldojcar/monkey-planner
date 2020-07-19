@@ -35,20 +35,21 @@
 
         @if($non_scheduled->count())
             <div class="col-sm">
-                <table class="table material-shadow">
-                    <tr class="table-header-dark">
-                        <td colspan="2">Další části programu</td>
-                    </tr>
-
-                    @foreach($non_scheduled as $sub_event)
-                        <tr>
-                            <td style="width: 200px">
-                                <a href="{{route('organize.events.show', [$main_event, $sub_event])}}">{{$sub_event->name}}</a>
-                            </td>
-                            <td>@component('tabor_web.components.program.event_authors_hybrid', ['event' => $sub_event])@endcomponent</td>
-                        </tr>
-                    @endforeach
-                </table>
+                <div class="card card-block">
+                    <div class="card-header">Hlavní bloky</div>
+                    <div class="card-body">
+                        <table class="table">
+                            @foreach($non_scheduled as $sub_event)
+                                <tr>
+                                    <td style="width: 200px">
+                                        <a href="{{route('organize.events.show', [$main_event, $sub_event])}}">{{$sub_event->name}}</a>
+                                    </td>
+                                    <td>@component('tabor_web.components.program.event_authors_hybrid', ['event' => $sub_event])@endcomponent</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
             </div>
         @endif
     </div>
