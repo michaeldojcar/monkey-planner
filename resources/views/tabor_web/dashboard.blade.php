@@ -46,7 +46,7 @@
 
                         @foreach($my_tasks as $task)
                             <tr>
-                                <td><a href="{{route('organize.tasks.show',[$group, $task])}}">{{$task->name}}</a>
+                                <td><a href="{{route('organize.tasks.edit',[$group, $task])}}">{{$task->name}}</a>
                                 </td>
                                 <td>
                                     @include('tabor_web.components.task.garants')
@@ -72,7 +72,7 @@
 
                         @foreach($my_items as $task)
                             <tr>
-                                <td><a href="{{route('organize.tasks.show',[$group, $task])}}">{{$task->name}}</a>
+                                <td><a href="{{route('organize.tasks.edit',[$group, $task])}}">{{$task->name}}</a>
                                 </td>
                                 <td>{{$task->required_count}}x</td>
                                 <td>
