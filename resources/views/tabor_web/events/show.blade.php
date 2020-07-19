@@ -197,27 +197,6 @@
                 </table>
             @endif
 
-            @if($event->has_multiple_times)
-
-                <div class="card card-block">
-                    <div class="card-header">Výskyty bloku</div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            @foreach($event->event_times->sortBy('from') as $event_time)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{$event_time->from}}
-
-                                    <a class="text-black-50"
-                                       href="{{route('organize.event_times.destroy', $event_time)}}"
-                                       onclick="return confirm('Opravdu chcete smazat tento výskyt {{$event->name}}?')"><i class="fas fa-trash"></i></a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
-
-
             <div class="card card-block">
                 <div class="card-header">Role
                     <a style="float: right"
@@ -290,6 +269,33 @@
                     </table>
                 </div>
             </div>
+
+            @if($event->has_multiple_times)
+
+                <div class="card card-block">
+                    <div class="card-header">Výskyty bloku
+                        <a style="float: right; color: white"
+                           href="{{route('organize.event_times.create', $event->id)}}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            @foreach($event->event_times->sortBy('from') as $event_time)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{$event_time->getDayNumber()}}. den {{$event_time->from->format('m:i')}}
+
+                                    @if($event_time->event->event_times->count() > 1)
+                                        <a class="text-black-50"
+                                           href="{{route('organize.event_times.destroy', $event_time)}}"
+                                           onclick="return confirm('Opravdu chcete smazat tento výskyt {{$event->name}}?')"><i class="fas fa-trash"></i></a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 

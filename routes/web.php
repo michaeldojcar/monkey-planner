@@ -71,7 +71,8 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
     Route::post('/sub-event/{sub_event}/edit', 'Manage\EventController@update')->name('events.update');
     Route::get('/sub-event/{sub_event}/delete', 'Manage\EventController@delete')->name('events.delete');
 
-    Route::resource('/event_times', 'Manage\EventTimeController');
+
+    Route::get('/event_times/{id}/create', 'Manage\EventTimeController@create')->name('event_times.create');
     Route::get('/event_times/{id}/delete', 'Manage\EventTimeController@destroy')->name('event_times.destroy');
 
     // Event times

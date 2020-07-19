@@ -138,18 +138,21 @@ class EventController extends Controller
             if ($request['day'] == 'not_scheduled')
             {
                 $event->is_scheduled = false;
+                $event->has_multiple_times = false;
             }
 
             // Multiple times
             elseif ($request['day'] == 'multiple')
             {
                 $event->is_scheduled = true;
+                $event->has_multiple_times = true;
             }
 
             // Selected time
             else
             {
                 $event->is_scheduled = true;
+                $event->has_multiple_times = false;
 
                 // Compute Carbon date
                 $start_date = $this->getDateFromRelativeDay($event->parentEvent, $request['day']);
