@@ -12,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -135,6 +136,13 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * @param  Event  $event
+     * @param  Task  $task
+     * @param  Request  $request
+     *
+     * @return Application|RedirectResponse|Redirector
+     */
     public function update(Event $event, Task $task, Request $request)
     {
         $task->name           = $request['name'];
