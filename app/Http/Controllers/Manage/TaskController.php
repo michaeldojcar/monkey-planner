@@ -161,7 +161,7 @@ class TaskController extends Controller
 
         $task->save();
 
-        return redirect(Session::get('url_back'));
+        return redirect('/events/1/sub-event/8');
     }
 
     /**
