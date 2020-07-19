@@ -134,8 +134,23 @@ class EventController extends Controller
         // Change date and time (sub event only)
         if ( ! $event->isMainEvent())
         {
-            if ($request['day'] != 'all')
+            // Not scheduled
+            if ($request['day'] == 'not_scheduled')
             {
+                $event->is_scheduled = false;
+            }
+
+            // Multiple times
+            elseif ($request['day'] == 'multiple')
+            {
+                $event->is_scheduled = true;
+            }
+
+            // Selected time
+            else
+            {
+                $event->is_scheduled = true;
+
                 // Compute Carbon date
                 $start_date = $this->getDateFromRelativeDay($event->parentEvent, $request['day']);
                 $start_date = $start_date->format('Y/m/d');
@@ -148,10 +163,7 @@ class EventController extends Controller
                 $end_time  = $request['time_to'];
                 $event->to = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$end_time);
             }
-            else
-            {
-                $event->is_scheduled = false;
-            }
+
         }
         else
         {

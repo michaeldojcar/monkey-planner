@@ -76,7 +76,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="select1"
-                                       class="col-4 col-form-label">Den</label>
+                                       class="col-4 col-form-label">Výskyt</label>
                                 <div class="col-8">
                                     <select id="day"
                                             name="day"
@@ -84,7 +84,7 @@
                                         @for($x = 0; $x <= $days_count; $x++)
                                             <option value="{{$x}}"
                                                     {{-- Selected option --}}
-                                                    @if($event->getDayNumber() == $x)
+                                                    @if($event->getDayNumber() == $x && !$event->has_multiple_times)
                                                     selected
                                                 @endif
                                             >{{$x}}.
@@ -113,35 +113,41 @@
                                                 @endswitch
                                             </option>
                                         @endfor
-                                        <option value="all" {{!$event->is_scheduled ? 'selected' : ''}}>Není
-                                            umístěno
-                                            pevně v programu
+                                        <option value="not_scheduled" {{! $event->is_scheduled ? 'selected' : ''}}>Není
+                                            umístěno pevně v programu
+                                        </option>
+
+                                        <option value="multiple" {{$event->has_multiple_times ? 'selected' : ''}}>
+                                            Více výskytů
                                         </option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="select2"
-                                       class="col-4 col-form-label">Od</label>
-                                <div class="col-8">
-                                    <input id="time_from"
-                                           name="time_from"
-                                           value="{{$event->from->format('H:i')}}"
-                                           type="text"
-                                           class="form-control"
-                                           required="required">
+
+                            <div id="time-inputs">
+                                <div class="form-group row">
+                                    <label for="select2"
+                                           class="col-4 col-form-label">Od</label>
+                                    <div class="col-8">
+                                        <input id="time_from"
+                                               name="time_from"
+                                               value="{{$event->from->format('H:i')}}"
+                                               type="text"
+                                               class="form-control"
+                                               required="required">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="select2"
-                                       class="col-4 col-form-label">Do</label>
-                                <div class="col-8">
-                                    <input id="time_to"
-                                           name="time_to"
-                                           value="{{$event->to->format('H:i')}}"
-                                           type="text"
-                                           class="form-control"
-                                           required="required">
+                                <div class="form-group row">
+                                    <label for="select2"
+                                           class="col-4 col-form-label">Do</label>
+                                    <div class="col-8">
+                                        <input id="time_to"
+                                               name="time_to"
+                                               value="{{$event->to->format('H:i')}}"
+                                               type="text"
+                                               class="form-control"
+                                               required="required">
+                                    </div>
                                 </div>
                             </div>
                         @endif

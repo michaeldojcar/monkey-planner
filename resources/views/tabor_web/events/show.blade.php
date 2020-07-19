@@ -202,6 +202,10 @@
                             @foreach($event->event_times->sortBy('from') as $event_time)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{$event_time->from}}
+
+                                    <a class="text-black-50"
+                                        href="{{route('organize.event_times.destroy', $event_time)}}"
+                                       onclick="return confirm('Opravdu chcete smazat tento výskyt {{$event->name}}?')"><i class="fas fa-trash"></i></a>
                                 </li>
                             @endforeach
                         </ul>

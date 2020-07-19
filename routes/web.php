@@ -64,14 +64,17 @@ Route::group(['middleware' => 'auth', 'as' => 'organize.'], function ()
     Route::post('/api/event/{event}/calendar', 'Manage\ProgramController@storeCalendar');
 
 
-    // Sub-events
+    // Events
     Route::post('/event/{event}/sub-event', 'Manage\EventController@store')->name('events.store');
     Route::get('/events/{event}/sub-event/{sub_event}', 'Manage\EventController@show')->name('events.show');
     Route::get('/event/{event}/sub-event/{sub_event}/edit', 'Manage\EventController@edit')->name('events.edit');
     Route::post('/sub-event/{sub_event}/edit', 'Manage\EventController@update')->name('events.update');
     Route::get('/sub-event/{sub_event}/delete', 'Manage\EventController@delete')->name('events.delete');
 
-    Route::post('/event/{event}/storeRole', 'Manage\EventController@storeRole')->name('event.storeRole');
+    Route::resource('/event_times', 'Manage\EventTimeController');
+    Route::get('/event_times/{id}/delete', 'Manage\EventTimeController@destroy')->name('event_times.destroy');
+
+    // Event times
 
     // Program printable
     Route::get('/event/{event}/program/print',
