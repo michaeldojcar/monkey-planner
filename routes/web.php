@@ -20,7 +20,7 @@ use App\Http\Middleware\CheckEmptyPwd;
 Auth::routes();
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('root');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::post('/register', 'Auth\RegisterController@register')->name('register');
+//Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
 /**
  * Logged user space.
