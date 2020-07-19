@@ -40,10 +40,10 @@ class BlockController extends Controller
         $block->save();
     }
 
-    public function storeBlock(Event $event, Request $request)
+    public function storeBlock(Event $event, Event $sub_event, Request $request)
     {
         $block           = new Block();
-        $block->event_id = $event->id;
+        $block->event_id = $sub_event->id;
         $block->title    = $request['title'];
         $block->save();
 
