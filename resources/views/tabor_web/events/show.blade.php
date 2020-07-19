@@ -45,31 +45,35 @@
                             </td>
                             <td>
                                 @if($event->is_scheduled)
-                                    @switch($event->from->dayOfWeek)
-                                        @case(0)
-                                        <span>NE</span>
-                                        @break
-                                        @case(1)
-                                        <span>PO</span>
-                                        @break
-                                        @case(2)
-                                        <span>ÚT</span>
-                                        @break
-                                        @case(3)
-                                        <span>ST</span>
-                                        @break
-                                        @case(4)
-                                        <span>ČT</span>
-                                        @break
-                                        @case(5)
-                                        <span>PÁ</span>
-                                        @break
-                                        @case(6)
-                                        <span>SO</span>
-                                        @break
-                                    @endswitch
+                                    @if(!$event->has_multiple_times)
+                                        @switch($event->from->dayOfWeek)
+                                            @case(0)
+                                            <span>NE</span>
+                                            @break
+                                            @case(1)
+                                            <span>PO</span>
+                                            @break
+                                            @case(2)
+                                            <span>ÚT</span>
+                                            @break
+                                            @case(3)
+                                            <span>ST</span>
+                                            @break
+                                            @case(4)
+                                            <span>ČT</span>
+                                            @break
+                                            @case(5)
+                                            <span>PÁ</span>
+                                            @break
+                                            @case(6)
+                                            <span>SO</span>
+                                            @break
+                                        @endswitch
 
-                                    {{$event->from->format('j.n.')}} ({{$event->getDayNumber()}}. den)
+                                        {{$event->from->format('j.n.')}} ({{$event->getDayNumber()}}. den)
+                                    @else
+                                        více výskytů
+                                    @endif
                                 @else
                                     -
                                 @endif
@@ -204,7 +208,7 @@
                                     {{$event_time->from}}
 
                                     <a class="text-black-50"
-                                        href="{{route('organize.event_times.destroy', $event_time)}}"
+                                       href="{{route('organize.event_times.destroy', $event_time)}}"
                                        onclick="return confirm('Opravdu chcete smazat tento výskyt {{$event->name}}?')"><i class="fas fa-trash"></i></a>
                                 </li>
                             @endforeach
