@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth', CheckEmptyPwd::class], 'as' => 'organize.
     Route::post('/event/{event}/tasks', 'Manage\TaskController@store')->name('tasks.store');
     Route::get('/event/{event}/tasks/{task}', 'Manage\TaskController@show')->name('tasks.show');
     Route::get('/event/{event}/tasks/{task}/edit', 'Manage\TaskController@edit')->name('tasks.edit');
-    Route::post('/evemt/{event}/tasks/{task}/edit', 'Manage\TaskController@update')->name('tasks.update');
+    Route::post('/event/{event}/tasks/{task}/edit', 'Manage\TaskController@update')->name('tasks.update');
     Route::get('/tasks/{task}/delete', 'Manage\TaskController@delete')->name('tasks.delete');
 
     Route::get('/tasks/{task}/assign_me', 'Manage\TaskController@assignMe')->name('task.assignMe');
