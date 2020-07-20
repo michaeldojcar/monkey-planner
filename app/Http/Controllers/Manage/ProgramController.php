@@ -6,6 +6,7 @@ use App\Event;
 use App\EventTime;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -60,10 +61,21 @@ class ProgramController extends Controller
      *
      * @param $event_id
      * @param $day
+     *
+     * @return Application|Factory|View
      */
     public function programForDay($event_id, $day)
     {
+        /* @var $event Event */
+        $event = Event::with([])->findOrFail($event_id);
 
+        return view('tabor_web.program.day', [
+            'main_event' => $event,
+            'group'      => $group = $event->owner_group,
+            'day'        => $day,
+
+            'events' => $this->getEventsFromDay($event, $day)
+        ]);
     }
 
     /**
