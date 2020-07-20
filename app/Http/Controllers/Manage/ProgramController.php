@@ -222,12 +222,12 @@ class ProgramController extends Controller
         $date = $this->getDateFromRelativeDay($main_event, $day_num);
 
         // Events
-        $events = $main_event->events();
+        $events = $main_event->events;
 
-        $events_for_day = $events->whereDate('from', '=', $date)
+        $events_for_day = $events->where('from', '>=', $date->startOfDay())
+                                 ->where('from', '<', $date->endOfDay())
                                  ->where('is_scheduled', true)
-                                 ->where('has_multiple_times', false)
-                                 ->get();
+                                 ->where('has_multiple_times', false);
 
         // Event times TODO: only from this main event
         $event_times = EventTime::whereDate('from', '=', $date)->get();

@@ -135,6 +135,8 @@ class EventController extends Controller
             // Not scheduled
             if ($request['day'] == 'not_scheduled')
             {
+                $this->removeEventTimes($event);
+
                 $event->is_scheduled       = false;
                 $event->has_multiple_times = false;
             }
@@ -149,6 +151,8 @@ class EventController extends Controller
             // Selected time
             else
             {
+                $this->removeEventTimes($event);
+
                 $event->is_scheduled       = true;
                 $event->has_multiple_times = false;
 
@@ -428,5 +432,10 @@ class EventController extends Controller
             $event_time->to       = Carbon::parse($event_time->from." + 1 hour");;
             $event_time->save();
         }
+    }
+
+    private function removeEventTimes(Event $event)
+    {
+        $event->event_times()->delete();
     }
 }
