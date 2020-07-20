@@ -1971,20 +1971,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     this.fetch();
-    setInterval(function () {
-      _this.fetch();
-    }, 10000);
   },
   methods: {
     fetch: function fetch() {
-      var _this2 = this;
+      var _this = this;
 
       axios.get('/api/event/1/calendar').then(function (response) {
-        _this2.event = response.data.event;
-        _this2.events = response.data.events;
+        _this.event = response.data.event;
+        _this.events = response.data.events;
       });
     },
     push: function push() {
@@ -2017,6 +2012,7 @@ __webpack_require__.r(__webpack_exports__);
           end: this.createStart,
           timed: true
         };
+        this.fetch();
         this.events.push(this.createEvent);
       }
     },
@@ -2076,7 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     roundTime: function roundTime(time) {
       var down = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var roundTo = 15; // minutes
+      var roundTo = 5; // minutes
 
       var roundDownTime = roundTo * 60 * 1000;
       return down ? time - time % roundDownTime : time + (roundDownTime - time % roundDownTime);

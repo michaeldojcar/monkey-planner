@@ -64,10 +64,6 @@
 
         mounted() {
             this.fetch()
-
-            setInterval(() => {
-                this.fetch()
-            }, 10000);
         },
 
         methods: {
@@ -110,6 +106,7 @@
                         timed: true,
                     }
 
+                    this.fetch()
                     this.events.push(this.createEvent)
                 }
             },
@@ -172,7 +169,7 @@
                 this.dragEvent = null
             },
             roundTime(time, down = true) {
-                const roundTo = 15 // minutes
+                const roundTo = 5 // minutes
                 const roundDownTime = roundTo * 60 * 1000
 
                 return down
