@@ -29,6 +29,12 @@ class ProgramController extends Controller
         /* @var $event Event */
         $event = Event::with([
             'events',
+
+            'events.users',
+            'events.authors',
+            'events.garants',
+
+            'events.groups',
             'owner_group',
             'events.parentEvent'
         ])->findOrFail($event_id);
@@ -43,8 +49,8 @@ class ProgramController extends Controller
             'days_count' => $this->getAllDaysCount($event), // Only count
 
             'non_scheduled' => $event->events
-                                     ->where('is_scheduled', false)
-                                     ->sortBy('name')
+                ->where('is_scheduled', false)
+                ->sortBy('name')
         ]);
     }
 
@@ -224,7 +230,8 @@ class ProgramController extends Controller
         // Event times TODO: only from this main event
         $event_times = EventTime::whereDate('from', '=', $date)->get();
 
-        return $events_for_day->merge($event_times)->sortBy('from');
+        return $events_for_day->merge($event_times)
+                              ->sortBy('from');
     }
 
     public function getEventsArray(Event $main_event)
