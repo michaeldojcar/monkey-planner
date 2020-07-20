@@ -169,7 +169,7 @@ class ProgramController extends Controller
     public function getDateFromRelativeDay(Event $main_event, $day_num)
     {
         $main_date  = Carbon::parse($main_event->from);
-        $result_day = $main_date->addDays($day_num);
+        $result_day = $main_date->addDays($day_num - 1);
 
         return $result_day;
     }
@@ -211,7 +211,7 @@ class ProgramController extends Controller
 
     public function getEventsArray(Event $main_event)
     {
-        $max_day_count = $this->getAllDaysCount($main_event);
+        $max_day_count = $this->getAllDaysCount($main_event); // 13.
 
         $days = [];
 

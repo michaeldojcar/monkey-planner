@@ -133,7 +133,7 @@ class Event extends Model
 
         foreach ($this->events as $sub_event)
         {
-           $tasks =  $tasks->merge($sub_event->tasks);
+            $tasks = $tasks->merge($sub_event->tasks);
         }
 
         return $tasks;
@@ -337,7 +337,7 @@ class Event extends Model
         $date      = Carbon::parse($this->parentEvent->from)->startOfDay();
         $main_date = Carbon::parse($this->from);
 
-        $diff = $date->diffInDays($main_date, false);
+        $diff = $date->diffInDays($main_date, false) + 1;
 
         return $diff;
     }
@@ -352,7 +352,7 @@ class Event extends Model
     public function countDateFromThisEventsDayNumber($day_num)
     {
         $main_date  = Carbon::parse($this->from);
-        $result_day = $main_date->addDays($day_num);
+        $result_day = $main_date->addDays($day_num - 1);
 
         return $result_day;
     }
