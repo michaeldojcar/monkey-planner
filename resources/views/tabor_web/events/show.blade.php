@@ -156,7 +156,7 @@
 
                 @foreach($event->roleTasks as $task)
                     @if(isset($task->content))
-                        <div class="card">
+                        <div class="card mb-3">
                             <div class="card-header"
                                  data-toggle="collapse"
                                  href="#task{{$task->id}}body"
