@@ -54,14 +54,15 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $event                 = new Event();
-        $event->name           = $request->input('name');
-        $event->type           = 0;
-        $event->owner_group_id = $request->input('owner_group_id');
-        $event->short          = '';
-        $event->content        = '';
-        $event->from           = Carbon::now();
-        $event->to             = Carbon::now();
+        $event                   = new Event();
+        $event->name             = $request->input('name');
+        $event->type             = 0;
+        $event->owner_group_id   = $request->input('owner_group_id');
+        $event->short            = '';
+        $event->content          = '';
+        $event->from             = Carbon::now();
+        $event->to               = Carbon::now();
+        $event->arrangement_days = 1;
 
         $event->save();
 

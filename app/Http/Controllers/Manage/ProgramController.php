@@ -24,8 +24,14 @@ class ProgramController extends Controller
      *
      * @return Factory|View Array of collection for every day.
      */
-    public function program(Event $event)
+    public function program($event_id)
     {
+        /* @var $event Event */
+        $event = Event::with([
+            'events',
+            'owner_group'
+        ])->findOrFail($event_id);
+
         $group = $event->owner_group;
 
         return view('tabor_web.program.program', [
@@ -155,14 +161,14 @@ class ProgramController extends Controller
     /**
      * Return carbon date from relative day.
      *
-     * @param  Event  $parent_event
-     * @param       $day_num
+     * @param  Event  $main_event
+     * @param  int  $day_num
      *
      * @return Carbon
      */
-    public function getDateFromRelativeDay(Event $parent_event, $day_num)
+    public function getDateFromRelativeDay(Event $main_event, $day_num)
     {
-        $main_date  = Carbon::parse($parent_event->from);
+        $main_date  = Carbon::parse($main_event->from);
         $result_day = $main_date->addDays($day_num);
 
         return $result_day;
@@ -209,7 +215,9 @@ class ProgramController extends Controller
 
         $days = [];
 
-        for ($x = 0; $x <= $max_day_count; $x++)
+        $first_day = 1 - $main_event->arrangement_days;
+
+        for ($x = $first_day; $x <= $max_day_count; $x++)
         {
             $days[$x] = $this->getEventsFromDay($main_event, $x);
         }
