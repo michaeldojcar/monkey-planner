@@ -60,8 +60,8 @@ class ProgramController extends Controller
             'main_event' => $event,
             'group'      => $group,
 
-            'days'       => $this->getEventsArray($event), // Days with events
-            'days_count' => $this->getAllDaysCount($event), // Only count
+//            'days'       => $this->getEventsArray($event), // Days with events
+            'days_count' => $this->getAllDaysCountWithArrangementDays($event), // Only count
 
             'non_scheduled' => $event->events()->where('is_scheduled', false)->orderBy('name')->get(),
         ]);
@@ -110,12 +110,13 @@ class ProgramController extends Controller
             }
         }
 
+        $from = $event->from->subDays($event->arrangement_days);
 
         return [
             'event' => [
-                'from' => $event->from->timestamp * 1000,
+                'from' => $from->timestamp * 1000,
                 'to'   => $event->to->timestamp * 1000,
-                'days' => $event->getAllDaysCount() + 1,
+                'days' => $this->getAllDaysCountWithArrangementDays($event),
             ],
 
             'events' => $events_array
@@ -187,6 +188,11 @@ class ProgramController extends Controller
         $diff       = $start_date->diffInDays($event->to, false);
 
         return $diff;
+    }
+
+    public function getAllDaysCountWithArrangementDays(Event $event)
+    {
+        return $this->getAllDaysCount($event) + $event->arrangement_days;
     }
 
 
