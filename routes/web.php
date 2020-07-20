@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth', CheckEmptyPwd::class], 'as' => 'organize.
 
     // Program
     Route::get('/event/{event}/program', 'Manage\ProgramController@program')->name('program');
+    Route::get('/event/{event}/day/{day}', 'Manage\ProgramController@programForDay')->name('program.day');
     Route::get('/event/{event}/calendar', 'Manage\ProgramController@calendar')->name('program.calendar');
     Route::get('/api/event/{event}/calendar', 'Manage\ProgramController@calendarApiIndex');
     Route::post('/api/event/{event}/calendar', 'Manage\ProgramController@storeCalendar');

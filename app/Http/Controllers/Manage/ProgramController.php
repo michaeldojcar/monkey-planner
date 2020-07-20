@@ -20,16 +20,17 @@ class ProgramController extends Controller
     /**
      * Show event program view.
      *
-     * @param  Event  $event
+     * @param $event_id
      *
-     * @return Factory|View Array of collection for every day.
+     * @return Factory|View
      */
     public function program($event_id)
     {
         /* @var $event Event */
         $event = Event::with([
             'events',
-            'owner_group'
+            'owner_group',
+            'events.parentEvent'
         ])->findOrFail($event_id);
 
         $group = $event->owner_group;
@@ -41,8 +42,21 @@ class ProgramController extends Controller
             'days'       => $this->getEventsArray($event), // Days with events
             'days_count' => $this->getAllDaysCount($event), // Only count
 
-            'non_scheduled' => $event->events()->where('is_scheduled', false)->orderBy('name')->get(),
+            'non_scheduled' => $event->events
+                                     ->where('is_scheduled', false)
+                                     ->sortBy('name')
         ]);
+    }
+
+    /**
+     * Show program for specific relative day.
+     *
+     * @param $event_id
+     * @param $day
+     */
+    public function programForDay($event_id, $day)
+    {
+
     }
 
     /**
