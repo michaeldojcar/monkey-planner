@@ -124,6 +124,21 @@ class Event extends Model
         return $this->belongsToMany(Task::class)->where('type', 2);
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getSubEventTasks()
+    {
+        $tasks = new Collection();
+
+        foreach ($this->events as $sub_event)
+        {
+           $tasks =  $tasks->merge($sub_event->tasks);
+        }
+
+        return $tasks;
+    }
+
     public function getAuthUserParticipationStatus()
     {
         return $this->getUserParticipationStatus(Auth::user());
@@ -349,4 +364,6 @@ class Event extends Model
 
         return $diff;
     }
+
+
 }

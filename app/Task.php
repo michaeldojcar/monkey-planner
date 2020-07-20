@@ -41,6 +41,10 @@ use Illuminate\Support\Facades\Auth;
  */
 class Task extends Model
 {
+    public const TYPE_BASIC = 0;
+    public const TYPE_ROLE = 1;
+    public const TYPE_ITEM = 2;
+
     public function groups()
     {
         return $this->belongsToMany(Group::class);
@@ -62,7 +66,8 @@ class Task extends Model
      */
     public function getTypeString()
     {
-        switch ($this->status) {
+        switch ($this->status)
+        {
             case 0:
                 return 'úkol';
             case 1:
@@ -77,7 +82,8 @@ class Task extends Model
 
     public function getStatusString()
     {
-        switch ($this->status) {
+        switch ($this->status)
+        {
             case 0:
                 return 'Ready';
             case 1:
@@ -111,9 +117,12 @@ class Task extends Model
     {
         $main_event = $this->getMainEvent();
 
-        if ($this->groups()->count() > 0 && $this->groups()->first()->id == $main_event->id) {
+        if ($this->groups()->count() > 0 && $this->groups()->first()->id == $main_event->id)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
@@ -125,9 +134,12 @@ class Task extends Model
 
     public function isAuthAssigned()
     {
-        if ($this->users->contains(Auth::id())) {
+        if ($this->users->contains(Auth::id()))
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
