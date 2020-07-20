@@ -3,6 +3,8 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h3>{{$main_event->name}} - členové týmu</h3>
+
+        <a class="btn btn-warning" href="{{route('organize.work_stats', $main_event)}}">Statistika vytíženosti</a>
     </div>
 
     <div class="table-responsive material-shadow">

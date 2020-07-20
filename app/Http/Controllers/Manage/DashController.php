@@ -35,10 +35,18 @@ class DashController extends Controller
         $main_event = Event::with('events.tasks')->findOrFail($event_id);
 
         // Eager data loading
-        $group       = Group::with([
-            'mainEvent', 'mainEvent.tasks', 'mainEvent.events.tasks', 'mainEvent.events.parentEvent'
+        $group = Group::with([
+            'mainEvent',
+            'mainEvent.tasks',
+            'mainEvent.events.tasks',
+            'mainEvent.events.parentEvent'
         ])->findOrFail($main_event->owner_group_id);
-        $logged_user = User::with(['events', 'tasks', 'events.tasks'])->findOrFail(Auth::id());
+
+        $logged_user = User::with([
+            'events',
+            'tasks',
+            'events.tasks'
+        ])->findOrFail(Auth::id());
 
         $event_tasks = $main_event->getSubEventTasks();
 
