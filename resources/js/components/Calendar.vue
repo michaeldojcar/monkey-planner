@@ -54,7 +54,6 @@
             event: {},
             events: [],
             colors: ['', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
-            names: ['Houpačka', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
             dragEvent: null,
             dragStart: null,
             createEvent: null,
@@ -76,7 +75,7 @@
             },
 
             push() {
-                axios.post('/api/event/1/calendar', {
+                return axios.post('/api/event/1/calendar', {
                     events: this.events
                 });
             },
@@ -106,7 +105,6 @@
                         timed: true,
                     }
 
-                    this.fetch()
                     this.events.push(this.createEvent)
                 }
             },
@@ -149,7 +147,11 @@
                 this.createStart = null
                 this.extendOriginal = null
 
-                this.push();
+
+                this.push()
+                    .then(() => {
+                        this.fetch()
+                    })
             },
             cancelDrag() {
                 if (this.createEvent) {

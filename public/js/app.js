@@ -1962,7 +1962,6 @@ __webpack_require__.r(__webpack_exports__);
       event: {},
       events: [],
       colors: ['', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
-      names: ['Houpačka', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
       dragEvent: null,
       dragStart: null,
       createEvent: null,
@@ -1983,7 +1982,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     push: function push() {
-      axios.post('/api/event/1/calendar', {
+      return axios.post('/api/event/1/calendar', {
         events: this.events
       });
     },
@@ -2012,7 +2011,6 @@ __webpack_require__.r(__webpack_exports__);
           end: this.createStart,
           timed: true
         };
-        this.fetch();
         this.events.push(this.createEvent);
       }
     },
@@ -2045,12 +2043,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     endDrag: function endDrag() {
+      var _this2 = this;
+
       this.dragTime = null;
       this.dragEvent = null;
       this.createEvent = null;
       this.createStart = null;
       this.extendOriginal = null;
-      this.push();
+      this.push().then(function () {
+        _this2.fetch();
+      });
     },
     cancelDrag: function cancelDrag() {
       if (this.createEvent) {
