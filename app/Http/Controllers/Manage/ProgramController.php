@@ -35,6 +35,7 @@ class ProgramController extends Controller
             'events.garants',
 
             'events.groups',
+
             'owner_group',
             'events.parentEvent'
         ])->findOrFail($event_id);
@@ -221,11 +222,12 @@ class ProgramController extends Controller
         $date = $this->getDateFromRelativeDay($main_event, $day_num);
 
         // Events
-        $events = $main_event->events;
+        $events = $main_event->events();
 
-        $events_for_day = $events->where('from', '=', $date)
+        $events_for_day = $events->whereDate('from', '=', $date)
                                  ->where('is_scheduled', true)
-                                 ->where('has_multiple_times', false);
+                                 ->where('has_multiple_times', false)
+                                 ->get();
 
         // Event times TODO: only from this main event
         $event_times = EventTime::whereDate('from', '=', $date)->get();
