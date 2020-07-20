@@ -9,7 +9,6 @@ use App\Role;
 use App\Task;
 use App\User;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -169,10 +168,11 @@ class EventController extends Controller
         }
         else
         {
-            $event->from    = Carbon::parse($request['date_from']);
-            $event->to      = Carbon::parse($request['date_to']);
-            $event->content = $request['content'];
-            $event->notice  = $request['notice'];
+            $event->from             = Carbon::parse($request['date_from']);
+            $event->to               = Carbon::parse($request['date_to']);
+            $event->content          = $request['content'];
+            $event->notice           = $request['notice'];
+            $event->arrangement_days = $request['arrangement_days'];
         }
 
         // Save model

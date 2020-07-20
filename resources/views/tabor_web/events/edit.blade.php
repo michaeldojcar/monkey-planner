@@ -190,6 +190,19 @@
                                            required="required">
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-4">Počet přípravných dní před událostí</label>
+                                <div class="col-8">
+                                    <input id="arrangement_days"
+                                           name="arrangement_days"
+                                           value="{{$event->arrangement_days}}"
+                                           type="number"
+                                           min="0"
+                                           class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
