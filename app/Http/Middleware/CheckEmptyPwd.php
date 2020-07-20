@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,10 @@ class CheckEmptyPwd
         {
             return redirect()->route('new-pwd');
         }
+
+        // Move to middleware
+        Auth::user()->last_login_at = Carbon::now();
+        Auth::user()->save();
 
         return $next($request);
     }

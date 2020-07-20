@@ -39,7 +39,6 @@
                 <div class="col-sm-6">
                     <table class="table table-black">
                         <tr>
-
                             <td width="150"
                                 class="td-title">Datum
                             </td>

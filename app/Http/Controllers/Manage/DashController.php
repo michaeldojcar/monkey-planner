@@ -8,6 +8,7 @@ use App\Group;
 use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -30,10 +31,6 @@ class DashController extends Controller
     public function dashboard($event_id)
     {
         $main_event = Event::findOrFail($event_id);
-
-        // TODO: move to middleware
-        Auth::user()->last_login_at = Carbon::now();
-        Auth::user()->save();
 
         // Eager data loading
         $group       = Group::with(['mainEvent', 'mainEvent.tasks', 'mainEvent.events.tasks', 'mainEvent.events.parentEvent'])->findOrFail($main_event->owner_group_id);
@@ -64,13 +61,10 @@ class DashController extends Controller
      * @param  Group  $group
      * @param  Group  $subgroup
      *
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|View
+     * @return Application|Factory|View
      */
     public function subGroupDashboard(Group $group, Group $subgroup)
     {
-        Auth::user()->last_login_at = Carbon::now();
-        Auth::user()->save();
-
         return view('tabor_web.subgroup_dashboard', [
             'group'        => $group,
             'subgroup'     => $subgroup,
