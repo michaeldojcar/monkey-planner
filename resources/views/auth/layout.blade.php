@@ -76,7 +76,7 @@
 <script src="{{asset('js/libs/vanta.js')}}"></script>
 
 <script>
-    VANTA.NET({
+  /*  VANTA.NET({
         el: "body",
         mouseControls: true,
         touchControls: true,
@@ -87,7 +87,7 @@
         color: 0xcfcece,
         backgroundColor: 0xfbf8ff,
         points: 17.00
-    })
+    })*/
 </script>
 
 @stack('scripts')
