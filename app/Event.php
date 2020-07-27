@@ -343,6 +343,20 @@ class Event extends Model
     }
 
     /**
+     * Get today relative day according to event start.
+     */
+    public function getTodayRelativeDay()
+    {
+        $start = $this->from;
+
+        $today = Carbon::now();
+
+        $diff = $today->diffInDays($start, false);
+
+        return $diff + 1;
+    }
+
+    /**
      * Useful for parent events.
      *
      * @param $day_num
