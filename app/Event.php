@@ -351,9 +351,9 @@ class Event extends Model
 
         $today = Carbon::now();
 
-        $diff = $today->diffInDays($start, false);
+        $diff = $start->diffInDays($today, false);
 
-        return $diff + 1;
+        return $diff;
     }
 
     /**
