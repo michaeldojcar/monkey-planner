@@ -3,7 +3,7 @@
 @push('css')
     <style>
         .box {
-            margin-top: 200px;
+            margin-top: 40px;
 
             font-family: "Rubik", sans-serif;
 
