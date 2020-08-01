@@ -11,6 +11,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 // Program calendar component
 Vue.component('calendar', require('./components/Calendar.vue').default);
+Vue.component('current-clock-widget', require('./components/CurrentClockWidget').default);
 
 // Load Vue.js
 const app = new Vue({

@@ -32,7 +32,8 @@
 
 
     <a class="btn btn-primary mb-4 d-inline-block"
-       href="{{route('organize.program.day', ['event' => $main_event, 'day'=> $main_event->getTodayRelativeDay()])}}">Otevřít dnešní program</a>
+       href="{{route('organize.program.day', ['event' => $main_event, 'day'=> $main_event->getTodayRelativeDay()])}}">Otevřít
+        dnešní program</a>
 
     <a class="btn btn-danger mb-4 d-inline-block"
        href="tel://606 703 493"><i class="fas fa-first-aid"></i> Přivolat zdravotníka</a>

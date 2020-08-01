@@ -353,7 +353,7 @@ class Event extends Model
 
         $diff = $start->diffInDays($today, false);
 
-        return $diff;
+        return $diff + 1;
     }
 
     /**

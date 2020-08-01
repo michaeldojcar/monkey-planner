@@ -8,6 +8,10 @@
             <p>{{$main_event->countDateFromThisEventsDayNumber($day)->format('d.m.Y')}}</p>
         </div>
 
+        <div class="d-none d-md-block">
+            <current-clock-widget></current-clock-widget>
+        </div>
+
 {{--        <div class="btn-toolbar mb-2 mb-md-0">--}}
 {{--            <div class="btn-group mr-2 mt-2 mt-md-0">--}}
 {{--                <button class="btn btn-sm btn-success"--}}
