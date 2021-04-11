@@ -1,19 +1,11 @@
 # Monkey planner
 
-Upozornění: aplikace je v rané části vývoje a je poměrně nestabilní. Toto readme pro prvotní fázi vývoje bude sloužit jako TO-DO list.
+Notice: app is still under development.
 
-English translation: coming soon
+Monkey planner is open-source project and event management web platform.
+It is universal open source alternative for Jira, Trello, Asana and other proprietary software.
 
-## Co to je?
-Plánovač akcí je open-source webová aplikace určená pro koordinaci přípravy a realizace vašich událostí. 
-
-Všechna data a přípravy jsou na jednom místě a všichni organizátoři k nim mohou rychle a bezpečně přistupovat.
-
-Aplikace umožňuje inteligentně strukturovat úkoly, harmonogram, přípravné týmy a koordinátory.
-
-### Pro koho to je
-- pro tábory a dětské zotavovací akce
-- koncerty a hudební festivaly
+Organise your project in one place. With monkey planner you can manage tasks, events, people, groups and relations between them.
 
 ## Části aplikace
 ### Příprava akce
@@ -47,4 +39,3 @@ Při realizaci vám v terénu pomůže následující:
     - živá mapa všech organizátorů
 - možnost svolat týmy na určité místo
 - rozposlání rychlé zprávy všem členům týmu
-
