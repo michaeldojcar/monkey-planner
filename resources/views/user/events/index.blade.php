@@ -5,7 +5,7 @@
         <a href="{{route('user.events.create')}}"
            class="btn btn-success float-right">Vytvořit akci</a>
 
-        <h4 class="mb-4">Moje akce</h4>
+        <h4 class="mb-4">Moje události</h4>
 
         <table class="table table-striped">
             <tr>
@@ -24,7 +24,7 @@
             @endforeach
         </table>
 
-        <h5 class="mb-4">Předešlé akce</h5>
+        <h5 class="mb-4">Proběhlé události</h5>
 
         <table class="table table-striped">
             <tr>
