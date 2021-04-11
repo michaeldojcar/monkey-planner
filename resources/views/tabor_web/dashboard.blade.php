@@ -14,7 +14,7 @@
 
     <div class="row d-md-flex">
         <div class="col-sm">
-            <p>Ahoj {{Auth::user()->name_5}}. Vítej ve své nástěnce pro přípravu akce {{$main_event->name}}.</p>
+            <p>Ahoj {{Auth::user()->name_5}}. Vítej ve své nástěnce pro přípravu události {{$main_event->name}}.</p>
         </div>
 
         @if(!empty ($main_event->notice))
