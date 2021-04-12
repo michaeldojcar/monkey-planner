@@ -2,10 +2,23 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h4>{{$place->name}} - {{$place->group->name}}</h4>
+        <div>
+            <h4>{{$place->name}}</h4>
+
+            <p>
+                <a href="{{route('inventory.item_places.index', $place->group)}}">{{$place->group->name}}</a>
+
+{{--                @if($place->parent_item_place)--}}
+{{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
+{{--                @endif--}}
+
+                → {{$place->name}}
+            </p>
+        </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                {{--                <a class="btn btn-sm btn-outline-secondary" href="{{route('admin.users.create')}}">+ Nový sklad</a>--}}
+                <a class="btn btn-sm btn-outline-secondary"
+                   href="{{route('inventory.item_places.create', [$group, 'parent_id'=>$place->id])}}">+ Nové místo</a>
             </div>
         </div>
     </div>
@@ -23,7 +36,7 @@
             <tbody>
             @foreach($place->item_places as $subplace)
                 <tr>
-                    <td><a href="{{route('user.inventories.show', $subplace)}}">{{$subplace->name}}</a></td>
+                    <td><a href="{{route('inventory.item_places.show', [$group, $subplace])}}">{{$subplace->name}}</a></td>
                 </tr>
             @endforeach
             </tbody>

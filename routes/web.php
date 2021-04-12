@@ -69,7 +69,7 @@ Route::group([
     'prefix' => '/inventory/{group_id}'
 ], function ()
 {
-    Route::get('/', [\App\Http\Controllers\Inventory\DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Inventory\DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/search', [SearchController::class, 'search'])->name('search');
 
     Route::resource('/item_places', ItemPlaceController::class);

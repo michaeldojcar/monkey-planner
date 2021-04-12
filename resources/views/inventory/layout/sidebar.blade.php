@@ -23,7 +23,7 @@
     </h6>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('inventory/dashboard') ? 'active' : '' }}"
+            <a class="nav-link {{ request()->is('inventory/*/dashboard') ? 'active' : '' }}"
                href="{{route('inventory.dashboard', $main_group)}}">
                 <span data-feather="home"></span>
                 Přehled
@@ -32,15 +32,15 @@
 
     <li class="nav-item">
         <a class="nav-link {{ request()->is('user/dash') ? 'active' : '' }}"
-           href="{{route('user.dashboard')}}">
+           href="{{route('inventory.item_places.index', $main_group)}}">
             <span data-feather="box"></span>
             Položky
         </a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link {{ request()->is('user/groups') ? 'active' : '' }}"
-           href="{{route('user.groups.index')}}">
+        <a class="nav-link {{ request()->is('inventory/*/item_places*') ? 'active' : '' }}"
+           href="{{route('inventory.item_places.index', $main_group)}}">
             <span data-feather="archive"></span>
             Místa
         </a>

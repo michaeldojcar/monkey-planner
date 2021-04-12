@@ -24,6 +24,7 @@ class ItemPlaceController extends Controller
         $this->itemPlaceRepository = $itemPlaceRepository;
     }
 
+
     /**
      * Show group item places.
      *
@@ -34,7 +35,8 @@ class ItemPlaceController extends Controller
         $group = Group::findOrFail($group_id);
 
         return view('inventory.item_places.index', [
-            'places' => $this->itemPlaceRepository->getMainItemPlacesForGroup($group)
+            'group'  => $group,
+            'places' => $this->itemPlaceRepository->getMainItemPlacesForGroup($group),
         ]);
     }
 
@@ -42,17 +44,70 @@ class ItemPlaceController extends Controller
     /**
      * Show item place.
      *
+     * @param $group_id
      * @param $id
      *
      * @return Application|Factory|View
      */
-    public function show($id)
+    public function show($group_id, $id, Request $request)
     {
         $itemPlace = ItemPlace::findOrFail($id);
 
         return view('inventory.item_places.show', [
+            'group' => $this->getMainGroup($request),
             'place' => $itemPlace,
         ]);
+    }
+
+
+    public function create(Request $request)
+    {
+        $group = $this->getMainGroup($request);
+
+        if ($request->has('parent_id'))
+        {
+            $parent_place_id = $request->get('parent_id');
+            $parent_place    = ItemPlace::findOrFail($parent_place_id);
+        }
+        else
+        {
+            $parent_place = null;
+        }
+
+        return view('inventory.item_places.create', [
+            'parent_place' => $parent_place,
+            'group'        => $group,
+        ]);
+    }
+
+
+    public function store(Request $request)
+    {
+        $group = Group::findOrFail($request->route('group_id'));
+
+        $place           = new ItemPlace();
+        $place->name     = $request['name'];
+        $place->group_id = $group->id;
+
+        if ($request->has('parent_id'))
+        {
+            $place->parent_id = $request['parent_id'];
+        }
+        $place->save();
+
+        return redirect()->route('inventory.item_places.show', [$group, $place]);
+    }
+
+
+    public function edit()
+    {
+
+    }
+
+
+    private function getMainGroup(Request $request)
+    {
+        return Group::findOrFail($request->route('group_id'));
     }
 
 
