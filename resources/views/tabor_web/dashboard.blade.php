@@ -2,19 +2,19 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h3>{{ucfirst($main_event->name)}} - nástěnka</h3>
+        <h4>{{ucfirst($main_event->name)}}</h4>
 
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{route('user.events.index')}}"
-               class="btn btn-sm btn-outline-secondary">
-                Zpět do výběru události
-            </a>
+{{--            <a href="{{route('user.dashboard')}}"--}}
+{{--               class="btn btn-sm btn-outline-secondary">--}}
+{{--                Možnosti události--}}
+{{--            </a>--}}
         </div>
     </div>
 
     <div class="row d-md-flex">
         <div class="col-sm">
-            <p>Ahoj {{Auth::user()->name_5}}. Vítej ve své nástěnce pro přípravu události {{$main_event->name}}.</p>
+            <p>Dobrý den, {{Auth::user()->name_5}}. Vítejte ve své nástěnce pro přípravu události {{$main_event->name}}.</p>
         </div>
 
         @if(!empty ($main_event->notice))

@@ -14,15 +14,28 @@
 @endpush
 
 @section('navbar_top')
-    @include('user.layout.navbar_top')
+    @include('inventory.layout.navbar_top')
 @endsection
 
 @section('sidebar')
-    @include('user.layout.sidebar')
+    @include('inventory.layout.sidebar')
 @endsection
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magicsuggest/2.1.4/magicsuggest-min.js"></script>
 
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/datatables.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $("#data-table").DataTable();
+        });
+
+        $("#data-table").DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Czech.json'
+            }
+        });
+    </script>
 @endpush

@@ -83,6 +83,12 @@ class Group extends Model
         return $this->belongsTo(Event::class, 'main_event_id');
     }
 
+
+    public function item_places()
+    {
+        return $this->hasMany(ItemPlace::class);
+    }
+
     /**
      * @param $count
      * @param $one

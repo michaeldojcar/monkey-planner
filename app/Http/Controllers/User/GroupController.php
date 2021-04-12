@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(GroupRepository $group_repository)
     {
         return view('user.groups.index', [

@@ -1,9 +1,24 @@
 <ul class="nav flex-column">
+    @component('layouts.menu-item')
+        Návrat do plánovače
+        @slot('href', route('user.dashboard'))
+        @slot('active_url', 'user')
+        @slot('icon', 'corner-up-left')
+    @endcomponent
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 mt-3 text-muted">
+        <span>   {{$main_event->name}}</span>
+        <a class="d-flex align-items-center text-muted"
+           href="#">
+            <span data-feather="plus-circle"></span>
+        </a>
+    </h6>
+
     <li class="nav-item">
         <a class="nav-link {{ request()->is('organizace-akce/team/*/nastenka') ? 'active' : '' }}"
            href="{{route('organize.dashboard', $main_event)}}">
             <span data-feather="home"></span>
-            Moje nástěnka<span class="sr-only">(current)</span>
+            Moje nástěnka
         </a>
     </li>
     <li class="nav-item">

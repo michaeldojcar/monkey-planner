@@ -21,8 +21,6 @@ class EventController extends Controller
     public function __construct(EventRepository $event_repository)
     {
         $this->eventRepository = $event_repository;
-
-        $this->middleware('auth');
     }
 
     /**
@@ -67,11 +65,6 @@ class EventController extends Controller
         $event->save();
 
         return redirect()->route('organize.dashboard', $event);
-    }
-
-    public function show()
-    {
-
     }
 
     /**

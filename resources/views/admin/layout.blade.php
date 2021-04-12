@@ -13,6 +13,21 @@
 
 @section('sidebar')
     @component('layouts.menu-item')
+        Návrat do plánovače
+        @slot('href', route('user.dashboard'))
+        @slot('active_url', 'user')
+        @slot('icon', 'corner-up-left')
+    @endcomponent
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 mt-3 text-muted">
+        <span>Administrace</span>
+{{--        <a class="d-flex align-items-center text-muted"--}}
+{{--           href="#">--}}
+{{--            <span data-feather="plus-circle"></span>--}}
+{{--        </a>--}}
+    </h6>
+
+    @component('layouts.menu-item')
         Nástěnka
         @slot('href', route('admin.dashboard'))
         @slot('active_url', 'admin')
@@ -20,15 +35,17 @@
     @endcomponent
 
     @component('layouts.menu-item')
-        Uživatelé
+        Lidé
         @slot('href', route('admin.users.index'))
         @slot('active_url', 'admin/users')
+        @slot('icon', 'user')
     @endcomponent
 
     @component('layouts.menu-item')
-       Týmy
+       Skupiny
         @slot('href', route('admin.groups.index'))
         @slot('active_url', 'admin/groups')
+       @slot('icon', 'users')
     @endcomponent
 
 {{--    @component('layouts.menu-item')--}}
