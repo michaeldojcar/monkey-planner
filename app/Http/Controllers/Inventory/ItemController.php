@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Item;
 use App\ItemPlace;
 use App\ItemState;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use MichaelDojcar\LaravelPhoto\Models\Photo;
 use MichaelDojcar\LaravelPhoto\PhotoService;
 
 class ItemController extends Controller
@@ -52,11 +54,22 @@ class ItemController extends Controller
             $place = null;
         }
 
+        if ($request->has('item_id'))
+        {
+            $item_id = $request->input('item_id');
+            $item    = Item::findOrFail($item_id);
+        }
+        else
+        {
+            $item = null;
+        }
+
         $available_items  = $group->items;
         $available_places = $group->item_places;
 
         return view('inventory.item.create', [
             'place'            => $place,
+            'item'             => $item,
             'group'            => $group,
 
             // Data for magic picker
@@ -98,7 +111,7 @@ class ItemController extends Controller
         // Adding record to existing item
         else
         {
-            $item = Item::findOrFail($request['existing_item_id']);
+            $item = Item::findOrFail($request['existing_item_id'])->first();
 
             $state           = new ItemState();
             $state->item_id  = $item->id;
@@ -150,25 +163,41 @@ class ItemController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit($group_id, $id)
     {
-        //
+        $group = $this->findGroup($group_id);
+        $item  = Item::findOrFail($id);
+
+        return view('inventory.item.edit', [
+            'group' => $group,
+            'item'  => $item,
+        ]);
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param         $group_id
      * @param int     $id
      *
-     * @return Response
+     * @param Request $request
+     *
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update($group_id, $id, Request $request)
     {
-        //
+        $group = $this->findGroup($group_id);
+        $item  = Item::findOrFail($id);
+
+        $item->name        = $request['name'];
+        $item->description = $request['description'];
+        $item->count_unit  = $request['count_unit'];
+        $item->save();
+
+        return redirect()->route('inventory.items.show', [$group, $item->id]);
     }
 
 
@@ -177,11 +206,24 @@ class ItemController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy($group_id, $id)
     {
-        //
+        $group = $this->findGroup($group_id);
+        $item  = Item::findOrFail($id);
+        $item->item_states()->delete();
+
+        $ps = new PhotoService();
+        foreach ($item->photos as $photo)
+        {
+            $ps->delete($photo);
+        }
+
+        $item->delete();
+
+        return redirect()->route('inventory.items.index', [$group]);
     }
 
 

@@ -22,6 +22,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Inventory\ItemController;
 use App\Http\Controllers\Inventory\ItemPlaceController;
 use App\Http\Controllers\Inventory\SearchController;
+use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\Manage\BlockController;
 use App\Http\Controllers\Manage\DashController;
 use App\Http\Controllers\Manage\EventController as ManageEventController;
@@ -75,6 +76,7 @@ Route::group([
 
     Route::resource('/item_places', ItemPlaceController::class);
     Route::resource('/items', ItemController::class);
+    Route::resource('/categories', ItemCategoryController::class);
     Route::post('/items/upload-photo', [ItemController::class, 'uploadPhoto'])->name('items.upload-photo');
 
 

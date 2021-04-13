@@ -8,9 +8,9 @@
             <p>
                 <a href="{{route('inventory.item_places.index', $place->group)}}">{{$place->group->name}}</a>
 
-{{--                @if($place->parent_item_place)--}}
-{{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
-{{--                @endif--}}
+                {{--                @if($place->parent_item_place)--}}
+                {{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
+                {{--                @endif--}}
 
                 → {{$place->name}}
             </p>
@@ -33,17 +33,20 @@
             <thead>
             <tr>
                 <th>Položka</th>
+                <th>Počet</th>
             </tr>
             </thead>
             <tbody>
             @foreach($place->item_states as $state)
                 <tr>
-                    <td><a href="{{route('inventory.items.show', [$group, $state->item])}}">{{$state->item->name}}</a></td>
+                    <td><a href="{{route('inventory.items.show', [$group, $state->item])}}">{{$state->item->name}}</a>
+                    </td>
+                    <td>{{$state->count}} {{$state->item->count_unit}}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        @endif
+    @endif
 
     @if($place->item_states->count() == 0 &&$place->item_places->count() == 0)
         <h5>Uskladněné položky</h5>
@@ -51,7 +54,7 @@
     @endif
 
     @if($place->item_places()->count() > 0)
-    <h5>Skladová místa</h5>
+        <h5>Skladová místa</h5>
 
         <table class="table table-striped"
                id="data-table">
@@ -63,7 +66,8 @@
             <tbody>
             @foreach($place->item_places as $subplace)
                 <tr>
-                    <td><a href="{{route('inventory.item_places.show', [$group, $subplace])}}">{{$subplace->name}}</a></td>
+                    <td><a href="{{route('inventory.item_places.show', [$group, $subplace])}}">{{$subplace->name}}</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

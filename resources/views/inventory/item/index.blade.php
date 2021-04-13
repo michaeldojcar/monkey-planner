@@ -38,5 +38,7 @@
             @endforeach
             </tbody>
         </table>
+    @else
+        <p>{{$group->name}} zatím nemá přidanou žádnou položku.</p>
     @endif
 @endsection

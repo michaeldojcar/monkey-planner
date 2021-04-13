@@ -5,20 +5,20 @@
         <div>
             <h4>{{$item->name}}</h4>
 
-            <p>
-                <a href="{{route('inventory.items.index', $group)}}">{{$group->name}}</a>
+{{--            <p>--}}
+{{--                <a href="{{route('inventory.items.index', $group)}}">{{$group->name}}</a>--}}
 
-                {{--                @if($place->parent_item_place)--}}
-                {{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
-                {{--                @endif--}}
+{{--                --}}{{--                @if($place->parent_item_place)--}}
+{{--                --}}{{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
+{{--                --}}{{--                @endif--}}
 
-                → {{$item->name}}
-            </p>
+{{--                → {{$item->name}}--}}
+{{--            </p>--}}
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                {{--                <a class="btn btn-sm btn-outline-secondary"--}}
-                {{--                   href="{{route('inventory.item_places.create', [$group, 'parent_id'=>$place->id])}}">+ Nové místo</a>--}}
+                <a class="btn btn-sm btn-outline-secondary"
+                   href="{{route('inventory.items.edit', [$group, $item])}}">Upravit položku</a>
 
                 {{--                <a class="btn btn-sm btn-outline-secondary"--}}
                 {{--                   href="{{route('inventory.items.create', [$group, 'place_id'=>$place])}}">+ Nová položka</a>--}}
@@ -28,7 +28,16 @@
 
     <div class="row">
         <div class="col-md-9">
-            <h5>Umístění</h5>
+            @if($item->description)
+                <p>{{ $item->description }}</p>
+            @endif
+
+            <div class="d-flex justify-content-between mb-2">
+                <h5>Umístění</h5>
+
+                <a class="btn btn-sm btn-outline-secondary "
+                   href="{{route('inventory.items.create', [$group, 'item_id'=>$item->id])}}">+ Přidat další kusy</a>
+            </div>
 
             <table class="table table-striped">
                 <thead>

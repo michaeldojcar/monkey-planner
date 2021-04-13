@@ -19,9 +19,10 @@
         <div class="form-group">
             <label>Co chcete přidat</label>
             <select class="form-control"
-                    id="select_item_type" name="select_item_type">
+                    id="select_item_type"
+                    name="select_item_type">
                 <option value="new">Nová položka</option>
-                <option value="existing">Přidat další záznam k existující položce</option>
+                <option value="existing" {{ $item ? 'selected' : '' }}>Přidat další záznam k existující položce</option>
             </select>
         </div>
 
@@ -68,7 +69,9 @@
                 valueField: "id",
                 displayField: 'name',
                 allowFreeEntries: false,
-                {{--value: @json($author_users_selected),--}}
+                @if($item)
+                value: [@json($item)],
+                @endif
                 useCommaKey: false,
                 maxSelection: 1,
                 required: true,
@@ -98,18 +101,37 @@
 
         // Toggle form inputs
         $(function () {
-            $('#select_item_type').change(function (el) {
-                if ($(this).val() === 'existing') {
-                    $('#input_create_item').addClass('d-none');
-                    $('#input_choose_item').removeClass('d-none');
+
+            function renderForm() {
+                if ($('#select_item_type').val() === 'existing') {
+
+                    $('#input_create_item')
+                        .addClass('d-none');
+
+                    $('#input_create_item input')
+                        .prop('required', false);
+
+                    $('#input_choose_item')
+                        .removeClass('d-none');
+
                 }
                 else {
-                    $('#input_create_item').removeClass('d-none');
-                    $('#input_choose_item').addClass('d-none');
+                    $('#input_create_item')
+                        .removeClass('d-none');
+
+                    $('#input_create_item input')
+                        .prop('required', true);
+
+                    $('#input_choose_item')
+                        .addClass('d-none');
                 }
+            }
 
+            // Render on load
+            renderForm();
 
-            });
+            // Render on change
+            $('#select_item_type').change(renderForm);
 
         });
     </script>
