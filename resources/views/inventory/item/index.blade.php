@@ -16,13 +16,24 @@
                id="data-table">
             <thead>
             <tr>
+                <th style="width: 50px"></th>
                 <th>Název</th>
             </tr>
             </thead>
             <tbody>
             @foreach($items as $item)
                 <tr>
-                    <td><a href="{{route('inventory.items.show', [$group, $item])}}">{{$item->name}}</a></td>
+                    <td>
+                        <div class="embed-responsive embed-responsive-1by1 border-radius d-inline-block" style="width: 40px">
+                            @if($item->photos->count())
+                                <img class="embed-responsive-item"
+                                     src="{{$item->photos->first()->size(40, 40)}}">
+                            @endif
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{{route('inventory.items.show', [$group, $item])}}">{{$item->name}}</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
