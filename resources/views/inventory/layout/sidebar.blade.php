@@ -31,8 +31,8 @@
         </li>
 
     <li class="nav-item">
-        <a class="nav-link {{ request()->is('user/dash') ? 'active' : '' }}"
-           href="{{route('inventory.item_places.index', $main_group)}}">
+        <a class="nav-link {{ request()->is('inventory/*/items') ? 'active' : '' }}"
+           href="{{route('inventory.items.index', $main_group)}}">
             <span data-feather="box"></span>
             Položky
         </a>

@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Inventory\ItemController;
 use App\Http\Controllers\Inventory\ItemPlaceController;
 use App\Http\Controllers\Inventory\SearchController;
 use App\Http\Controllers\Manage\BlockController;
@@ -73,6 +74,7 @@ Route::group([
     Route::post('/search', [SearchController::class, 'search'])->name('search');
 
     Route::resource('/item_places', ItemPlaceController::class);
+    Route::resource('/items', ItemController::class);
 
 
 });

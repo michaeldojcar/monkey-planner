@@ -42,6 +42,12 @@ class ItemState extends Model
         return $this->belongsTo(Item::class);
     }
 
+
+    public function item_place()
+    {
+        return $this->belongsTo(ItemPlace::class, 'place_id');
+    }
+
     public function getStateString()
     {
 

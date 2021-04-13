@@ -4,7 +4,9 @@
 namespace App\Repositories;
 
 
+use App\Group;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class ItemPlaceRepository
@@ -20,11 +22,12 @@ class ItemPlaceRepository
 
         return $user->groups
             ->pluck('item_places')
-            ->flatten();
+            ->flatten()
+            ->where('parent_id', null);
     }
 
 
-    public function getMainItemPlacesForGroup(\Illuminate\Database\Eloquent\Model $group)
+    public function getMainItemPlacesForGroup(Group $group): \Illuminate\Database\Eloquent\Collection
     {
         return $group->item_places()->where('parent_id', null)->get();
     }

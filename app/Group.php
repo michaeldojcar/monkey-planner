@@ -84,6 +84,11 @@ class Group extends Model
     }
 
 
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
     public function item_places()
     {
         return $this->hasMany(ItemPlace::class);

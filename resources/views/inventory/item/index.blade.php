@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-        <h4>Skladová místa</h4>
+        <h4>Položky</h4>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
                 <a class="btn btn-sm btn-outline-secondary"
-                   href="{{route('inventory.item_places.create', [$group])}}">+ Nové místo</a>
+                   href="{{route('inventory.items.create', [$group])}}">+ Nová položka</a>
             </div>
         </div>
     </div>
 
-    @if($places->count() > 0)
+    @if($items->count() > 0)
         <table class="table table-striped"
                id="data-table">
             <thead>
@@ -20,9 +20,9 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($places as $place)
+            @foreach($items as $item)
                 <tr>
-                    <td><a href="{{route('inventory.item_places.show', [$group, $place])}}">{{$place->name}}</a></td>
+                    <td><a href="{{route('inventory.items.show', [$group, $item])}}">{{$item->name}}</a></td>
                 </tr>
             @endforeach
             </tbody>
