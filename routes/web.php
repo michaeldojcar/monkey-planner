@@ -75,6 +75,7 @@ Route::group([
 
     Route::resource('/item_places', ItemPlaceController::class);
     Route::resource('/items', ItemController::class);
+    Route::post('/items/upload-photo', [ItemController::class, 'uploadPhoto'])->name('items.upload-photo');
 
 
 });

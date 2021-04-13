@@ -37,42 +37,54 @@
     <link href="{{ asset('css/app.css') }}"
           rel="stylesheet">
 
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css"/>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
 
     @stack('css')
 </head>
 
 <body>
 
-@component('layouts.navbar_top')
-    @yield('navbar_top')
-@endcomponent
+    @component('layouts.navbar_top')
+        @yield('navbar_top')
+    @endcomponent
 
-{{-- Content after panel top --}}
-<div class="container-fluid">
-    <div class="row">
-        @component('layouts.sidebar')
-            @yield('sidebar')
-        @endcomponent
+    {{-- Content after panel top --}}
+    <div class="container-fluid">
+        <div class="row">
+            @component('layouts.sidebar')
+                @yield('sidebar')
+            @endcomponent
 
-        <main role="main"
-              id="app"
-              class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            @yield('content')
-        </main>
+            <main role="main"
+                  id="app"
+                  class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
-</div>
 
-{{-- Monkey planner JS --}}
-<script src="{{ asset('js/app.js') }}"></script>
+    {{-- Monkey planner JS --}}
+    <script src="{{ asset('js/app.js') }}"></script>
 
-{{-- Feather icons --}}
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    {{-- Feather icons --}}
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 
-<script>
-    feather.replace()
-</script>
+    <script>
+        feather.replace()
+    </script>
+
+    {{-- FancyBox --}}
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
-@stack('scripts')
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
+
+    @stack('scripts')
 </body>
 </html>

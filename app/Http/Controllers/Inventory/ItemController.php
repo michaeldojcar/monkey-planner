@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use MichaelDojcar\LaravelPhoto\PhotoService;
 
 class ItemController extends Controller
 {
@@ -108,6 +109,20 @@ class ItemController extends Controller
         }
 
         return redirect()->route('inventory.items.show', [$group_id, $item->id]);
+    }
+
+
+    public function uploadPhoto($group_id, Request $request)
+    {
+        $group = $this->findGroup($group_id);
+        $item  = Item::findOrFail($request['item_id']);
+
+        $ps             = new PhotoService();
+        $photo          = $ps->create($item->name, $request->file('photo'));
+        $photo->item_id = $item->id;
+        $photo->save();
+
+        return redirect()->route('inventory.items.show', [$group, $item->id]);
     }
 
 

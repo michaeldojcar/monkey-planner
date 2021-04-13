@@ -27,7 +27,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h5>Umístění</h5>
 
             <table class="table table-striped">
@@ -40,17 +40,96 @@
                 <tbody>
                 @foreach($item->item_states as $state)
                     <tr>
-                        <td><a href="{{route('inventory.item_places.show', [$group, $state->item_place])}}">{{$state->item_place->name}}</a></td>
+                        <td>
+                            <a href="{{route('inventory.item_places.show', [$group, $state->item_place])}}">{{$state->item_place->name}}</a>
+                        </td>
                         <td>{{$state->count}} {{$item->count_unit}}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="col-md-4">
-{{--            @if($item->photo->count())--}}
+        <div class="col-md-3">
+            @if($item->photos->count())
+                <a data-fancybox="gallery"
+                   href="{{$item->photos->first()->url()}}">
+                    <img src="{{$item->photos->first()->size(350, 350)}}"
+                         width="100%">
+                </a>
 
-{{--            @endif--}}
+                <div class="row mt-2">
+                    @php
+                        $first_key = $item->photos->keys()->first();
+                        $gallery = $item->photos->forget($first_key);;
+                    @endphp
+
+                    @foreach($gallery as $photo)
+                        <div class="col-4">
+                            <a data-fancybox="gallery"
+                               href="{{$photo->url()}}">
+                                <img src="{{$photo->size(100, 100)}}"
+                                     width="100%">
+                            </a>
+                        </div>
+                    @endforeach
+
+                    <div class="col-4">
+                        <form action="{{route('inventory.items.upload-photo', [$group])}}"
+                              id="photo_upload_form"
+                              method="POST"
+                              enctype="multipart/form-data">
+                            @csrf
+
+                            <input type="hidden"
+                                   name="item_id"
+                                   value="{{$item->id}}">
+
+                            <div class="embed-responsive embed-responsive-1by1 border-dashed border-radius">
+                                <label for="photo_upload_input"
+                                       class="embed-responsive-item d-flex justify-content-center flex-column text-center">
+                                    <p style="font-size: 40px; cursor: pointer; color: grey">+</p>
+                                    <input class="d-none"
+                                           type="file"
+                                           name="photo"
+                                           id="photo_upload_input">
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <form action="{{route('inventory.items.upload-photo', [$group])}}"
+                      id="photo_upload_form"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    @csrf
+
+                    <input type="hidden"
+                           name="item_id"
+                           value="{{$item->id}}">
+
+                    <div class="embed-responsive embed-responsive-1by1 border-dashed border-radius">
+                        <label for="photo_upload_input"
+                               class="embed-responsive-item d-flex justify-content-center flex-column text-center">
+                            <p>Přidejte první fotografii.</p>
+                            <input class="d-none"
+                                   type="file"
+                                   name="photo"
+                                   id="photo_upload_input">
+                        </label>
+                    </div>
+                </form>
+            @endif
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function () {
+            $('#photo_upload_input').change(function () {
+                $("#photo_upload_form").submit();
+            })
+        });
+    </script>
+@endpush

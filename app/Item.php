@@ -3,19 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use MichaelDojcar\LaravelPhoto\Models\Photo;
 
 /**
  * App\Item
  *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property int|null $owner_user_id
- * @property int|null $owner_group_id
- * @property int|null $home_place_id
- * @property int|null $home_box_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                                                            $id
+ * @property string                                                         $name
+ * @property string|null                                                    $description
+ * @property int|null                                                       $owner_user_id
+ * @property int|null                                                       $owner_group_id
+ * @property int|null                                                       $home_place_id
+ * @property int|null                                                       $home_box_id
+ * @property \Illuminate\Support\Carbon|null                                $created_at
+ * @property \Illuminate\Support\Carbon|null                                $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\ItemState[] $item_states
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Item newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Item newQuery()
@@ -36,5 +37,23 @@ class Item extends Model
     public function item_states()
     {
         return $this->hasMany(ItemState::class);
+    }
+
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+
+    public function getPreviewPhotoUrl($width, $height)
+    {
+
     }
 }
