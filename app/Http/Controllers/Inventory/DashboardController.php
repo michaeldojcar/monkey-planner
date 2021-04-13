@@ -13,7 +13,10 @@ class DashboardController extends Controller
         $group = Group::findOrFail($group_id);
 
         return view('inventory.dashboard.index', [
-            'main_group' => $group
+            'main_group'       => $group,
+            'item_count'       => $group->items()->count(),
+            'place_count'      => $group->item_places()->count(),
+            'main_place_count' => $group->item_places()->where('parent_id', null)->count(),
         ]);
     }
 }

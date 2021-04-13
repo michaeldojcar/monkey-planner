@@ -6,7 +6,7 @@
             <h4>{{$item->name}}</h4>
 
             <p>
-                <a href="{{route('inventory.item_places.index', $group)}}">{{$group->name}}</a>
+                <a href="{{route('inventory.items.index', $group)}}">{{$group->name}}</a>
 
                 {{--                @if($place->parent_item_place)--}}
                 {{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}

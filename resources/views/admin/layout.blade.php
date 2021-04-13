@@ -41,12 +41,12 @@
         @slot('icon', 'user')
     @endcomponent
 
-    @component('layouts.menu-item')
-       Skupiny
-        @slot('href', route('admin.groups.index'))
-        @slot('active_url', 'admin/groups')
-       @slot('icon', 'users')
-    @endcomponent
+{{--    @component('layouts.menu-item')--}}
+{{--       Skupiny--}}
+{{--        @slot('href', route('admin.groups.index'))--}}
+{{--        @slot('active_url', 'admin/groups')--}}
+{{--       @slot('icon', 'users')--}}
+{{--    @endcomponent--}}
 
 {{--    @component('layouts.menu-item')--}}
 {{--        Události--}}

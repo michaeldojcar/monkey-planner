@@ -9,4 +9,28 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Položky</h5>
+            <table class="table">
+                <tr>
+                    <td class="w-75">Položky</td>
+                    <td>{{$item_count}}</td>
+                </tr>
+            </table>
+
+            <h5>Místa</h5>
+            <table class="table">
+                <tr>
+                    <td class="w-75">Sklady</td>
+                    <td>{{$main_place_count}}</td>
+                </tr>
+                <tr>
+                    <td>Skladová místa</td>
+                    <td>{{$place_count}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 @endsection

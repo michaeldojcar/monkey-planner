@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <div>
-            <h4>Nová skladová položka</h4>
+            <h4>Nový záznam ve skladu</h4>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
@@ -17,10 +17,11 @@
         @csrf
 
         <div class="form-group">
+            <label>Co chcete přidat</label>
             <select class="form-control"
                     id="select_item_type" name="select_item_type">
                 <option value="new">Nová položka</option>
-                <option value="existing">Přidat další záznam existující položky</option>
+                <option value="existing">Přidat další záznam k existující položce</option>
             </select>
         </div>
 
