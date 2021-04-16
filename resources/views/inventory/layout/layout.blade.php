@@ -8,6 +8,13 @@
 @endpush
 
 @section('navbar_top')
+    @php
+        use App\Group;
+
+        $id = Request::route('group_id');
+        $main_group = Group::findOrFail($id);
+    @endphp
+
     @include('inventory.layout.navbar_top')
 @endsection
 

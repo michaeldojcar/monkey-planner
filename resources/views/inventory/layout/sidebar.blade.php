@@ -7,13 +7,6 @@
         @slot('icon', 'corner-up-left')
     @endcomponent
 
-    @php
-        use App\Group;
-
-        $id = Request::route('group_id');
-        $main_group = Group::findOrFail($id);
-    @endphp
-
     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 mt-3 text-muted">
         <span>{{$main_group->name}} - inventář</span>
         {{--        <a class="d-flex align-items-center text-muted"--}}
@@ -30,10 +23,10 @@
             </a>
         </li>
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->is('inventory/*/items*') ? 'active' : '' }}"
-           href="{{route('inventory.items.index', $main_group)}}">
-            <span data-feather="box"></span>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('inventory/*/items*') ? 'active' : '' }}"
+               href="{{route('inventory.items.index', $main_group)}}">
+                <span data-feather="box"></span>
             Položky
         </a>
     </li>

@@ -23,6 +23,30 @@
     <ul class="navbar-nav navbar-right invisible d-none d-sm-block"></ul>
 
     <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('inventory/*/dashboard') ? 'active' : '' }}"
+               href="{{route('inventory.dashboard', $main_group)}}">
+                <span data-feather="home"></span>
+                Přehled
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('inventory/*/items*') ? 'active' : '' }}"
+               href="{{route('inventory.items.index', $main_group)}}">
+                <span data-feather="box"></span>
+                Položky
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('inventory/*/item_places*') ? 'active' : '' }}"
+               href="{{route('inventory.item_places.index', $main_group)}}">
+                <span data-feather="archive"></span>
+                Místa
+            </a>
+        </li>
+
         @auth
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
