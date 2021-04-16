@@ -18,6 +18,8 @@
           sizes="16x16"
           href="{{asset('favicon-16x16.png')}}">
 
+    <meta name="theme-color" content="#343a40">
+
     <title>
         @yield('title')
     </title>
