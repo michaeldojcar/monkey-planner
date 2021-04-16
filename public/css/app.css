@@ -11241,3 +11241,21 @@ body {
   border-radius: 5px;
 }
 
+.dataTables_wrapper .row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dataTables_wrapper .col-sm-12 {
+  padding-top: 5px;
+  padding-bottom: 0;
+}
+
+#loading {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 500;
+  background-color: #b6b6b6;
+}
+

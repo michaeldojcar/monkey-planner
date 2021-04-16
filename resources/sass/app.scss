@@ -318,11 +318,23 @@ $shadow-material: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
     border-radius: 5px;
 }
 
+.dataTables_wrapper  {
+    .row {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
 
+    .col-sm-12 {
+        padding-top: 5px;
+        padding-bottom: 0;
+    }
+}
 
+#loading {
+    position:         absolute;
+    width:            100vw;
+    height:           100vh;
+    z-index:          500;
 
-
-
-
-
-
+    background-color: #b6b6b6;
+}
