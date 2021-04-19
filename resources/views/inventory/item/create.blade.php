@@ -51,6 +51,16 @@
                    required>
         </div>
 
+        <div class="form-group">
+            <label>Počet ks</label>
+            <input class="form-control"
+                   type="number"
+                   id="count"
+                   name="count"
+                   value="1"
+                   required>
+        </div>
+
         <input type="submit"
                class="btn btn-primary">
     </form>

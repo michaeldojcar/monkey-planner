@@ -5,15 +5,15 @@
         <div>
             <h4>{{$item->name}}</h4>
 
-{{--            <p>--}}
-{{--                <a href="{{route('inventory.items.index', $group)}}">{{$group->name}}</a>--}}
+            {{--            <p>--}}
+            {{--                <a href="{{route('inventory.items.index', $group)}}">{{$group->name}}</a>--}}
 
-{{--                --}}{{--                @if($place->parent_item_place)--}}
-{{--                --}}{{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
-{{--                --}}{{--                @endif--}}
+            {{--                --}}{{--                @if($place->parent_item_place)--}}
+            {{--                --}}{{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
+            {{--                --}}{{--                @endif--}}
 
-{{--                → {{$item->name}}--}}
-{{--            </p>--}}
+            {{--                → {{$item->name}}--}}
+            {{--            </p>--}}
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
@@ -44,6 +44,7 @@
                 <tr>
                     <th>Místo</th>
                     <th>Množství</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,16 @@
                             <a href="{{route('inventory.item_places.show', [$group, $state->item_place])}}">{{$state->item_place->name}}</a>
                         </td>
                         <td>{{$state->count}} {{$item->count_unit}}</td>
+                        <td>
+                            <form action="{{route('inventory.item-states.destroy', ['group_id'=> $group, 'item_state' => $state])}}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="btn btn-sm btn-outline-danger">Odstranit
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

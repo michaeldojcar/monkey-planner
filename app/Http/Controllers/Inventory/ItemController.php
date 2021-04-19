@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -103,7 +104,7 @@ class ItemController extends Controller
             $state           = new ItemState();
             $state->item_id  = $item->id;
             $state->place_id = $place->id;
-            $state->count    = 1;
+            $state->count    = $request['count'];
             $state->state    = 0;
             $state->save();
         }
@@ -113,12 +114,25 @@ class ItemController extends Controller
         {
             $item = Item::findOrFail($request['existing_item_id'])->first();
 
-            $state           = new ItemState();
-            $state->item_id  = $item->id;
-            $state->count    = 1;
-            $state->place_id = $place->id;
-            $state->state    = 0;
-            $state->save();
+            $state = $item->item_states->where('place_id', $place->id)->first();
+
+            if ($state)
+            {
+                $state->count = $state->count + $request['count'];
+                $state->save();
+            }
+
+            else
+            {
+                $state           = new ItemState();
+                $state->item_id  = $item->id;
+                $state->count    = $request['count'];
+                $state->place_id = $place->id;
+                $state->state    = 0;
+                $state->save();
+            }
+
+
         }
 
         return redirect()->route('inventory.items.show', [$group_id, $item->id]);
