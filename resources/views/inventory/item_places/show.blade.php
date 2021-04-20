@@ -8,9 +8,9 @@
             <p>
                 <a href="{{route('inventory.item_places.index', $place->group)}}">{{$place->group->name}}</a>
 
-                {{--                @if($place->parent_item_place)--}}
-                {{--                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, $place->parent_place_id])}}">{{$place->parent_item_place->name}}</a>--}}
-                {{--                @endif--}}
+                                @if($place->parent_item_place)
+                                    → <a href="{{route('inventory.item_places.show', ['group_id' => $place->group, 'item_place'=>$place->parent_id])}}">{{$place->parent_item_place->name}}</a>
+                                @endif
 
                 → {{$place->name}}
             </p>
