@@ -24,12 +24,13 @@
             @foreach($items as $item)
                 <tr>
                     <td>
-                        <div class="embed-responsive embed-responsive-1by1 border-radius d-inline-block" style="width: 40px">
-                            @if($item->photos->count())
+                        @if($item->photos->count())
+                            <div class="embed-responsive embed-responsive-1by1 border-radius d-inline-block"
+                                 style="width: 40px">
                                 <img class="embed-responsive-item"
                                      src="{{$item->photos->first()->size(40, 40)}}">
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </td>
                     <td>
                         <a href="{{route('inventory.items.show', [$group, $item])}}">{{$item->name}}</a>
