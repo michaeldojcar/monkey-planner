@@ -15,23 +15,23 @@
 
     <style>
         @page {
-            size:   A4;
+            size: A4;
         }
 
 
         @media print {
             @page {
-                size:   landscape;
+                size: landscape;
             }
         }
 
 
         html, body {
-            height:      200mm;
-            width:       297mm;
-            background:  white;
+            height:     200mm;
+            width:      297mm;
+            background: white;
 
-            font-size: 13px;
+            font-size:  13px;
 
             /*margin: 25mm;*/
         }
@@ -66,12 +66,14 @@
             <div class="col-three">
 
                 <table class="table table-bordered table-primary">
-                    <tr>
-                        <td style="font-size: 14px;">Umístnění</td>
-                        <td class="text-end">
-                            <span style="font-size: 19px;">{{$main_place->name}}</span>
-                        </td>
-                    </tr>
+                    @if($item_place->parent_item_place)
+                        <tr>
+                            <td style="font-size: 14px;">Umístnění</td>
+                            <td class="text-end">
+                                <span style="font-size: 19px;">{{$item_place->parent_item_place->name}}</span>
+                            </td>
+                        </tr>
+                    @endif
                     <tr>
                         <td colspan="2"
                             class="text-center">
@@ -95,7 +97,7 @@
 
                     <tr>
                         <td><i>Celkem položek</i></td>
-                    <td>{{$item_place->item_states->count()}}</td>
+                        <td>{{$item_place->item_states->count()}}</td>
                     </tr>
                 </table>
                 Datum tisku: {{\Carbon\Carbon::now()->format('d. m. Y H:i')}}

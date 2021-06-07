@@ -16,6 +16,8 @@
             </p>
         </div>
         <div class="btn-toolbar mb-2 mb-md-0">
+            <a class="btn btn-outline-secondary btn-sm mr-2" href="{{route('inventory.item_place.print', [$group,$place->id ])}}">Tisk výkazu</a>
+
             <div class="btn-group mr-2">
                 <a class="btn btn-sm btn-outline-secondary"
                    href="{{route('inventory.item_places.create', [$group, 'parent_id'=>$place->id])}}">+ Nové místo</a>

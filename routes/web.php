@@ -76,7 +76,7 @@ Route::group([
     Route::post('/search', [SearchController::class, 'search'])->name('search');
 
     Route::resource('/item_places', ItemPlaceController::class);
-    Route::get('/item_places/{item_place}/print', [ItemPlaceController::class, 'print']);
+    Route::get('/item_places/{item_place}/print', [ItemPlaceController::class, 'print'])->name('item_place.print');
 
     Route::resource('/item-states', ItemStateController::class);
     Route::resource('/items', ItemController::class);
