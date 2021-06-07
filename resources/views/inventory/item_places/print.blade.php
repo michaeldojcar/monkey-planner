@@ -68,7 +68,7 @@
                 <table class="table table-bordered table-primary">
                     @if($item_place->parent_item_place)
                         <tr>
-                            <td style="font-size: 14px;">Umístnění</td>
+                            <td style="font-size: 14px;">Umístění</td>
                             <td class="text-end">
                                 <span style="font-size: 19px;">{{$item_place->parent_item_place->name}}</span>
                             </td>
