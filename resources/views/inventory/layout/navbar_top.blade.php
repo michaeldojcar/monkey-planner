@@ -23,6 +23,13 @@
     <ul class="navbar-nav navbar-right invisible d-none d-sm-block"></ul>
 
     <ul class="navbar-nav">
+        @component('layouts.menu-item')
+            Návrat do plánovače
+            @slot('href', route('user.inventories.index'))
+            @slot('active_url', 'user')
+            @slot('icon', 'corner-up-left')
+        @endcomponent
+
         <li class="nav-item">
             <a class="nav-link {{ request()->is('inventory/*/dashboard') ? 'active' : '' }}"
                href="{{route('inventory.dashboard', $main_group)}}">
