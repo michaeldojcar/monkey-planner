@@ -69,13 +69,15 @@ Route::post('/ucet/init-pwd', [UserSettingsController::class, 'storeNewPassword'
 Route::group([
     'middleware' => [Authenticate::class, CheckEmptyPwd::class],
     'as'         => 'inventory.',
-    'prefix' => '/inventory/{group_id}'
+    'prefix'     => '/inventory/{group_id}',
 ], function ()
 {
     Route::get('/dashboard', [\App\Http\Controllers\Inventory\DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/search', [SearchController::class, 'search'])->name('search');
 
     Route::resource('/item_places', ItemPlaceController::class);
+    Route::get('/item_places/{item_place}/print', [ItemPlaceController::class, 'print']);
+
     Route::resource('/item-states', ItemStateController::class);
     Route::resource('/items', ItemController::class);
     Route::resource('/categories', ItemCategoryController::class);

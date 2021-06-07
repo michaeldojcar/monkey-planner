@@ -99,6 +99,18 @@ class ItemPlaceController extends Controller
     }
 
 
+    public function print($inventory_id, $place_id)
+    {
+        $item_place = ItemPlace::findOrFail($place_id);
+        $main_place = ItemPlace::findOrFail($inventory_id);
+
+        return view('inventory.item_places.print', [
+            'main_place' =>  $main_place,
+            'item_place' => $item_place,
+        ]);
+    }
+
+
     public function edit()
     {
 
