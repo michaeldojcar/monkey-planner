@@ -39,8 +39,8 @@ class EventController extends Controller
         $start_date = $start_date->format('Y/m/d');
         $start_time = $request['time'];
 
-        $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$start_time);
-        $event->to   = Carbon::parse($event->from." + 1 hour");
+        $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date . ' ' . $start_time);
+        $event->to   = Carbon::parse($event->from . " + 1 hour");
         $event->save();
 
         $this->createDefaultBlocksForEvent($event);
@@ -57,6 +57,7 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+
     /**
      * @param $main_event_id
      * @param $sub_event_id
@@ -72,9 +73,10 @@ class EventController extends Controller
             'group' => $main_event->owner_group,
             'event' => $sub_event,
 
-            'main_event' => $main_event
+            'main_event' => $main_event,
         ]);
     }
+
 
     /**
      * @param $main_event_id
@@ -108,11 +110,12 @@ class EventController extends Controller
         ]);
     }
 
+
     /**
      * Update event.
      *
-     * @param $event_id
-     * @param  Request  $request
+     * @param         $event_id
+     * @param Request $request
      *
      * @return RedirectResponse
      */
@@ -162,19 +165,24 @@ class EventController extends Controller
 
                 // Time from
                 $start_time  = $request['time_from'];
-                $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$start_time);
+                $event->from = Carbon::createFromFormat('Y/m/d H:i', $start_date . ' ' . $start_time);
 
                 // Time to
                 $end_time  = $request['time_to'];
-                $event->to = Carbon::createFromFormat('Y/m/d H:i', $start_date.' '.$end_time);
+                $event->to = Carbon::createFromFormat('Y/m/d H:i', $start_date . ' ' . $end_time);
             }
 
         }
         else
         {
-            $event->from             = Carbon::parse($request['date_from']);
-            $event->to               = Carbon::parse($request['date_to']);
-            $event->content          = $request['content'];
+            $event->from = Carbon::parse($request['date_from']);
+            $event->to   = Carbon::parse($request['date_to']);
+
+            if ($request->has('content'))
+            {
+                $event->content = $request['content'];
+            }
+
             $event->notice           = $request['notice'];
             $event->arrangement_days = $request['arrangement_days'];
         }
@@ -200,6 +208,7 @@ class EventController extends Controller
         }
     }
 
+
     /**
      * @param $event_id
      *
@@ -216,10 +225,11 @@ class EventController extends Controller
         return redirect()->route('organize.program', ['event' => $event->parent_event_id]);
     }
 
+
     /**
      * Return carbon date from relative day.
      *
-     * @param  Event  $parent_event
+     * @param Event $parent_event
      * @param       $day_num
      *
      * @return Carbon
@@ -232,10 +242,11 @@ class EventController extends Controller
         return $result_day;
     }
 
+
     /**
      * Returns count of all days in event.
      *
-     * @param  Event  $event
+     * @param Event $event
      *
      * @return int
      */
@@ -260,12 +271,14 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+
     public function userTaskAssign(Task $task, User $user)
     {
         $task->users()->attach($user->id);
 
         return redirect()->back();
     }
+
 
     public function userTaskDetach(Task $task, User $user)
     {
@@ -274,12 +287,14 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+
     public function garantAssign(Event $event, User $user)
     {
         $event->users()->attach($user->id, ['status' => 4]);
 
         return redirect()->back();
     }
+
 
     public function garantDetach(Event $event, User $user)
     {
@@ -288,6 +303,7 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+
     public function authorAssign(Event $event, User $user)
     {
         $event->users()->attach($user->id, ['status' => 5]);
@@ -295,12 +311,14 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+
     public function authorDetach(Event $event, User $user)
     {
         $event->authors()->detach($user->id);
 
         return redirect()->back();
     }
+
 
     public function taskCreateAndAssign(Event $event, Request $request)
     {
@@ -351,6 +369,7 @@ class EventController extends Controller
         return Event::findOrFail($id);
     }
 
+
     public function getEventsArray(Event $main_event)
     {
         $max_day_count = $this->getAllDaysCount($main_event);
@@ -365,6 +384,7 @@ class EventController extends Controller
         return $days;
     }
 
+
     public function getEventsFromDay(Event $main_event, $day_num)
     {
         $date = $this->getDateFromRelativeDay($main_event, $day_num);
@@ -374,8 +394,9 @@ class EventController extends Controller
         return $events->whereDate('from', '=', $date)->where('is_scheduled', true)->orderBy('from')->get();
     }
 
+
     /**
-     * @param  Event  $event
+     * @param Event $event
      */
     private function createDefaultBlocksForEvent(Event $event): void
     {
@@ -409,9 +430,10 @@ class EventController extends Controller
         }
     }
 
+
     /**
-     * @param  Event  $event
-     * @param  Request  $request
+     * @param Event   $event
+     * @param Request $request
      */
     private function createEventTimeForEachDayOfMainEvent(Event $event, Request $request): void
     {
@@ -428,11 +450,12 @@ class EventController extends Controller
 
             $event_time           = new EventTime();
             $event_time->event_id = $event->id;
-            $event_time->from     = Carbon::createFromFormat('Y/m/d H:i', $current_date.' '.$start_time);
-            $event_time->to       = Carbon::parse($event_time->from." + 1 hour");;
+            $event_time->from     = Carbon::createFromFormat('Y/m/d H:i', $current_date . ' ' . $start_time);
+            $event_time->to       = Carbon::parse($event_time->from . " + 1 hour");;
             $event_time->save();
         }
     }
+
 
     private function removeEventTimes(Event $event)
     {
