@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObsTable extends Migration
+class CreateObAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateObsTable extends Migration
      */
     public function up()
     {
-        Schema::create('obs', function (Blueprint $table)
-        {
+        Schema::create('ob_attributes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('ob_type_id');
             $table->string('name');
-            $table->unsignedInteger('ob_type');
+            $table->string('type');
+            $table->unsignedInteger('restricted_relation_type_id');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -30,6 +30,6 @@ class CreateObsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obs');
+        Schema::dropIfExists('ob_attributes');
     }
 }

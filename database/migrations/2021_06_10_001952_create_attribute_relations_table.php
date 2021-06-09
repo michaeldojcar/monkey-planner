@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRelationsTable extends Migration
+class CreateAttributeRelationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateRelationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('relations', function (Blueprint $table) {
+        Schema::create('attribute_relations', function (Blueprint $table)
+        {
             $table->id();
-            $table->string('name');
+            $table->unsignedInteger('ob_attribute_id');
+            $table->unsignedInteger('ob_id');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -27,6 +30,6 @@ class CreateRelationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relations');
+        Schema::dropIfExists('attribute_relations');
     }
 }

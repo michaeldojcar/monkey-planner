@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObsTable extends Migration
+class CreateAttributeValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateObsTable extends Migration
      */
     public function up()
     {
-        Schema::create('obs', function (Blueprint $table)
-        {
+        Schema::create('attribute_values', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedInteger('ob_type');
+            $table->unsignedInteger('ob_attribute_id');
+            $table->unsignedInteger('ob_id');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -30,6 +29,6 @@ class CreateObsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obs');
+        Schema::dropIfExists('attribute_values');
     }
 }
