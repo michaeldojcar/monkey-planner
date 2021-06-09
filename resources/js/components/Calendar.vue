@@ -49,7 +49,9 @@ export default {
 
     components: {},
 
-    props: ['eventId'],
+    props: [
+        'event_id'
+    ],
 
     data: () => ({
         value: '',
@@ -69,7 +71,7 @@ export default {
 
     methods: {
         fetch() {
-            axios.get('/api/event/' + this.eventId + '/calendar')
+            axios.get('/api/event/' + this.event_id + '/calendar')
                 .then((response) => {
                     this.event = response.data.event
                     this.events = response.data.events;
@@ -77,7 +79,7 @@ export default {
         },
 
         push() {
-            return axios.post('/api/event/' + this.eventId + '/calendar', {
+            return axios.post('/api/event/' + this.event_id + '/calendar', {
                 events: this.events
             });
         },
