@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <calendar :eventId="{{$main_event}}"></calendar>
+        <calendar :eventId="{{$main_event->id}}"></calendar>
     </div>
 
     {{-- Modal --}}

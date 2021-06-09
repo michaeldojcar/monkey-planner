@@ -1956,12 +1956,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Program",
   components: {},
+  props: ['eventId'],
   data: function data() {
     return {
       value: '',
       event: {},
       events: [],
-      colors: ['', '#3F51B5', '#673AB7', '#00BCD4', '#4CAF50', '#FF9800', '#757575'],
+      colors: ['', '#3f51b5', '#673ab7', '#00bcd4', '#4caf50', '#ff9800', '#757575'],
       dragEvent: null,
       dragStart: null,
       createEvent: null,
@@ -1976,13 +1977,13 @@ __webpack_require__.r(__webpack_exports__);
     fetch: function fetch() {
       var _this = this;
 
-      axios.get('/api/event/1/calendar').then(function (response) {
+      axios.get('/api/event/' + this.eventId + '/calendar').then(function (response) {
         _this.event = response.data.event;
         _this.events = response.data.events;
       });
     },
     push: function push() {
-      return axios.post('/api/event/1/calendar', {
+      return axios.post('/api/event/' + this.eventId + '/calendar', {
         events: this.events
       });
     },
