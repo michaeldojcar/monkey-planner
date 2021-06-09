@@ -175,14 +175,9 @@ class EventController extends Controller
         }
         else
         {
-            $event->from = Carbon::parse($request['date_from']);
-            $event->to   = Carbon::parse($request['date_to']);
-
-            if ($request->has('content'))
-            {
-                $event->content = $request['content'];
-            }
-
+            $event->from             = Carbon::parse($request['date_from']);
+            $event->to               = Carbon::parse($request['date_to']);
+            $event->content          = $request['content'];
             $event->notice           = $request['notice'];
             $event->arrangement_days = $request['arrangement_days'];
         }
