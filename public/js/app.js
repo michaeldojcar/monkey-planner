@@ -1956,7 +1956,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Program",
   components: {},
-  props: ['eventId'],
+  props: ['event_id'],
   data: function data() {
     return {
       value: '',
@@ -1977,13 +1977,13 @@ __webpack_require__.r(__webpack_exports__);
     fetch: function fetch() {
       var _this = this;
 
-      axios.get('/api/event/' + this.eventId + '/calendar').then(function (response) {
+      axios.get('/api/event/' + this.event_id + '/calendar').then(function (response) {
         _this.event = response.data.event;
         _this.events = response.data.events;
       });
     },
     push: function push() {
-      return axios.post('/api/event/' + this.eventId + '/calendar', {
+      return axios.post('/api/event/' + this.event_id + '/calendar', {
         events: this.events
       });
     },
