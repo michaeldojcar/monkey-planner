@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         <a href="{{route('user.events.create')}}"
-           class="btn btn-success float-right">Vytvořit akci</a>
+           class="btn btn-success float-right">Přidat událost</a>
 
         <h4 class="mb-4">Nadcházející události</h4>
 
@@ -17,7 +17,7 @@
             @foreach($upcoming_events as $event)
                 <tr>
                     <td><a href="{{route('organize.dashboard', $event)}}">{{$event->name}}</a></td>
-                    <td>{{ Carbon\Carbon::parse($event->from)->format('H:i d.m.') }}
+                    <td>{{ Carbon\Carbon::parse($event->from)->format('d.m.Y H:i') }}
                         ({{ Carbon\Carbon::parse($event->from)->diffForHumans() }})
                     </td>
                     <td>{{ $event->owner_group->name }}</td>

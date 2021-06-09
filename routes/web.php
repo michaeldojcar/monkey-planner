@@ -33,6 +33,7 @@ use App\Http\Controllers\Manage\MemberStatsController;
 use App\Http\Controllers\Manage\PrintableProgramController;
 use App\Http\Controllers\Manage\ProgramController;
 use App\Http\Controllers\Manage\TaskController;
+use App\Http\Controllers\ObController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\EventController;
 use App\Http\Controllers\User\GroupController;
@@ -212,6 +213,11 @@ Route::group([
     // TODO: Group (bread)
     Route::resource('groups', 'Admin\GroupController');
 });
+
+/**
+ * @experimental Object routes.
+ */
+Route::resource('objects', ObController::class);
 
 /**
  * Portal admin routes.
