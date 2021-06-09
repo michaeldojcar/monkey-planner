@@ -51,7 +51,7 @@
                                         {{ucfirst($sub_event->getTypeString())}}</td>
                                     <td width="400">
                                         <b>
-                                            <a href="{{route('organize.events.show', [$group, $sub_event])}}">{{mb_strtoupper($sub_event->name)}}</a>
+                                            <a href="{{route('organize.events.show', [$main_event, $sub_event])}}">{{mb_strtoupper($sub_event->name)}}</a>
                                         </b>
                                     </td>
                                     <td>
