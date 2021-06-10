@@ -29,6 +29,8 @@
     "dependencies": {
         "magicsuggest": "^2.1.4",
         "vue-digital-clock": "^2.0.0",
-        "vuetify": "^2.3.3"
+        "vue-router": "^3.5.1",
+        "vuetify": "^2.3.3",
+        "vuex": "^3.6.2"
     }
 }

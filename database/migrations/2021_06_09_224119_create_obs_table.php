@@ -16,6 +16,7 @@ class CreateObsTable extends Migration
         Schema::create('obs', function (Blueprint $table)
         {
             $table->id();
+            $table->uuid('uuid');
             $table->string('name');
             $table->unsignedInteger('ob_type');
             $table->timestamps();

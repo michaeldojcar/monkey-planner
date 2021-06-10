@@ -219,6 +219,10 @@ Route::group([
  */
 //Route::resource('objects', ObController::class);
 Route::get('/spa', [SpaController::class, 'spa']);
+Route::get('/spa/{any}', [SpaController::class, 'spa'])
+    ->where('any', '.*');
+
+
 
 
 /**
