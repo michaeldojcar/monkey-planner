@@ -16,7 +16,7 @@ class CreateObTypesTable extends Migration
         Schema::create('ob_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

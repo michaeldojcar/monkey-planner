@@ -12,7 +12,7 @@
     <meta name="author"
           content="Michael Dojčár">
 
-    <title>Monkey project</title>
+    <title>Monkey planner</title>
 
     <link rel="stylesheet"
           type="text/css"
@@ -44,11 +44,13 @@
 {{--    <script src="vendor/jquery/jquery.min.js"></script>--}}
 {{--    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--}}
 
+    <script src="{{ mix('js/app.js') }}"></script>
+
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-{{--    <script src="js/sb-admin-2.min.js"></script>--}}
+    <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
@@ -57,6 +59,6 @@
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-    <script src="{{ mix('js/app.js') }}"></script>
+
 </body>
 </html>

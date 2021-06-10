@@ -18,6 +18,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
+use App\Http\Controllers\Api\ObController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Inventory\ItemController;
 use App\Http\Controllers\Inventory\ItemPlaceController;
@@ -221,6 +222,8 @@ Route::group([
 Route::get('/spa', [SpaController::class, 'spa']);
 Route::get('/spa/{any}', [SpaController::class, 'spa'])
     ->where('any', '.*');
+
+Route::apiResource('/api/obs', ObController::class);
 
 
 

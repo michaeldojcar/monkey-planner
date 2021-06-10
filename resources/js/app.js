@@ -1,7 +1,8 @@
 import vuetify from './vuetify/vuetify'
 import VueRouter from "vue-router";
 import DashboardPage from "./components/dashboard/DashboardPage";
-import SearchPage from "./components/search/SearchPage"; // path to vuetify export
+import ShowObjectPage from "./components/object/ShowObjectPage";
+import SearchPage from "./components/search/SearchPage";
 import Vuex from 'vuex'
 
 
@@ -23,7 +24,7 @@ Vue.component('current-clock-widget', require('./components/CurrentClockWidget')
 const routes = [
     {path: '/', component: DashboardPage},
     {path: '/search', component: SearchPage},
-    {path: '/o/:uuid', component: SearchPage},
+    {path: '/ob/:uuid', component: ShowObjectPage},
 ]
 
 const router = new VueRouter({
