@@ -2357,18 +2357,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchPage",
+  data: function data() {
+    return {
+      loading: true
+    };
+  },
   computed: {
     query: function query() {
       return this.$store.state.searchQuery;
     }
   },
   mounted: function mounted() {},
-  methods: {// search(query) {
-    //     console.debug('Search');
-    //     this.query = query;
-    // }
+  methods: {
+    search: function search(query) {
+      var _this = this;
+
+      console.debug('Search');
+      this.query = query;
+      this.loading = true;
+      axios.get('/api/search').then(function (response) {
+        _this.results = response.data;
+        _this.loading = false;
+      });
+    }
   }
 });
 
@@ -41508,19 +41526,18 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm._m(0)
+    _vm.loading
+      ? _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _vm._v("\n      Probíhá vyhledávání...\n    ")
+          ])
+        ])
+      : _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" })
+        ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
