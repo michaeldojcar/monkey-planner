@@ -14,7 +14,7 @@ class ObTypeController extends Controller
      */
     public function index()
     {
-        //
+        return view('object.ob_type.index');
     }
 
     /**

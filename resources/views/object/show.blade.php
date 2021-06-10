@@ -3,8 +3,10 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
         <div>
-            <h3>{{$ob->name}}</h3>
-            <p>{{$ob->type->name}}</p>
+            <h3>
+                <span class="badge badge-primary" title="{{$ob->type->description}}">{{$ob->type->name}}</span> {{$ob->name}}
+            </h3>
+
         </div>
     </div>
 
