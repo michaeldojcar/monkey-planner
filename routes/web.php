@@ -19,11 +19,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Api\ObController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Inventory\ItemController;
 use App\Http\Controllers\Inventory\ItemPlaceController;
 use App\Http\Controllers\Inventory\ItemStateController;
-use App\Http\Controllers\Inventory\SearchController;
 use App\Http\Controllers\ItemCategoryController;
 use App\Http\Controllers\Manage\BlockController;
 use App\Http\Controllers\Manage\DashController;
@@ -224,6 +224,8 @@ Route::get('/spa/{any}', [SpaController::class, 'spa'])
     ->where('any', '.*');
 
 Route::apiResource('/api/obs', ObController::class);
+Route::post('/api/search', [SearchController::class, 'search']);
+Route::get('/api/search', [SearchController::class, 'search']);
 
 
 

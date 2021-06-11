@@ -15,7 +15,12 @@
     <div class="row"
          v-else>
       <div class="col-12">
-
+        <table class="table">
+          <tr v-for="result in results">
+            <td>{{result.name}}</td>
+            <td>{{results.type.name}}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -26,16 +31,18 @@ export default {
   name: "SearchPage",
 
 
-
   data: () => {
     return {
       loading: true,
+      results: null,
     }
   },
 
 
   computed: {
     query() {
+      this.search(this.$store.state.searchQuery)
+
       return this.$store.state.searchQuery
     }
   },

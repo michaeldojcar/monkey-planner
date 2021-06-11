@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "michaeldojcar/laravel-photo": "^0.2.3",
-        "spatie/laravel-backup": "^6.11"
+        "spatie/laravel-backup": "^6.11",
+        "ext-http": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

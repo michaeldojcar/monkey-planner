@@ -2362,15 +2362,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchPage",
   data: function data() {
     return {
-      loading: true
+      loading: true,
+      results: null
     };
   },
   computed: {
     query: function query() {
+      this.search(this.$store.state.searchQuery);
       return this.$store.state.searchQuery;
     }
   },
@@ -41533,7 +41540,20 @@ var render = function() {
           ])
         ])
       : _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" })
+          _c("div", { staticClass: "col-12" }, [
+            _c(
+              "table",
+              { staticClass: "table" },
+              _vm._l(_vm.results, function(result) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(result.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(_vm.results.type.name))])
+                ])
+              }),
+              0
+            )
+          ])
         ])
   ])
 }
