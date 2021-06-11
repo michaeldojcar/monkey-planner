@@ -13,7 +13,13 @@ class SearchController extends Controller
     {
         $q = $request->input('q');
 
-        $results = Ob::where('name', 'LIKE', "%$q%")->with('type')->get();
+        $this->validate($request, [
+            'q' => 'required|string',
+        ]);
+
+        $results = Ob::with('type')
+            ->where('name', 'like', "%$q%")
+            ->get();
 
         return new Response($results);
     }

@@ -14,14 +14,9 @@ class Ob extends Model
         return $this->belongsTo(ObType::class, 'ob_type');
     }
 
-    public function parents()
+
+    public function attributes()
     {
 
-    }
-
-
-    public function childs()
-    {
-        return $this->belongsToMany(Ob::class, 'ob_ob', 'parent_ob', 'child_ob');
     }
 }

@@ -2367,18 +2367,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchPage",
   data: function data() {
     return {
-      loading: true,
+      // State can be init, searching, results
+      state: 'init',
       results: null
     };
   },
   computed: {
     query: function query() {
-      this.search(this.$store.state.searchQuery);
+      // Vuex search query
       return this.$store.state.searchQuery;
+    }
+  },
+  watch: {
+    query: function query() {
+      // Perform search after query update.
+      if (this.query) {
+        this.search(this.query);
+      } else {
+        this.state = "init";
+      }
     }
   },
   mounted: function mounted() {},
@@ -2386,12 +2414,13 @@ __webpack_require__.r(__webpack_exports__);
     search: function search(query) {
       var _this = this;
 
-      console.debug('Search');
-      this.query = query;
-      this.loading = true;
-      axios.get('/api/search').then(function (response) {
+      console.debug('Performing search on query: ' + this.query);
+      this.state = 'searching';
+      axios.post('/api/search', {
+        q: this.query
+      }).then(function (response) {
         _this.results = response.data;
-        _this.loading = false;
+        _this.state = 'results';
       });
     }
   }
@@ -41533,28 +41562,70 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.loading
+    _vm.state === "init"
       ? _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12" }, [
-            _vm._v("\n      Probíhá vyhledávání...\n    ")
+            _vm._v("\n            Zadejte, co chcete vyhledat.\n        ")
           ])
         ])
-      : _c("div", { staticClass: "row" }, [
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.state === "searching"
+      ? _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _vm._v("\n            Probíhá vyhledávání...\n        ")
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.state === "results"
+      ? _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12" }, [
             _c(
               "table",
               { staticClass: "table" },
-              _vm._l(_vm.results, function(result) {
-                return _c("tr", [
-                  _c("td", [_vm._v(_vm._s(result.name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.results.type.name))])
-                ])
-              }),
-              0
+              [
+                !_vm.results.length
+                  ? _c("tr", [_c("td", [_vm._v("Bohužel jsme nic nenašli.")])])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.results, function(result) {
+                  return _c("tr", [
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/ob/" + result.uuid } },
+                          [
+                            _c("span", { staticClass: "badge badge-primary" }, [
+                              _vm._v(_vm._s(result.type.name))
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/ob/" + result.uuid } },
+                          [_vm._v(_vm._s(result.name))]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                })
+              ],
+              2
             )
           ])
         ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
