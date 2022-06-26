@@ -1,6 +1,7 @@
 # Monkey planner
 
-Notice: app is still under development.
+Notice: app is still under development and user experience is still very poor.
+I would not recommend to anyone to use it at this moment.
 
 Monkey planner is open-source project and event management web platform.
 It is universal open source alternative for Jira, Trello, Asana and other proprietary software.
